@@ -58,50 +58,6 @@ if (cue) {
   }, { passive: true });
 }
 
-/* ---- logo band ----------------------------------------------------------
- * The client marks range from 2.1:1 to 10.8:1. In equal-width grid cells a
- * shared height cap cannot hold: the wide wordmarks hit the cell's width first
- * and render up to half the height of the rest.
- *
- * Rather than shrink every logo to whatever the widest one allows — which
- * drops them to ~12px on a phone — a mark that cannot fit its cell at the cap
- * is given as many cells as it needs. The grid stays a grid, and every logo
- * keeps the same height.
- * ------------------------------------------------------------------------- */
-const logoBand = document.querySelector('[data-logos]');
-if (logoBand) {
-  const logos = [...logoBand.querySelectorAll('img')];
-
-  const fitLogos = () => {
-    const styles = getComputedStyle(logoBand);
-    const tracks = styles.gridTemplateColumns.split(' ').map(parseFloat).filter((n) => n > 0.5);
-    const measured = logos.filter((img) => img.naturalWidth && img.naturalHeight);
-    if (!tracks.length || !measured.length) return;
-
-    const cell = tracks[0];
-    const gap = parseFloat(styles.columnGap) || 0;
-    // mirrors the stylesheet's clamp(22px, 2.4vw, 32px) ceiling
-    const height = Math.min(32, Math.max(22, window.innerWidth * 0.024));
-
-    logos.forEach((img) => {
-      if (!img.naturalWidth || !img.naturalHeight) return;
-      const needed = (img.naturalWidth / img.naturalHeight) * height;
-      let span = 1;
-      while (span < tracks.length && span * cell + (span - 1) * gap < needed) span++;
-      img.parentElement.style.gridColumn = span > 1 ? `span ${span}` : '';
-    });
-
-    logoBand.style.setProperty('--logo-h', `${height}px`);
-  };
-
-  fitLogos();
-  logos.forEach((img) => {
-    if (!img.complete) img.addEventListener('load', fitLogos, { once: true });
-  });
-  window.addEventListener('resize', fitLogos, { passive: true });
-  if (window.ResizeObserver) new ResizeObserver(fitLogos).observe(logoBand);
-}
-
 /* ---- motion -------------------------------------------------------------- */
 init(document.body, {
   stepDim: 0.3,
