@@ -773,24 +773,29 @@ img { display: block; max-width: 100%; }
   max-width: 62ch;
 }
 
-/* A flex wall, not a grid. Equal-width grid cells cannot hold a single height
-   cap: these marks run from 2.1:1 to 10.8:1, so the wide wordmarks hit the
-   cell's width limit long before the height cap and render up to half size.
-   Letting each logo take its natural width at one fixed height makes the cap
-   the only governing dimension, which is what the design asks for. */
+/* An open grid, as the design asks. The wrinkle is that these marks run from
+   2.1:1 to 10.8:1, so a shared height cap alone leaves the wide wordmarks
+   width-limited by their cell and rendering half size. --logo-h is measured at
+   runtime from the narrowest cell and the widest mark, so every logo lands on
+   one height inside the grid. The clamp below is its ceiling. */
 .clients__grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(44%, 240px), 1fr));
+  gap: clamp(30px, 5vw, 56px) clamp(16px, 3vw, 52px);
   align-items: center;
-  justify-content: center;
-  gap: clamp(26px, 5vw, 56px) clamp(24px, 3vw, 52px);
+  justify-items: center;
   padding: clamp(40px, 5.5vw, 80px) 0 clamp(30px, 4vw, 56px);
   border-top: 1px solid var(--hairline-ink-faint);
 }
 
-.clients__logo { display: flex; align-items: center; justify-content: center; }
+.clients__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .clients__logo img {
-  height: clamp(22px, 2.4vw, 32px);
+  height: var(--logo-h, clamp(22px, 2.4vw, 32px));
   width: auto;
   max-width: 100%;
   opacity: .8;
