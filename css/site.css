@@ -495,7 +495,7 @@ img { display: block; max-width: 100%; }
 
 .hero__title {
   font-weight: 500;
-  font-size: clamp(34px, 4.6vw, 72px);
+  font-size: clamp(40px, 4.6vw, 72px);
   line-height: 1.02;
   letter-spacing: -.032em;
   max-width: 26ch;
@@ -686,7 +686,7 @@ img { display: block; max-width: 100%; }
 
 .band {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
   align-items: stretch;
   border-top: 1px solid var(--hairline);
 }
@@ -773,19 +773,26 @@ img { display: block; max-width: 100%; }
   max-width: 62ch;
 }
 
+/* A flex wall, not a grid. Equal-width grid cells cannot hold a single height
+   cap: these marks run from 2.1:1 to 10.8:1, so the wide wordmarks hit the
+   cell's width limit long before the height cap and render up to half size.
+   Letting each logo take its natural width at one fixed height makes the cap
+   the only governing dimension, which is what the design asks for. */
 .clients__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(33%, 150px), 1fr));
-  gap: clamp(30px, 7vw, 104px) clamp(24px, 3vw, 52px);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: clamp(26px, 5vw, 56px) clamp(24px, 3vw, 52px);
   padding: clamp(40px, 5.5vw, 80px) 0 clamp(30px, 4vw, 56px);
   border-top: 1px solid var(--hairline-ink-faint);
 }
 
 .clients__logo { display: flex; align-items: center; justify-content: center; }
 .clients__logo img {
-  max-height: clamp(22px, 2.4vw, 32px);
+  height: clamp(22px, 2.4vw, 32px);
   width: auto;
+  max-width: 100%;
   opacity: .8;
 }
 
@@ -1744,7 +1751,7 @@ img { display: block; max-width: 100%; }
  * to one column that alternation just reads as inconsistency, so the image
  * leads every band and the copy follows it.
  * ------------------------------------------------------------------------- */
-@media (max-width: 679px) {
+@media (max-width: 879px) {
   .band__frame { order: 1; }
   .band__copy  { order: 2; }
 }
