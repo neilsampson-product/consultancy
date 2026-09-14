@@ -1,4 +1,4 @@
-# neilsampson.net
+# neil-sampson.com
 
 Static site — plain HTML, one shared stylesheet, two ES modules. No build step,
 no dependencies, no framework. Any static host will serve it as-is.

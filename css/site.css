@@ -1,10 +1,15 @@
 /* ==========================================================================
-   neilsampson.net — shared stylesheet
+   neil-sampson.com — shared stylesheet
 
    Layout is fluid throughout: every size is a clamp() and every grid is an
-   auto-fit minmax, so columns collapse on their own. There is exactly one
-   media query in this file, for the nav below 640px, which the design did
-   not cover.
+   auto-fit minmax, so columns collapse on their own. The design is
+   breakpoint-free by intent and stays that way for layout.
+
+   Five media queries. One is the design's own: prefers-reduced-motion. The
+   other four cover what it did not — the nav below 640px, the work bands and
+   the comparison table once they collapse to one column, and neutralising
+   hover styles on touch. See "Responsive refinements" at the foot of this
+   file.
    ========================================================================== */
 
 /* ==========================================================================
@@ -180,7 +185,7 @@ img { display: block; max-width: 100%; }
 
 .h2 {
   font-weight: 500;
-  font-size: clamp(26px, 3.6vw, 54px);
+  font-size: clamp(28px, 3.6vw, 54px);
   line-height: 1;
   letter-spacing: -.034em;
 }
@@ -364,7 +369,8 @@ img { display: block; max-width: 100%; }
   .nav { grid-template-columns: auto auto; gap: 12px; }
   .nav__links { display: none; }
   .nav__brand { justify-self: start; --brand-size: 15px; }
-  .nav__cta { gap: 8px; padding: 11px 14px; font-size: 10px; letter-spacing: .1em; }
+  /* 14px block padding keeps the tap target near 40px tall; at 11px it was 34. */
+  .nav__cta { gap: 8px; padding: 14px 14px; font-size: 10px; letter-spacing: .1em; }
 
   /* Below ~400px the wordmark and the CTA stop fitting side by side at their
      designed tracking. Both keep their copy and shed letter-spacing instead,
@@ -489,7 +495,7 @@ img { display: block; max-width: 100%; }
 
 .hero__title {
   font-weight: 500;
-  font-size: clamp(29px, 4.6vw, 72px);
+  font-size: clamp(40px, 4.6vw, 72px);
   line-height: 1.02;
   letter-spacing: -.032em;
   max-width: 26ch;
@@ -638,7 +644,7 @@ img { display: block; max-width: 100%; }
 
 .pin__title {
   font-weight: 500;
-  font-size: clamp(28px, 5vw, 76px);
+  font-size: clamp(32px, 5vw, 76px);
   line-height: .94;
   letter-spacing: -.032em;
 }
@@ -680,7 +686,7 @@ img { display: block; max-width: 100%; }
 
 .band {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
   align-items: stretch;
   border-top: 1px solid var(--hairline);
 }
@@ -761,25 +767,37 @@ img { display: block; max-width: 100%; }
 
 .clients__title {
   font-weight: 500;
-  font-size: clamp(24px, 3.2vw, 46px);
+  font-size: clamp(26px, 3.2vw, 46px);
   line-height: 1.04;
   letter-spacing: -.032em;
   max-width: 62ch;
 }
 
+/* An open grid, as the design asks. The wrinkle is that these marks run from
+   2.1:1 to 10.8:1, so a shared height cap alone leaves the wide wordmarks
+   width-limited by their cell and rendering half size. --logo-h is measured at
+   runtime from the narrowest cell and the widest mark, so every logo lands on
+   one height inside the grid. The clamp below is its ceiling. */
 .clients__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(33%, 150px), 1fr));
-  gap: clamp(48px, 7vw, 104px) clamp(24px, 3vw, 52px);
+  grid-template-columns: repeat(auto-fit, minmax(min(44%, 240px), 1fr));
+  gap: clamp(30px, 5vw, 56px) clamp(16px, 3vw, 52px);
   align-items: center;
+  justify-items: center;
   padding: clamp(40px, 5.5vw, 80px) 0 clamp(30px, 4vw, 56px);
   border-top: 1px solid var(--hairline-ink-faint);
 }
 
-.clients__logo { display: flex; align-items: center; justify-content: center; }
+.clients__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .clients__logo img {
-  max-height: clamp(22px, 2.4vw, 32px);
+  height: var(--logo-h, clamp(22px, 2.4vw, 32px));
   width: auto;
+  max-width: 100%;
   opacity: .8;
 }
 
@@ -1304,7 +1322,7 @@ img { display: block; max-width: 100%; }
 
 .case-h2 {
   font-weight: 500;
-  font-size: clamp(24px, 3.2vw, 46px);
+  font-size: clamp(26px, 3.2vw, 46px);
   line-height: 1.02;
   letter-spacing: -.032em;
 }
@@ -1724,3 +1742,75 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid rgba(247, 246, 242, .2);
 }
 .standing__credits { margin-top: 14px; }
+
+/* ==========================================================================
+   Responsive refinements
+
+   The design is breakpoint-free by intent and stays that way for layout —
+   these are the few places where a single-column phone needs something the
+   two-column desktop does not.
+   ========================================================================== */
+
+/* ---- Work bands ---------------------------------------------------------
+ * Side by side, the bands alternate which column holds the image. Collapsed
+ * to one column that alternation just reads as inconsistency, so the image
+ * leads every band and the copy follows it.
+ * ------------------------------------------------------------------------- */
+@media (max-width: 879px) {
+  .band__frame { order: 1; }
+  .band__copy  { order: 2; }
+}
+
+/* ---- Comparison table ---------------------------------------------------
+ * Once the row grid drops below three columns the header row no longer sits
+ * above its values, and the table becomes an unlabelled list of phrases. Each
+ * cell carries its own column name instead, and the header row goes away.
+ * ------------------------------------------------------------------------- */
+@media (max-width: 589px) {
+  .compare thead { display: none; }
+
+  .compare tbody tr {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-block: clamp(18px, 4vw, 24px);
+  }
+
+  /* The row subject leads the group rather than reading as another value. */
+  .compare th[scope="row"] {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -.022em;
+    color: var(--paper);
+  }
+
+  .compare td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--label-ink);
+  }
+}
+
+/* ---- Touch --------------------------------------------------------------
+ * Hover styles latch after a tap on touch devices, leaving a card or tile
+ * stuck in its hover state. Neutralise them where there is no real pointer.
+ * ------------------------------------------------------------------------- */
+@media (hover: none) {
+  .nav__link:hover { color: var(--nav-ink); }
+  .nav__cta:hover { background: var(--blue); color: var(--paper); }
+  .panel:hover { background: var(--chalk-panel); }
+  .engagement:hover { background: var(--chalk-warm); }
+  .band:hover .band__frame img { transform: none; }
+  .tile--primary:hover { background: var(--paper); color: var(--ink); }
+  .tile--primary:hover .tile__label { color: var(--label); }
+  .tile--secondary:hover { background: transparent; border-color: rgba(247, 246, 242, .6); }
+  .tile--ink:hover { background: var(--ink); }
+  .tile--ink:hover .tile__label { color: var(--label-ink); }
+  .tile--outline:hover { background: transparent; border-color: var(--hairline-soft); }
+  .cta--outline-ink:hover { background: transparent; border-color: rgba(247, 246, 242, .5); color: var(--paper); }
+  .cta--ink:hover { background: var(--ink); color: var(--paper); }
+}
