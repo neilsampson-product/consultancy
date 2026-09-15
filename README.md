@@ -79,6 +79,5 @@ what the design was drawn in — loads from Google Fonts as the fallback.
 - Images are unoptimised originals. No `srcset`, no AVIF/WebP. `bpp-lion.jpg`
   is 560×489, small for a band that renders up to 560px tall.
 - The favicon "N" is set in Helvetica — re-export it from the real letterform.
-- "Who I work with" on the home page carries a placeholder label in the design.
 - The FCA case study has no Design System screens yet; its only image is the
   building exterior.
