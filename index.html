@@ -43,17 +43,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
-<script>
-  /* Preview only. ?hero=1 shows the masthead over the current gradient,
-     ?hero=2 the same masthead on flat black. Set before first paint so the
-     page never flashes the current hero. */
-  (function () {
-    var m = /[?&]hero=([12])(?:&|$)/.exec(location.search);
-    if (!m) return;
-    document.documentElement.setAttribute('data-hero-concept', 'masthead');
-    if (m[1] === '2') document.documentElement.setAttribute('data-hero-flat', '');
-  })();
-</script>
 <link rel="stylesheet" href="css/site.css">
 </head>
 
@@ -78,13 +67,12 @@
 <main>
 
   <!-- ============================= Hero ============================= -->
-  <section id="top" data-hero data-screen-label="Hero" class="hero">
+  <section id="top" data-hero data-screen-label="Hero" class="hero hero--masthead">
     <div class="hero__ground"></div>
     <div class="hero__glow"></div>
     <div class="hero__scrim"></div>
 
     <div class="hero__inner">
-      <span data-reveal="up" class="hero__eyebrow">Fractional Consultant</span>
       <h1 class="hero__title">
         <span class="mask-line"><span data-reveal="mask" data-delay="120" data-stagger="42">Design &amp; product leadership</span></span>
         <span class="mask-line"><span data-reveal="mask" data-delay="250" data-stagger="42">for <em>ambitious businesses</em></span></span>
