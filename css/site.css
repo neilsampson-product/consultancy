@@ -1902,28 +1902,30 @@ html[data-hero-concept] .hero__portrait img {
 }
 
 /* ---- Concept 1: portrait emerging from the dark ---------------------------
- * The photo keeps its natural tone and fills the right of the hero. A
- * vignette darkens the backdrop around the head while the face stays clear,
- * the left edge dissolves into the text side, and the bottom fades out before
- * the white T-shirt can pull focus from the headline.
+ * The photo keeps its natural tone and is shown whole, at Concept 2's scale,
+ * so the T-shirt reads as well as the face. It sits on the right, tucked
+ * partly off the edge. The left edge dissolves into the text side, and the
+ * top and bottom fade just enough to lose the frame without losing the
+ * T-shirt. The vignette is centred low, over head and T-shirt together, so it
+ * sinks the grey backdrop at the sides and top and leaves both clear.
  * ------------------------------------------------------------------------- */
 html[data-hero-concept="portrait"] .hero__portrait {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(48vw, 760px);
+  top: 50%;
+  right: -6vw;
+  height: min(94%, 900px);
+  aspect-ratio: 2 / 3;
+  transform: translateY(-46%);
   -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 42%),
-    linear-gradient(to bottom, #000 50%, transparent 94%);
+    linear-gradient(to right, transparent 0%, #000 34%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 78%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to right, transparent 0%, #000 42%),
-    linear-gradient(to bottom, #000 50%, transparent 94%);
+    linear-gradient(to right, transparent 0%, #000 34%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 78%, transparent 100%);
   mask-composite: intersect;
 }
 
 html[data-hero-concept="portrait"] .hero__portrait img {
-  object-position: 50% 16%;
   filter: brightness(.86) contrast(1.06) saturate(.92);
 }
 
@@ -1931,10 +1933,10 @@ html[data-hero-concept="portrait"] .hero__portrait::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 48% 38% at 50% 36%,
-    rgba(19, 20, 23, 0) 55%,
-    rgba(19, 20, 23, .62) 82%,
-    rgba(19, 20, 23, .92) 100%);
+  background: radial-gradient(ellipse 58% 62% at 50% 56%,
+    rgba(19, 20, 23, 0) 50%,
+    rgba(19, 20, 23, .6) 80%,
+    rgba(19, 20, 23, .9) 100%);
 }
 
 /* ---- Concept 2: blue duotone that becomes the glow ------------------------
@@ -1973,18 +1975,19 @@ html[data-hero-concept="duotone"] .hero__portrait img {
 
   html[data-hero-concept="portrait"] .hero__portrait {
     top: var(--nav-h, 62px);
-    left: 0;
-    right: 0;
-    bottom: auto;
-    width: 100%;
-    height: min(56%, var(--portrait-room, 56%));
-    -webkit-mask-image: linear-gradient(to bottom, #000 34%, transparent 80%);
-    -webkit-mask-composite: source-over;
-    mask-image: linear-gradient(to bottom, #000 34%, transparent 80%);
-    mask-composite: add;
+    right: auto;
+    left: 50%;
+    height: min(60%, var(--portrait-room, 60%));
+    transform: translateX(-50%);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 70%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 70%, transparent 100%);
+    mask-composite: intersect;
   }
-
-  html[data-hero-concept="portrait"] .hero__portrait img { object-position: 50% 10%; }
 
   html[data-hero-concept="duotone"] .hero__portrait {
     top: var(--nav-h, 62px);
