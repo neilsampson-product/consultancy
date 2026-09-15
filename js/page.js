@@ -80,30 +80,6 @@ if (pinModule) {
   if (window.ResizeObserver) new ResizeObserver(fitPin).observe(pinContent);
 }
 
-/* ---- hero portrait (concept preview) ------------------------------------
- * On a phone the portrait sits in the space above the hero text, and how much
- * space there is depends on how far that text wraps. So it is measured: the
- * portrait is sized to the room between the nav and the first line, and
- * dropped where there is too little for a face to read.
- * ------------------------------------------------------------------------- */
-const heroSection = document.querySelector('section[data-hero]');
-const heroText = heroSection && heroSection.querySelector('.hero__inner');
-if (heroSection && heroText && document.documentElement.hasAttribute('data-hero-concept')) {
-  const fitPortrait = () => {
-    const navHeight = nav ? nav.offsetHeight : 0;
-    const textOffset = heroText.getBoundingClientRect().top - heroSection.getBoundingClientRect().top;
-    const room = Math.round(textOffset - navHeight - 12);
-    heroSection.style.setProperty('--portrait-room', `${Math.max(0, room)}px`);
-    heroSection.classList.toggle('hero--portrait-cramped', room < 140);
-  };
-
-  fitPortrait();
-  window.addEventListener('resize', fitPortrait, { passive: true });
-  window.addEventListener('load', fitPortrait);
-  if (document.fonts) document.fonts.ready.then(fitPortrait).catch(() => {});
-  if (window.ResizeObserver) new ResizeObserver(fitPortrait).observe(heroText);
-}
-
 /* ---- motion -------------------------------------------------------------- */
 init(document.body, {
   stepDim: 0.3,

@@ -1876,169 +1876,30 @@ img { display: block; max-width: 100%; }
 
 
 /* ==========================================================================
-   Hero portrait — two concepts, previewed with ?hero=1 and ?hero=2
+   Starting points with portrait
 
-   Hidden, and not downloaded (the image is lazy), unless a concept is chosen
-   through the query string, which sets data-hero-concept on the html element. The measured tones drive both treatments: the
-   studio backdrop is #5b5c62, far lighter than the ink ground, and the face
-   sits around #c88973–#de9a7f, so no single brightness adjustment can sink
-   the backdrop without taking the face down with it.
-   ========================================================================== */
-
-.hero__portrait { display: none; }
-
-html[data-hero-concept] .hero__portrait {
-  display: block;
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-}
-
-html[data-hero-concept] .hero__portrait img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ---- Concept 1: portrait emerging from the dark ---------------------------
- * The photo keeps its natural tone and is shown whole, at Concept 2's scale,
- * so the T-shirt reads as well as the face. Its right edge aligns with the
- * text column's, keeping the same margin from the screen edge as the text,
- * and its height is capped by width so it stays clear of the headline on
- * smaller laptops. The left edge dissolves into the text side, and the
- * top and bottom fade just enough to lose the frame without losing the
- * T-shirt. The vignette is centred low, over head and T-shirt together, so it
- * sinks the grey backdrop at the sides and top and leaves both clear.
- * ------------------------------------------------------------------------- */
-html[data-hero-concept="portrait"] .hero__portrait {
-  top: 50%;
-  right: max(var(--pad-x), calc((100% - var(--max)) / 2));
-  height: min(94%, 900px, 58vw);
-  aspect-ratio: 2 / 3;
-  transform: translateY(-46%);
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 34%),
-    linear-gradient(to bottom, transparent 0%, #000 10%, #000 78%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 34%),
-    linear-gradient(to bottom, transparent 0%, #000 10%, #000 78%, transparent 100%);
-  mask-composite: intersect;
-}
-
-html[data-hero-concept="portrait"] .hero__portrait img {
-  filter: brightness(.86) contrast(1.06) saturate(.92);
-}
-
-html[data-hero-concept="portrait"] .hero__portrait::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 58% 62% at 50% 56%,
-    rgba(19, 20, 23, 0) 50%,
-    rgba(19, 20, 23, .6) 80%,
-    rgba(19, 20, 23, .9) 100%);
-}
-
-/* ---- Concept 2: blue duotone that becomes the glow ------------------------
- * The photo is remapped to ink shadows and accent-blue highlights by
- * multiplying a high-contrast greyscale over a blue ground. The backdrop
- * lands near ink on its own and the T-shirt turns blue rather than white.
- * A soft oval fade sits the portrait where the glow was, tucked partly off
- * the right edge so it clears the headline.
- * ------------------------------------------------------------------------- */
-html[data-hero-concept="duotone"] .hero__glow { opacity: .55; }
-
-html[data-hero-concept="duotone"] .hero__portrait {
-  top: 50%;
-  right: -6vw;
-  height: min(94%, 900px);
-  aspect-ratio: 2 / 3;
-  transform: translateY(-46%);
-  background: var(--blue-light);
-  isolation: isolate;
-  -webkit-mask-image: radial-gradient(ellipse 50% 44% at 50% 38%, #000 42%, transparent 100%);
-  mask-image: radial-gradient(ellipse 50% 44% at 50% 38%, #000 42%, transparent 100%);
-}
-
-html[data-hero-concept="duotone"] .hero__portrait img {
-  filter: grayscale(1) contrast(2.1);
-  mix-blend-mode: multiply;
-}
-
-/* ---- Phones ---------------------------------------------------------------
- * There is no room beside the text, so the portrait moves to the top of the
- * hero, the text drops to the bottom, and each fade ends before the eyebrow
- * begins so nothing sits behind the words.
- * ------------------------------------------------------------------------- */
-@media (max-width: 760px) {
-  html[data-hero-concept] .hero { align-items: flex-end; }
-
-  html[data-hero-concept="portrait"] .hero__portrait {
-    top: var(--nav-h, 62px);
-    right: auto;
-    left: 50%;
-    height: min(60%, var(--portrait-room, 60%));
-    transform: translateX(-50%);
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 8%, #000 70%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 8%, #000 70%, transparent 100%);
-    mask-composite: intersect;
-  }
-
-  html[data-hero-concept="duotone"] .hero__portrait {
-    top: var(--nav-h, 62px);
-    right: auto;
-    left: 50%;
-    height: min(60%, var(--portrait-room, 60%));
-    transform: translateX(-50%);
-    -webkit-mask-image: radial-gradient(ellipse 50% 36% at 50% 36%, #000 42%, transparent 100%);
-    mask-image: radial-gradient(ellipse 50% 36% at 50% 36%, #000 42%, transparent 100%);
-  }
-
-  /* page.js measures the room between the nav and the start of the text. The
-     portrait is sized to it, and dropped where a face would not read. */
-  html[data-hero-concept] .hero--portrait-cramped .hero__portrait { display: none; }
-}
-
-
-/* ==========================================================================
-   Starting points with portrait — version 3, previewed with ?hero=3
-
-   Default: the body only carries the side padding the panel grid used to
-   hold inline, and the portrait is hidden and not downloaded. Version 3
-   splits the body into two equal columns beneath the heading: the portrait,
+   The body splits into two equal columns beneath the heading: the portrait,
    at its original tone, on the left, cropped from the top to match the height
-   of the three cards stacked on the right.
+   of the three cards stacked on the right. On phones the portrait sits above
+   the cards.
    ========================================================================== */
 
-.problems__body { padding: 0 var(--pad-x); }
-
-.problems__portrait {
-  display: none;
-  margin: 0;
-}
-
-html[data-problems-portrait] .problems__body {
+.problems__body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--gap-tight);
   align-items: stretch;
+  padding: 0 var(--pad-x);
 }
 
-html[data-problems-portrait] .problems__portrait {
-  display: block;
+.problems__portrait {
   position: relative;
+  margin: 0;
   overflow: clip;
   background: var(--image-bed);
 }
 
-html[data-problems-portrait] .problems__portrait img {
+.problems__portrait img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -2047,9 +1908,9 @@ html[data-problems-portrait] .problems__portrait img {
   object-position: 50% 18%;
 }
 
-html[data-problems-portrait] .panels { grid-template-columns: minmax(0, 1fr); }
+.problems__body .panels { grid-template-columns: minmax(0, 1fr); }
 
 @media (max-width: 760px) {
-  html[data-problems-portrait] .problems__body { grid-template-columns: minmax(0, 1fr); }
-  html[data-problems-portrait] .problems__portrait { aspect-ratio: 4 / 5; }
+  .problems__body { grid-template-columns: minmax(0, 1fr); }
+  .problems__portrait { aspect-ratio: 4 / 5; }
 }

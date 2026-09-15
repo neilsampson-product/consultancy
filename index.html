@@ -43,17 +43,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
-<script>
-  /* Preview only. ?hero=1 or ?hero=2 shows a portrait concept in the hero;
-     ?hero=3 leaves the hero plain and puts the portrait beside the starting
-     points. Set before first paint so the page never flashes another layout. */
-  (function () {
-    var m = /[?&]hero=([123])(?:&|$)/.exec(location.search);
-    if (!m) return;
-    if (m[1] === '3') document.documentElement.setAttribute('data-problems-portrait', '');
-    else document.documentElement.setAttribute('data-hero-concept', m[1] === '1' ? 'portrait' : 'duotone');
-  })();
-</script>
 <link rel="stylesheet" href="css/site.css">
 </head>
 
@@ -82,9 +71,6 @@
     <div class="hero__ground"></div>
     <div class="hero__glow"></div>
     <div class="hero__scrim"></div>
-    <div class="hero__portrait" data-imgreveal="up">
-      <img src="assets/images/portrait-hero.jpg" alt="Neil Sampson" width="1024" height="1536" loading="lazy" decoding="async">
-    </div>
 
     <div class="hero__inner">
       <span data-reveal="up" class="hero__eyebrow">Design leadership &#183; Service design &#183; Product strategy</span>
