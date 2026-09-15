@@ -585,6 +585,12 @@ img { display: block; max-width: 100%; }
   letter-spacing: -.028em;
 }
 
+/* Statements voiced as the reader's own words open with a quotation mark. It
+   hangs just outside the left edge so the first letter aligns with the rule
+   above; .38em is the measured width of the mark in Everett at this weight and
+   tracking, and scales with the type. */
+.panel__statement--quoted { text-indent: -.38em; }
+
 .panel__body { display: flex; flex-direction: column; gap: 13px; }
 
 /* ==========================================================================
