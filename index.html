@@ -44,17 +44,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 <script>
-  /* Preview only. ?hero=1 shows the editorial masthead, ?hero=3 the statement.
-     Set before first paint so the page never flashes the current hero, and the
-     serif is only fetched when a concept is being previewed. */
+  /* Preview only. ?hero=1 shows the masthead over the current gradient,
+     ?hero=2 the same masthead on flat black. Set before first paint so the
+     page never flashes the current hero. */
   (function () {
-    var m = /[?&]hero=([13])(?:&|$)/.exec(location.search);
+    var m = /[?&]hero=([12])(?:&|$)/.exec(location.search);
     if (!m) return;
-    document.documentElement.setAttribute('data-hero-concept', m[1] === '1' ? 'masthead' : 'statement');
-    var font = document.createElement('link');
-    font.rel = 'stylesheet';
-    font.href = 'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&display=swap';
-    document.head.appendChild(font);
+    document.documentElement.setAttribute('data-hero-concept', 'masthead');
+    if (m[1] === '2') document.documentElement.setAttribute('data-hero-flat', '');
   })();
 </script>
 <link rel="stylesheet" href="css/site.css">
@@ -100,7 +97,6 @@
         <span class="mask-line"><span data-reveal="mask" data-delay="250" data-stagger="42">for <em>ambitious businesses</em></span></span>
       </h1>
       <p data-reveal="up" data-delay="420" class="hero__subtitle">I help product-led organisations solve complex customer problems, improve their products and build the capability to grow.</p>
-      <p data-reveal="up" data-delay="620" class="hero__clients"><span class="hero__clients-label">Selected clients</span> <span>Aesop</span> <span>Belmond</span> <span>Farfetch</span> <span>Financial Conduct Authority</span> <span>Lindblad Expeditions</span> <span>NHS</span></p>
     </div>
 
     <a data-scrollcue class="cue" href="#work" aria-label="Scroll to work">

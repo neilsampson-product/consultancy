@@ -1917,43 +1917,34 @@ img { display: block; max-width: 100%; }
 
 
 /* ==========================================================================
-   Hero concepts — previewed with ?hero=1 (masthead) and ?hero=3 (statement)
+   Hero masthead — previewed with ?hero=1 (gradient) and ?hero=2 (flat black)
 
-   Both lean on restraint rather than effects: a refined serif, fine rules and
-   specific facts. Without a concept the extra elements stay hidden and the
-   headline's italic phrase reads upright, so the current hero is unchanged.
+   The hero is set like the cover of a publication, in Everett to match the
+   rest of the site: the name as masthead, a dateline of facts between rules,
+   then the headline and the supporting line side by side. Without a concept
+   the extra elements stay hidden, so the current hero is unchanged.
    ========================================================================== */
 
 .hero__masthead,
-.hero__facts,
-.hero__clients { display: none; }
+.hero__facts { display: none; }
 
 .hero__title em { font-style: normal; }
 
-html[data-hero-concept] .hero__title,
-html[data-hero-concept] .hero__masthead {
-  font-family: 'Newsreader', 'Iowan Old Style', Georgia, serif;
-  font-optical-sizing: auto;
-}
-
-/* ---- 1: Editorial masthead ------------------------------------------------
- * The hero turns to paper and is set like the cover of a publication: the
- * name as masthead, a dateline of facts between rules, then the headline and
- * the supporting line side by side.
- * ------------------------------------------------------------------------- */
+/* The masthead stack is taller than the current hero's, so the hero grows
+   past the screen on short phones rather than running under the nav. */
 html[data-hero-concept="masthead"] .hero {
   align-items: flex-end;
+  height: auto;
+  min-height: 100svh;
   padding-bottom: clamp(72px, 10vh, 120px);
-  background: var(--paper);
-  color: var(--ink);
 }
 
-html[data-hero-concept="masthead"] .hero__ground,
-html[data-hero-concept="masthead"] .hero__glow,
-html[data-hero-concept="masthead"] .hero__scrim,
 html[data-hero-concept="masthead"] .hero__eyebrow { display: none; }
 
-html[data-hero-concept="masthead"] .nav:not(.is-scrolled) { --nav-ink: var(--ink); }
+/* Flat black: the ground loses its gradient and the glow and scrim go. */
+html[data-hero-flat] .hero__ground { background: var(--ink); }
+html[data-hero-flat] .hero__glow,
+html[data-hero-flat] .hero__scrim { display: none; }
 
 html[data-hero-concept="masthead"] .hero__inner {
   display: grid;
@@ -1966,10 +1957,11 @@ html[data-hero-concept="masthead"] .hero__masthead {
   display: block;
   grid-column: 1 / -1;
   margin: 0;
-  font-size: clamp(56px, 16.4vw, 236px);
+  font-size: clamp(50px, 15.9vw, 232px);
   font-weight: 300;
-  line-height: .92;
-  letter-spacing: -.035em;
+  line-height: .96;
+  letter-spacing: -.045em;
+  color: var(--paper);
 }
 
 html[data-hero-concept="masthead"] .hero__facts {
@@ -1980,94 +1972,35 @@ html[data-hero-concept="masthead"] .hero__facts {
   margin: clamp(18px, 2.6vw, 34px) 0 clamp(36px, 5vw, 72px);
   padding: 15px 0;
   list-style: none;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--hairline);
+  border-top: 1px solid rgba(247, 246, 242, .55);
+  border-bottom: 1px solid var(--hairline-ink);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--label);
+  color: var(--label-ink-soft);
 }
 
-/* Matches the homepage title rule's specificity so the concept size wins. */
+/* Matches the homepage title rule's specificity so the masthead size wins. */
 html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title {
   max-width: none;
   font-size: clamp(30px, 3.5vw, 54px);
   font-weight: 400;
   line-height: 1.06;
-  letter-spacing: -.018em;
+  letter-spacing: -.025em;
 }
 
-html[data-hero-concept="masthead"] .hero__title em { font-style: italic; }
+html[data-hero-concept="masthead"] .hero__title em { color: var(--blue-pale); }
 
 html[data-hero-concept="masthead"] .hero__subtitle {
   align-self: end;
   max-width: 40ch;
   font-size: clamp(16px, 1.3vw, 19px);
-  color: var(--label);
+  color: var(--label-ink-soft);
 }
-
-html[data-hero-concept="masthead"] .cue__track { background: rgba(19, 20, 23, .18); }
-html[data-hero-concept="masthead"] .cue__dash { background: var(--blue); }
-html[data-hero-concept="masthead"] .cue__word { color: var(--label); }
 
 @media (max-width: 760px) {
   html[data-hero-concept="masthead"] .hero__inner { grid-template-columns: minmax(0, 1fr); }
   html[data-hero-concept="masthead"] .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   html[data-hero-concept="masthead"] .hero__subtitle { margin-top: 20px; }
 }
-
-/* ---- 3: Statement and silence ---------------------------------------------
- * The dark hero loses its glow and gradients for flat ink. One sentence, set
- * large in a light serif with its closing phrase in italic, then a single
- * rule and the client list in small capitals.
- * ------------------------------------------------------------------------- */
-html[data-hero-concept="statement"] .hero {
-  align-items: flex-end;
-  padding-bottom: clamp(72px, 10vh, 120px);
-}
-
-html[data-hero-concept="statement"] .hero__ground { background: var(--ink); }
-
-html[data-hero-concept="statement"] .hero__glow,
-html[data-hero-concept="statement"] .hero__scrim { display: none; }
-
-html[data-hero-concept="statement"] .hero__inner { gap: clamp(22px, 2.6vw, 36px); }
-
-html[data-hero-concept="statement"] .hero__eyebrow { color: var(--label-ink-soft); }
-
-/* Matches the homepage title rule's specificity so the concept size wins. */
-html[data-hero-concept="statement"] .hero:not(.hero--inner) .hero__title {
-  max-width: none;
-  font-size: clamp(40px, 6.6vw, 116px);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -.028em;
-}
-
-html[data-hero-concept="statement"] .hero__title em {
-  font-style: italic;
-  color: var(--blue-pale);
-}
-
-html[data-hero-concept="statement"] .hero__subtitle {
-  max-width: 46ch;
-  font-size: clamp(16px, 1.3vw, 19px);
-  color: var(--label-ink-soft);
-}
-
-html[data-hero-concept="statement"] .hero__clients {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px clamp(18px, 2.4vw, 36px);
-  margin: clamp(10px, 2vw, 28px) 0 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--hairline-ink);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--body-ink);
-}
-
-html[data-hero-concept="statement"] .hero__clients-label { color: var(--label-ink); }
