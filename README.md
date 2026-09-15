@@ -19,6 +19,7 @@ services.html         Services
 case-lindblad.html    Case study
 case-bpp.html         Case study
 case-polesdon.html    Case study
+case-fca.html         Case study
 
 css/site.css          Every token and component. Read the token block first.
 js/motion.js          Reveals, scroll-driven behaviour, hover wiring.
@@ -79,4 +80,5 @@ what the design was drawn in — loads from Google Fonts as the fallback.
   is 560×489, small for a band that renders up to 560px tall.
 - The favicon "N" is set in Helvetica — re-export it from the real letterform.
 - "Who I work with" on the home page carries a placeholder label in the design.
-- The FCA work band has no case study behind it and does not link anywhere.
+- The FCA case study has no Design System screens yet; its only image is the
+  building exterior.
