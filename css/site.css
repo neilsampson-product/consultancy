@@ -1988,9 +1988,7 @@ img { display: block; max-width: 100%; }
    Hero background motion — previewed with ?bg=1, ?bg=2 and ?bg=3
 
    js/hero-motion.js draws a slow texture into a canvas between the gradient
-   ground and the glow; the scrim above keeps the headline legible. The toggle
-   mirrors the scroll cue on the right, since moving content that runs for more
-   than five seconds needs a way to pause it.
+   ground and the glow; the scrim above keeps the headline legible.
    ========================================================================== */
 
 /* With a texture behind it the full scrim flattens the motion to near black,
@@ -2003,10 +2001,9 @@ html[data-hero-bg] .hero__scrim {
     rgba(19, 20, 23, .5) 100%);
 }
 
-/* Option 2 drops the facts row and its rules, so the supporting line takes
-   the gap the row used to hold. */
-html[data-hero-bg="ink"] .hero__facts { display: none; }
-html[data-hero-bg="ink"] .hero--masthead .hero__subtitle { margin-top: clamp(28px, 3.6vw, 52px); }
+/* Option 2 hides the facts row and its rules but keeps the space they held,
+   so the headline and supporting line sit exactly where they did. */
+html[data-hero-bg="ink"] .hero__facts { visibility: hidden; }
 
 .hero__motion {
   position: absolute;
@@ -2017,22 +2014,8 @@ html[data-hero-bg="ink"] .hero--masthead .hero__subtitle { margin-top: clamp(28p
   pointer-events: none;
 }
 
-.hero__motion-toggle {
-  position: absolute;
-  z-index: 2;
+/* With motion behind the hero, the scroll cue moves to the bottom right. */
+html[data-hero-bg] .cue {
+  left: auto;
   right: var(--pad-x);
-  bottom: clamp(20px, 3vw, 38px);
-  padding: 8px 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--label-ink);
-  cursor: pointer;
-  transition: color .3s ease;
 }
-.hero__motion-toggle:hover { color: var(--paper); }
-.hero__motion-toggle:focus-visible { outline: 1px solid var(--blue-light); outline-offset: 4px; }

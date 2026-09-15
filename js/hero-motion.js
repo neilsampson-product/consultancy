@@ -65,9 +65,8 @@ function start() {
     return;
   }
 
-  /* Time only advances while playing, so pausing holds the frame and play
-     picks up from the same place. */
-  let playing = true;
+  /* Time only advances while drawing, so the texture picks up where it left
+     off when the hero scrolls back into view or the tab returns. */
   let visible = true;
   let elapsed = 40;
   let last = 0;
@@ -82,24 +81,9 @@ function start() {
     draw(elapsed);
   };
   const run = () => {
-    if (playing && visible && !document.hidden && !frame) { last = 0; frame = requestAnimationFrame(tick); }
+    if (visible && !document.hidden && !frame) { last = 0; frame = requestAnimationFrame(tick); }
   };
   const halt = () => { cancelAnimationFrame(frame); frame = 0; };
-
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'hero__motion-toggle';
-  const label = () => {
-    toggle.textContent = playing ? 'Pause motion' : 'Play motion';
-    toggle.setAttribute('aria-pressed', String(!playing));
-  };
-  toggle.addEventListener('click', () => {
-    playing = !playing;
-    label();
-    if (playing) run(); else halt();
-  });
-  label();
-  hero.appendChild(toggle);
 
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
