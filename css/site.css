@@ -1919,13 +1919,12 @@ img { display: block; max-width: 100%; }
 /* ==========================================================================
    Hero masthead — previewed with ?hero=1 (gradient) and ?hero=2 (flat black)
 
-   The hero is set like the cover of a publication, in Everett to match the
-   rest of the site: the name as masthead, a dateline of facts between rules,
-   then the headline and the supporting line side by side. Without a concept
-   the extra elements stay hidden, so the current hero is unchanged.
+   The proposition is the masthead: set very large in Everett Light across the
+   full width, then a dateline of facts between rules, then the supporting
+   line. Without a concept the facts stay hidden, so the current hero is
+   unchanged.
    ========================================================================== */
 
-.hero__masthead,
 .hero__facts { display: none; }
 
 .hero__title em { font-style: normal; }
@@ -1946,30 +1945,26 @@ html[data-hero-flat] .hero__ground { background: var(--ink); }
 html[data-hero-flat] .hero__glow,
 html[data-hero-flat] .hero__scrim { display: none; }
 
-html[data-hero-concept="masthead"] .hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
-  column-gap: clamp(24px, 4vw, 72px);
-  row-gap: 0;
+html[data-hero-concept="masthead"] .hero__inner { gap: 0; }
+
+/* Matches the homepage title rule's specificity so the masthead size wins.
+   7.8vw keeps "Design & product leadership" on one line down to the phone
+   breakpoint; below it the lines wrap and the size is set by width instead. */
+html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title {
+  max-width: none;
+  font-size: clamp(40px, 7.8vw, 112px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.04em;
 }
 
-html[data-hero-concept="masthead"] .hero__masthead {
-  display: block;
-  grid-column: 1 / -1;
-  margin: 0;
-  font-size: clamp(50px, 15.9vw, 232px);
-  font-weight: 300;
-  line-height: .96;
-  letter-spacing: -.045em;
-  color: var(--paper);
-}
+html[data-hero-concept="masthead"] .hero__title em { color: var(--blue-pale); }
 
 html[data-hero-concept="masthead"] .hero__facts {
   display: grid;
-  grid-column: 1 / -1;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px 24px;
-  margin: clamp(18px, 2.6vw, 34px) 0 clamp(36px, 5vw, 72px);
+  margin: clamp(28px, 3.6vw, 52px) 0 clamp(24px, 3vw, 40px);
   padding: 15px 0;
   list-style: none;
   border-top: 1px solid rgba(247, 246, 242, .55);
@@ -1981,26 +1976,13 @@ html[data-hero-concept="masthead"] .hero__facts {
   color: var(--label-ink-soft);
 }
 
-/* Matches the homepage title rule's specificity so the masthead size wins. */
-html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title {
-  max-width: none;
-  font-size: clamp(30px, 3.5vw, 54px);
-  font-weight: 400;
-  line-height: 1.06;
-  letter-spacing: -.025em;
-}
-
-html[data-hero-concept="masthead"] .hero__title em { color: var(--blue-pale); }
-
 html[data-hero-concept="masthead"] .hero__subtitle {
-  align-self: end;
-  max-width: 40ch;
+  max-width: 46ch;
   font-size: clamp(16px, 1.3vw, 19px);
   color: var(--label-ink-soft);
 }
 
 @media (max-width: 760px) {
-  html[data-hero-concept="masthead"] .hero__inner { grid-template-columns: minmax(0, 1fr); }
+  html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title { font-size: 12.2vw; }
   html[data-hero-concept="masthead"] .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  html[data-hero-concept="masthead"] .hero__subtitle { margin-top: 20px; }
 }
