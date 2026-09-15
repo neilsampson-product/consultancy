@@ -2003,6 +2003,11 @@ html[data-hero-bg] .hero__scrim {
     rgba(19, 20, 23, .5) 100%);
 }
 
+/* Option 2 drops the facts row and its rules, so the supporting line takes
+   the gap the row used to hold. */
+html[data-hero-bg="ink"] .hero__facts { display: none; }
+html[data-hero-bg="ink"] .hero--masthead .hero__subtitle { margin-top: clamp(28px, 3.6vw, 52px); }
+
 .hero__motion {
   position: absolute;
   inset: 0;
