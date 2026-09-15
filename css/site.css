@@ -1948,22 +1948,23 @@ html[data-hero-flat] .hero__scrim { display: none; }
 html[data-hero-concept="masthead"] .hero__inner { gap: 0; }
 
 /* Matches the homepage title rule's specificity so the masthead size wins.
-   7.8vw keeps "Design & product leadership" on one line down to the phone
-   breakpoint; below it the lines wrap and the size is set by width instead. */
+   7.6vw keeps "Design & product leadership" on one line in Everett Medium
+   down to the phone breakpoint; below it the lines wrap and the size is set
+   by width instead. */
 html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title {
   max-width: none;
-  font-size: clamp(40px, 7.8vw, 112px);
-  font-weight: 300;
+  font-size: clamp(40px, 7.6vw, 110px);
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -.03em;
 }
 
 html[data-hero-concept="masthead"] .hero__title em { color: var(--blue-pale); }
 
 html[data-hero-concept="masthead"] .hero__facts {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 24px;
   margin: clamp(28px, 3.6vw, 52px) 0 clamp(24px, 3vw, 40px);
   padding: 15px 0;
   list-style: none;
@@ -1973,16 +1974,17 @@ html[data-hero-concept="masthead"] .hero__facts {
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--label-ink-soft);
+  color: var(--body-ink);
 }
 
 html[data-hero-concept="masthead"] .hero__subtitle {
   max-width: 46ch;
   font-size: clamp(16px, 1.3vw, 19px);
-  color: var(--label-ink-soft);
+  font-weight: 500;
+  color: var(--body-ink);
 }
 
 @media (max-width: 760px) {
-  html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title { font-size: 12.2vw; }
-  html[data-hero-concept="masthead"] .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-hero-concept="masthead"] .hero:not(.hero--inner) .hero__title { font-size: 12vw; }
+  html[data-hero-concept="masthead"] .hero__facts { grid-template-columns: minmax(0, 1fr); }
 }
