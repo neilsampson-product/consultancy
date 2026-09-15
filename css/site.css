@@ -1906,9 +1906,19 @@ img { display: block; max-width: 100%; }
 
 .problems__body .panels { grid-template-columns: minmax(0, 1fr); }
 
+/* On phones the photo sets the frame's height itself. A frame whose only
+   content is absolutely positioned gets its height from aspect-ratio alone,
+   and Safari can collapse that to zero on a stretched grid item, which hid
+   the photo on iPhones. */
 @media (max-width: 760px) {
   .problems__body { grid-template-columns: minmax(0, 1fr); }
-  .problems__portrait { aspect-ratio: 4 / 5; }
+  .problems__portrait { align-self: start; }
+  .problems__portrait img {
+    position: static;
+    display: block;
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
 }
 
 
