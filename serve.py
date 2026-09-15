@@ -4,6 +4,9 @@
 Binds to localhost. To reach it from a phone on the same network:
     HOST=0.0.0.0 python3 serve.py
 then browse to http://<this machine's LAN IP>:4321
+
+Every response is sent with Cache-Control: no-store, so a browser never shows
+an earlier stylesheet or script after a change.
 """
 import functools, os, socketserver, sys
 from http.server import SimpleHTTPRequestHandler
@@ -12,9 +15,15 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 4321
 HOST = os.environ.get("HOST", "127.0.0.1")
 
+class Handler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
+
 class Server(socketserver.TCPServer):
     allow_reuse_address = True
 
-with Server((HOST, PORT), functools.partial(SimpleHTTPRequestHandler, directory=ROOT)) as httpd:
+with Server((HOST, PORT), functools.partial(Handler, directory=ROOT)) as httpd:
     print("serving %s on http://%s:%d" % (ROOT, HOST, PORT), flush=True)
     httpd.serve_forever()

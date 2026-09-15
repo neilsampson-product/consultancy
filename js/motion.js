@@ -77,6 +77,7 @@ function showEverything(root) {
   root.querySelectorAll('[data-step]').forEach((el) => {
     el.style.opacity = '1';
     el.style.transform = 'none';
+    el.classList.add('is-on');
   });
   const rail = root.querySelector('[data-steprail-fill]');
   if (rail) rail.style.transform = 'scaleX(1)';
@@ -230,7 +231,14 @@ function wireScroll(root, amp, opts) {
     step.style.opacity = String(dim);
     step.style.transform = `translateY(${10 * amp}px)`;
     step.style.transition = `opacity .55s ease, transform .55s ${EASE}`;
+    step.classList.remove('is-on');
   });
+
+  const setStep = (step, on) => {
+    step.style.opacity = on ? '1' : String(dim);
+    step.style.transform = on ? 'none' : `translateY(${10 * amp}px)`;
+    step.classList.toggle('is-on', on);
+  };
   if (railFill) railFill.style.transition = 'transform .3s linear';
 
   let words = null;
@@ -264,16 +272,20 @@ function wireScroll(root, amp, opts) {
       el.style.transform = `translate3d(0, ${shift.toFixed(2)}px, 0)`;
     });
 
-    /* The pinned section is sticky for its own height plus its runway. Its
-       statements step from dim to solid as progress passes each threshold,
-       with the rule beneath filling alongside. */
+    /* The pinned section is sticky for its own height plus its runway, and its
+       steps light in sequence as progress through it passes each threshold.
+       When page.js has unpinned it for being taller than the screen, progress
+       through the section no longer tracks what is on screen, so each step
+       lights as it scrolls into view instead. */
     if (pin && steps.length) {
       const r = pin.getBoundingClientRect();
+      const pinned = !pin.classList.contains('pin--static');
       const p = clamp(-r.top / Math.max(1, r.height - vh));
       steps.forEach((step, i) => {
-        const on = p >= (i * 0.9) / steps.length;
-        step.style.opacity = on ? '1' : String(dim);
-        step.style.transform = on ? 'none' : `translateY(${10 * amp}px)`;
+        const on = pinned
+          ? p >= (i * 0.9) / steps.length
+          : step.getBoundingClientRect().top < vh * 0.72;
+        setStep(step, on);
       });
       if (railFill) railFill.style.transform = `scaleX(${p.toFixed(3)})`;
     }
