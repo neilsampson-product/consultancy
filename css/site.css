@@ -1903,16 +1903,18 @@ html[data-hero-concept] .hero__portrait img {
 
 /* ---- Concept 1: portrait emerging from the dark ---------------------------
  * The photo keeps its natural tone and is shown whole, at Concept 2's scale,
- * so the T-shirt reads as well as the face. It sits on the right, tucked
- * partly off the edge. The left edge dissolves into the text side, and the
+ * so the T-shirt reads as well as the face. Its right edge aligns with the
+ * text column's, keeping the same margin from the screen edge as the text,
+ * and its height is capped by width so it stays clear of the headline on
+ * smaller laptops. The left edge dissolves into the text side, and the
  * top and bottom fade just enough to lose the frame without losing the
  * T-shirt. The vignette is centred low, over head and T-shirt together, so it
  * sinks the grey backdrop at the sides and top and leaves both clear.
  * ------------------------------------------------------------------------- */
 html[data-hero-concept="portrait"] .hero__portrait {
   top: 50%;
-  right: -6vw;
-  height: min(94%, 900px);
+  right: max(var(--pad-x), calc((100% - var(--max)) / 2));
+  height: min(94%, 900px, 58vw);
   aspect-ratio: 2 / 3;
   transform: translateY(-46%);
   -webkit-mask-image:
@@ -2002,4 +2004,52 @@ html[data-hero-concept="duotone"] .hero__portrait img {
   /* page.js measures the room between the nav and the start of the text. The
      portrait is sized to it, and dropped where a face would not read. */
   html[data-hero-concept] .hero--portrait-cramped .hero__portrait { display: none; }
+}
+
+
+/* ==========================================================================
+   Starting points with portrait — version 3, previewed with ?hero=3
+
+   Default: the body only carries the side padding the panel grid used to
+   hold inline, and the portrait is hidden and not downloaded. Version 3
+   splits the body into two equal columns beneath the heading: the portrait,
+   at its original tone, on the left, cropped from the top to match the height
+   of the three cards stacked on the right.
+   ========================================================================== */
+
+.problems__body { padding: 0 var(--pad-x); }
+
+.problems__portrait {
+  display: none;
+  margin: 0;
+}
+
+html[data-problems-portrait] .problems__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-tight);
+  align-items: stretch;
+}
+
+html[data-problems-portrait] .problems__portrait {
+  display: block;
+  position: relative;
+  overflow: clip;
+  background: var(--image-bed);
+}
+
+html[data-problems-portrait] .problems__portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+html[data-problems-portrait] .panels { grid-template-columns: minmax(0, 1fr); }
+
+@media (max-width: 760px) {
+  html[data-problems-portrait] .problems__body { grid-template-columns: minmax(0, 1fr); }
+  html[data-problems-portrait] .problems__portrait { aspect-ratio: 4 / 5; }
 }

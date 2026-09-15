@@ -44,11 +44,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 <script>
-  /* Preview only: ?hero=1 or ?hero=2 shows a portrait concept in the hero.
-     Set before first paint so the page never flashes the other layout. */
+  /* Preview only. ?hero=1 or ?hero=2 shows a portrait concept in the hero;
+     ?hero=3 leaves the hero plain and puts the portrait beside the starting
+     points. Set before first paint so the page never flashes another layout. */
   (function () {
-    var m = /[?&]hero=([12])(?:&|$)/.exec(location.search);
-    if (m) document.documentElement.setAttribute('data-hero-concept', m[1] === '1' ? 'portrait' : 'duotone');
+    var m = /[?&]hero=([123])(?:&|$)/.exec(location.search);
+    if (!m) return;
+    if (m[1] === '3') document.documentElement.setAttribute('data-problems-portrait', '');
+    else document.documentElement.setAttribute('data-hero-concept', m[1] === '1' ? 'portrait' : 'duotone');
   })();
 </script>
 <link rel="stylesheet" href="css/site.css">
@@ -105,30 +108,36 @@
       <h2 data-reveal="up" data-delay="80" class="h2" style="max-width: 30ch; text-wrap: balance">Most teams bring me in at one of these moments.</h2>
     </div>
 
-    <div class="panels" style="padding: 0 var(--pad-x)">
-      <div data-reveal="up" class="panel">
-        <span class="rule"></span>
-        <p class="panel__statement panel__statement--quoted">&#8220;We&#8217;ve raised money. Now we need to deliver.&#8221;</p>
-        <div class="panel__body">
-          <p class="body">You&#8217;ve got funding, ambitious growth targets and investors expecting progress.</p>
-          <p class="body">But your product team isn&#8217;t yet equipped to turn that pressure into a clear roadmap and consistent execution.</p>
-        </div>
-      </div>
+    <div class="problems__body">
+      <figure class="problems__portrait" data-imgreveal="up">
+        <img src="assets/images/portrait-hero.jpg" alt="Neil Sampson" width="1024" height="1536" loading="lazy" decoding="async">
+      </figure>
 
-      <div data-reveal="up" data-delay="100" class="panel">
-        <span class="rule"></span>
-        <p class="panel__statement panel__statement--quoted">&#8220;We need to respond to what&#8217;s changing.&#8221;</p>
-        <div class="panel__body">
-          <p class="body">Your market is shifting. Maybe it&#8217;s regulation, new technology, new competitors or changing customer behaviour.</p>
-          <p class="body">You know standing still isn&#8217;t an option. But with competing opportunities and limited resources, it&#8217;s not always obvious what to do next or where to focus.</p>
+      <div class="panels">
+        <div data-reveal="up" class="panel">
+          <span class="rule"></span>
+          <p class="panel__statement panel__statement--quoted">&#8220;We&#8217;ve raised money. Now we need to deliver.&#8221;</p>
+          <div class="panel__body">
+            <p class="body">You&#8217;ve got funding, ambitious growth targets and investors expecting progress.</p>
+            <p class="body">But your product team isn&#8217;t yet equipped to turn that pressure into a clear roadmap and consistent execution.</p>
+          </div>
         </div>
-      </div>
 
-      <div data-reveal="up" data-delay="200" class="panel">
-        <span class="rule"></span>
-        <p class="panel__statement panel__statement--quoted">&#8220;We need design and product leadership, but not a full-time hire.&#8221;</p>
-        <div class="panel__body">
-          <p class="body">You need someone to set direction and raise the bar across design and product, but a permanent Head of Design or Head of Product doesn&#8217;t make sense yet.</p>
+        <div data-reveal="up" data-delay="100" class="panel">
+          <span class="rule"></span>
+          <p class="panel__statement panel__statement--quoted">&#8220;We need to respond to what&#8217;s changing.&#8221;</p>
+          <div class="panel__body">
+            <p class="body">Your market is shifting. Maybe it&#8217;s regulation, new technology, new competitors or changing customer behaviour.</p>
+            <p class="body">You know standing still isn&#8217;t an option. But with competing opportunities and limited resources, it&#8217;s not always obvious what to do next or where to focus.</p>
+          </div>
+        </div>
+
+        <div data-reveal="up" data-delay="200" class="panel">
+          <span class="rule"></span>
+          <p class="panel__statement panel__statement--quoted">&#8220;We need design and product leadership, but not a full-time hire.&#8221;</p>
+          <div class="panel__body">
+            <p class="body">You need someone to set direction and raise the bar across design and product, but a permanent Head of Design or Head of Product doesn&#8217;t make sense yet.</p>
+          </div>
         </div>
       </div>
     </div>
