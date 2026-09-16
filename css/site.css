@@ -1960,6 +1960,10 @@ img { display: block; max-width: 100%; }
 
 .hero--masthead .hero__inner { gap: 0; }
 
+/* The eyebrow sat flush against the headline; this gives it room without
+   opening a gap between the headline and the supporting line. */
+.hero--masthead .hero__eyebrow { margin-bottom: clamp(14px, 1.5vw, 24px); }
+
 /* Sized to the longest line, "& design leadership", so the headline fills the
    content column and neither line wraps at any width. */
 .hero--masthead .hero__title {
@@ -1988,6 +1992,14 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 760px) {
+  /* Pinned to the bottom, the hero left a large empty band above the headline
+     on a phone. Centred, the block sits in the middle of the screen; the hero
+     still grows past 100svh on short screens rather than running under the nav. */
+  .hero--masthead {
+    align-items: center;
+    padding-bottom: clamp(56px, 8vh, 88px);
+  }
+
   .hero--masthead .hero__title { font-size: 10.8vw; }
 }
 
