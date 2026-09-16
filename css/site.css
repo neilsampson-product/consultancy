@@ -863,6 +863,20 @@ img { display: block; max-width: 100%; }
   opacity: .8;
 }
 
+/* Tablet and phone: the cells are narrow enough that a wide wordmark and a
+   compact mark read as different sizes. Every logo gets the same box and is
+   scaled to fit inside it, so the wall reads evenly. */
+@media (max-width: 879px) {
+  .clients__logo { height: 24px; }
+  .clients__logo img {
+    max-height: 100%;
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
 /* ==========================================================================
    Testimonials
    ========================================================================== */
