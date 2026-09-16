@@ -1956,23 +1956,10 @@ img { display: block; max-width: 100%; }
   color: var(--blue-pale);
 }
 
-.hero__facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 24px;
-  margin: clamp(28px, 3.6vw, 52px) 0 clamp(24px, 3vw, 40px);
-  padding: 15px 0;
-  list-style: none;
-  border-top: 1px solid rgba(247, 246, 242, .55);
-  border-bottom: 1px solid var(--hairline-ink);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--body-ink);
-}
-
+/* The facts row is gone, but the supporting line keeps the distance from the
+   headline that the row and its rules used to hold. */
 .hero--masthead .hero__subtitle {
+  margin-top: calc(clamp(28px, 3.6vw, 52px) + clamp(24px, 3vw, 40px) + 44px);
   max-width: 46ch;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 500;
@@ -1980,7 +1967,6 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 760px) {
   .hero--masthead .hero__title { font-size: 10.8vw; }
-  .hero__facts { grid-template-columns: minmax(0, 1fr); }
 }
 
 
@@ -2000,10 +1986,6 @@ html[data-hero-bg] .hero__scrim {
     rgba(19, 20, 23, .32) 55%,
     rgba(19, 20, 23, .5) 100%);
 }
-
-/* The motion previews hide the facts row and its rules but keep the space they
-   held, so the headline and supporting line sit exactly where they did. */
-html[data-hero-bg] .hero__facts { visibility: hidden; }
 
 .hero__motion {
   position: absolute;
