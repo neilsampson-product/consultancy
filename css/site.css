@@ -155,11 +155,14 @@ img { display: block; max-width: 100%; }
 }
 .word { display: inline-block; will-change: transform; }
 
+/* The mask hides the line while it rises. .12em of slack clipped descenders
+   on the tightest line-heights at phone sizes, so it carries more; the equal
+   negative margin keeps the layout unchanged. */
 .mask-line {
   display: block;
   overflow: hidden;
-  padding-bottom: .12em;
-  margin-bottom: -.12em;
+  padding-bottom: .2em;
+  margin-bottom: -.2em;
 }
 
 /* ==========================================================================
@@ -1992,6 +1995,11 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 760px) {
+  /* --pad-y bottoms out at 48px, so on a phone every section carries the same
+     band of space as the widest desktop rhythm allows. Eight pixels off each
+     side keeps the separation legible without the page running so long. */
+  .section { padding-block: 40px; }
+
   /* Pinned to the bottom, the hero left a large empty band above the headline
      on a phone. Centred, the block sits in the middle of the screen; the hero
      still grows past 100svh on short screens rather than running under the nav. */
