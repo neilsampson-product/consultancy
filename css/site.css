@@ -853,7 +853,7 @@ img { display: block; max-width: 100%; }
   gap: clamp(48px, 7vw, 104px) clamp(24px, 3vw, 52px);
   align-items: center;
   padding: clamp(40px, 5.5vw, 80px) 0 clamp(30px, 4vw, 56px);
-  border-top: 1px solid var(--hairline-ink-faint);
+  border-top: 1px solid var(--hairline);
 }
 
 .clients__logo { display: flex; align-items: center; justify-content: center; }
@@ -862,6 +862,10 @@ img { display: block; max-width: 100%; }
   width: auto;
   opacity: .8;
 }
+
+/* Zebra People only exists as white artwork, so on the light ground it is
+   inverted to ink rather than left invisible. */
+.clients__logo img[src*="zebra-people"] { filter: invert(1); }
 
 /* Tablet and phone: the cells are narrow enough that a wide wordmark and a
    compact mark read as different sizes. Every logo gets the same box and is
