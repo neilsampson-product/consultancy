@@ -1982,6 +1982,7 @@ img { display: block; max-width: 100%; }
 .hero--masthead .hero__subtitle {
   margin-top: calc(clamp(28px, 3.6vw, 52px) + clamp(24px, 3vw, 40px) + 44px);
   max-width: 56ch;
+  text-wrap: balance;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 500;
 }
