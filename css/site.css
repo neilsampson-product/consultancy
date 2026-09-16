@@ -1941,11 +1941,11 @@ img { display: block; max-width: 100%; }
 
 .hero--masthead .hero__inner { gap: 0; }
 
-/* 7.6vw keeps "Design & product leadership" on one line down to the phone
-   breakpoint; below it the lines wrap and the size is set by width instead. */
+/* Sized to the longest line, "& design leadership", so the headline fills the
+   content column and neither line wraps at any width. */
 .hero--masthead .hero__title {
   max-width: none;
-  font-size: clamp(40px, 7.6vw, 110px);
+  font-size: clamp(38px, 11vw, 150px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -.03em;
@@ -1979,7 +1979,7 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 760px) {
-  .hero--masthead .hero__title { font-size: 12vw; }
+  .hero--masthead .hero__title { font-size: 10.8vw; }
   .hero__facts { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -2001,9 +2001,9 @@ html[data-hero-bg] .hero__scrim {
     rgba(19, 20, 23, .5) 100%);
 }
 
-/* Option 2 hides the facts row and its rules but keeps the space they held,
-   so the headline and supporting line sit exactly where they did. */
-html[data-hero-bg="ink"] .hero__facts { visibility: hidden; }
+/* The motion previews hide the facts row and its rules but keep the space they
+   held, so the headline and supporting line sit exactly where they did. */
+html[data-hero-bg] .hero__facts { visibility: hidden; }
 
 .hero__motion {
   position: absolute;
