@@ -345,6 +345,11 @@ img { display: block; max-width: 100%; }
 
 .nav__end { display: flex; justify-content: flex-end; }
 
+/* "Talk through your challenge" is too long for the phone nav, so below the
+   breakpoint the button shows a short label and the full wording is kept for
+   screen readers. */
+.nav__cta-short { display: none; }
+
 .nav__cta {
   display: inline-flex;
   align-items: center;
@@ -371,6 +376,8 @@ img { display: block; max-width: 100%; }
   .nav__brand { justify-self: start; --brand-size: 15px; }
   /* 14px block padding keeps the tap target near 40px tall; at 11px it was 34. */
   .nav__cta { gap: 8px; padding: 14px 14px; font-size: 10px; letter-spacing: .1em; }
+  .nav__cta-full { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .nav__cta-short { display: inline; }
 
   /* Below ~400px the wordmark and the CTA stop fitting side by side at their
      designed tracking. Both keep their copy and shed letter-spacing instead,
@@ -2000,4 +2007,74 @@ img { display: block; max-width: 100%; }
 .hero--masthead .cue {
   left: auto;
   right: var(--pad-x);
+}
+
+
+/* ==========================================================================
+   Blue quote band, the How I can help lead, and the contact actions
+   ========================================================================== */
+
+/* A full-width blue band separates the starting points from the work. */
+.section--blue {
+  background: var(--blue);
+  color: var(--paper);
+  border-bottom: 0;
+}
+
+.quote-band {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.quote-band__quote { max-width: 24ch; }
+.section--blue .display-quote .soft { color: var(--blue-pale); }
+
+.attr--blue .attr__name { color: var(--paper); }
+.attr--blue .attr__role { color: var(--blue-pale); }
+
+/* The lead lines under "I build capability. Not dependency." */
+.pin__lead {
+  margin: clamp(18px, 2.2vw, 28px) 0 0;
+  font-size: clamp(17px, 1.6vw, 22px);
+  font-weight: 500;
+  color: var(--paper);
+  max-width: 34ch;
+}
+
+.pin__body {
+  margin: 12px 0 0;
+  font-size: clamp(15px, 1.25vw, 17px);
+  line-height: 1.55;
+  color: var(--body-ink);
+  max-width: 46ch;
+}
+
+.pin__steps > .label { display: block; margin-bottom: clamp(14px, 1.8vw, 22px); }
+
+/* Contact: the supporting line, then the booking button above the two links. */
+.contact__lead {
+  margin: 0;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.5;
+  color: var(--body-ink);
+  max-width: 48ch;
+}
+
+.contact__actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.4vw, 30px);
+}
+
+.cta--blue {
+  background: var(--blue);
+  color: var(--paper);
+  border-color: var(--blue);
+}
+.cta--blue:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+@media (max-width: 760px) {
+  .quote-band__quote { max-width: none; }
+  .cta--blue { align-self: stretch; justify-content: center; }
 }
