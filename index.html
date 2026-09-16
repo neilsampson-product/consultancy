@@ -43,6 +43,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<script>
+  /* Preview only. ?cards=1 gives each case study its own card on phones,
+     ?cards=2 gives each one the full screen with scroll snapping. */
+  (function () {
+    var m = /[?&]cards=([12])(?:&|$)/.exec(location.search);
+    if (m) document.documentElement.setAttribute('data-cards', m[1] === '1' ? 'panel' : 'full');
+  })();
+</script>
 <link rel="stylesheet" href="css/site.css">
 </head>
 

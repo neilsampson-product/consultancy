@@ -2096,3 +2096,53 @@ img { display: block; max-width: 100%; }
   .quote-band__quote { max-width: none; }
   .cta--blue { align-self: stretch; justify-content: center; }
 }
+
+
+/* ==========================================================================
+   Case study cards on phones — previewed with ?cards=1 and ?cards=2
+
+   On a phone the cards run edge to edge with only a hairline between them,
+   and the hairline sits against a full-bleed photo where it cannot be seen.
+   Both previews give each case a clear edge; neither changes the desktop.
+   ========================================================================== */
+
+@media (max-width: 879px) {
+  /* 1: each case sits on its own inset card, with real space between them. */
+  html[data-cards="panel"] .bands {
+    gap: clamp(26px, 6vw, 44px);
+    padding: 0 var(--pad-x);
+  }
+
+  html[data-cards="panel"] .band {
+    border-top: 0;
+    border-radius: 16px;
+    overflow: clip;
+    background: var(--chalk-panel);
+  }
+
+  html[data-cards="panel"] .band__frame { min-height: 46vh; }
+
+  html[data-cards="panel"] .band__copy {
+    padding: clamp(24px, 6vw, 36px) clamp(20px, 5vw, 30px) clamp(28px, 7vw, 38px);
+  }
+
+  /* 2: one case at a time, each filling the screen, with the scroll settling
+     on each in turn. */
+  html[data-cards="full"] .bands { scroll-snap-type: y proximity; }
+
+  html[data-cards="full"] .band {
+    min-height: 100svh;
+    border-top: 0;
+    scroll-snap-align: start;
+    grid-template-rows: 56svh auto;
+    background: var(--chalk-panel);
+    box-shadow: 0 -1px 0 var(--hairline);
+  }
+
+  html[data-cards="full"] .band__frame { min-height: 0; }
+
+  html[data-cards="full"] .band__copy {
+    justify-content: center;
+    padding: clamp(26px, 6vw, 40px) var(--pad-x);
+  }
+}
