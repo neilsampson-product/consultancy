@@ -1,0 +1,161 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Share card</title>
+<!--
+  Source for assets/share-card-2026.jpg, the Open Graph image.
+
+  It mirrors the homepage hero: the same 168deg ground gradient, the same blue
+  glow, Everett from /fonts, and the headline with "Hands-on" in --blue-pale.
+  Edit here, never the JPEG, and regenerate from the repo root:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 \
+      --window-size=1200,630 --screenshot=/tmp/card-2x.png \
+      "file://$PWD/tools/share-card.html"
+    sips -z 630 1200 /tmp/card-2x.png --setProperty format jpeg \
+      --setProperty formatOptions 82 --out assets/share-card-2026.jpg
+
+  Rendering at 2x and halving keeps the type crisp. Copy the result over
+  assets/share-card.jpg too: previews cache by URL, so the old name has to keep
+  serving the current picture. When the design changes materially, give it a new
+  filename and repoint og:image/twitter:image, or caches will hold the old one.
+-->
+<style>
+  @font-face {
+    font-family: 'Everett';
+    src: url('../fonts/Everett-Light-8f759ffb.woff') format('woff');
+    font-weight: 300 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Everett';
+    src: url('../fonts/Everett-Medium-d8cb7d44.woff') format('woff');
+    font-weight: 500 700;
+    font-style: normal;
+  }
+
+  :root {
+    --ink: #131417;
+    --ink-lift-hero: #1e2231;
+    --ink-deep-hero: #0d0e11;
+    --chalk: #eceae4;
+    --blue: #1f4fd8;
+    --blue-light: #8fa6ff;
+    --blue-pale: #c3cdf0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 1200px; height: 630px; }
+
+  body {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    font-family: 'Everett', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The hero's own ground gradient and blue glow, at card proportions. */
+  .ground {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(168deg, var(--ink-lift-hero) 0%, var(--ink) 46%, var(--ink-deep-hero) 100%);
+  }
+  .glow {
+    position: absolute;
+    top: -46%;
+    right: -6%;
+    width: 900px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(31, 79, 216, .34) 0%, rgba(31, 79, 216, 0) 66%);
+    filter: blur(20px);
+  }
+
+  /* Masked rather than covered with a scrim: an opaque overlay would paint out
+     the ground gradient and the blue glow behind it, leaving a visible box. */
+  .portrait {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 430px;
+    height: 630px;
+    object-fit: cover;
+    object-position: 50% 22%;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 42%);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 42%);
+  }
+  .portrait-wrap { position: absolute; inset: 0; z-index: 1; }
+
+  .inner {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 0 80px;
+    width: 800px;
+  }
+
+  .eyebrow {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin-bottom: 26px;
+  }
+
+  h1 {
+    font-size: 66px;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    color: var(--chalk);
+  }
+  h1 em { font-style: normal; color: var(--blue-pale); }
+
+  .lead {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: rgba(236, 234, 228, .78);
+    max-width: 27ch;
+  }
+
+  .rule {
+    margin-top: 44px;
+    width: 640px;
+    height: 1px;
+    background: rgba(236, 234, 228, .2);
+  }
+
+  /* Short enough now to carry the site's own eyebrow tracking. */
+  .colophon {
+    margin-top: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: rgba(236, 234, 228, .62);
+  }
+</style>
+
+<div class="ground"></div>
+<div class="glow"></div>
+
+<div class="portrait-wrap">
+  <img class="portrait" src="../assets/images/portrait-hero.jpg" alt="">
+  <div class="portrait-fade"></div>
+</div>
+
+<div class="inner">
+  <span class="eyebrow">Independent consultant &#183; 20 years&#8217; experience</span>
+  <h1><em>Hands-on</em> product<br>&amp; design leadership</h1>
+  <p class="lead">For founders, CEOs and leadership teams at ambitious, product-led organisations.</p>
+  <div class="rule"></div>
+  <div class="colophon">Neil Sampson &#183; London</div>
+</div>
