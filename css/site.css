@@ -1941,11 +1941,11 @@ img { display: block; max-width: 100%; }
 
 .hero--masthead .hero__inner { gap: 0; }
 
-/* 7.6vw keeps "Design & product leadership" on one line down to the phone
-   breakpoint; below it the lines wrap and the size is set by width instead. */
+/* Sized to the longest line, "& design leadership", so the headline fills the
+   content column and neither line wraps at any width. */
 .hero--masthead .hero__title {
   max-width: none;
-  font-size: clamp(40px, 7.6vw, 110px);
+  font-size: clamp(38px, 11vw, 150px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -.03em;
@@ -1956,29 +1956,48 @@ img { display: block; max-width: 100%; }
   color: var(--blue-pale);
 }
 
-.hero__facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 24px;
-  margin: clamp(28px, 3.6vw, 52px) 0 clamp(24px, 3vw, 40px);
-  padding: 15px 0;
-  list-style: none;
-  border-top: 1px solid rgba(247, 246, 242, .55);
-  border-bottom: 1px solid var(--hairline-ink);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--body-ink);
-}
-
+/* The facts row is gone, but the supporting line keeps the distance from the
+   headline that the row and its rules used to hold. */
 .hero--masthead .hero__subtitle {
+  margin-top: calc(clamp(28px, 3.6vw, 52px) + clamp(24px, 3vw, 40px) + 44px);
   max-width: 46ch;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 500;
 }
 
 @media (max-width: 760px) {
-  .hero--masthead .hero__title { font-size: 12vw; }
-  .hero__facts { grid-template-columns: minmax(0, 1fr); }
+  .hero--masthead .hero__title { font-size: 10.8vw; }
+}
+
+
+/* ==========================================================================
+   Hero background motion
+
+   js/hero-motion.js draws a slow texture into a canvas between the gradient
+   ground and the glow; the scrim above keeps the headline legible.
+   ========================================================================== */
+
+/* With a texture behind it the full scrim flattens the motion to near black,
+   so it lifts on the right and in the middle and stays darkest behind the
+   start of the headline. */
+.hero--masthead .hero__scrim {
+  background: linear-gradient(105deg,
+    rgba(19, 20, 23, .7) 0%,
+    rgba(19, 20, 23, .32) 55%,
+    rgba(19, 20, 23, .5) 100%);
+}
+
+.hero__motion {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* With motion behind the hero, the scroll cue sits at the bottom right. */
+.hero--masthead .cue {
+  left: auto;
+  right: var(--pad-x);
 }
