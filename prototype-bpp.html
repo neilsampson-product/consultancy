@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<title>BPP Apprenticeship Onboarding — To-Be Walkthrough · Neil Sampson</title>
+<meta name="description" content="An interactive 10-step walkthrough of the to-be apprenticeship onboarding journey for BPP Education — recreated from a discovery-stage concept document.">
+
+
+<style>
+  @font-face {
+    font-family: 'Everett';
+    src: url('fonts/Everett-Light-8f759ffb.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Everett';
+    src: url('fonts/Everett-Medium-d8cb7d44.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #131417;
+    --bg-2:      #1b1f2b;
+    --bg-3:      #1e2231;
+    --paper:     #f7f6f2;
+    --paper-2:   #eceae4;
+    --paper-3:   #e3e0d8;
+    --ink:       #131417;
+    --fg:        #f7f6f2;
+    --fg-dim:    rgba(247,246,242,0.62);
+    --fg-mute:   rgba(247,246,242,0.38);
+    --fg-faint:  rgba(247,246,242,0.16);
+    --border:    rgba(247,246,242,0.10);
+    --ink-dim:   rgba(19,20,23,0.62);
+    --ink-mute:  rgba(19,20,23,0.40);
+    --ink-faint: rgba(19,20,23,0.16);
+    --border-paper: rgba(19,20,23,0.10);
+
+    --accent: #8fa6ff;
+    --blue-solid: #1f4fd8;
+    --coral:  #8fa6ff;
+    --positive: #4ad295;
+
+    --display: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    --sans:    'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    --mono:    'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+
+    --fs-meta: 10.5px;
+    --fs-cap:  11.5px;
+    --fs-body: 15px;
+    --fs-h6:   17px;
+    --fs-h5:   24px;
+    --fs-h4:   34px;
+    --fs-h3:   46px;
+
+    --t-mono: 0.18em;
+    --t-display: -0.025em;
+    --t-tight:   -0.018em;
+
+    --pad-x: clamp(20px, 3vw, 48px);
+
+    --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  @media (max-width: 880px) { body { overflow: auto; } }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ============ HEADER ============ */
+  .proto-header {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px var(--pad-x);
+    border-bottom: 0.5px solid var(--border);
+    z-index: 10;
+  }
+  .proto-back {
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s var(--ease);
+  }
+  .proto-back:hover { color: var(--coral); }
+  .proto-back .arr { transition: transform 0.3s var(--ease); }
+  .proto-back:hover .arr { transform: translateX(-3px); }
+
+  .proto-title {
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    text-align: center;
+  }
+  .proto-title strong { color: var(--fg); font-weight: 500; }
+
+  .proto-counter {
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    text-align: right;
+  }
+  .proto-counter .current { color: var(--coral); font-weight: 500; }
+
+  /* ============ STAGE ============ */
+  .proto-stage {
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(24px, 4vw, 80px);
+    padding: clamp(32px, 5vw, 72px) var(--pad-x);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.55s var(--ease), transform 0.7s var(--ease);
+    align-items: center;
+  }
+  .step.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+  .step.exit-prev { transform: translateY(-20px); }
+
+  @media (max-width: 1100px) {
+    .step { grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  }
+  @media (max-width: 880px) {
+    .proto-stage { overflow: visible; min-height: calc(100svh - 140px); }
+    .step { position: relative; inset: auto; padding: 24px var(--pad-x); }
+    .step:not(.active) { display: none; }
+  }
+
+  /* ============ STEP CONTENT (left panel) ============ */
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 520px;
+  }
+
+  .step-personas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .persona-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    padding: 7px 12px 6px;
+    border-radius: 100px;
+    color: var(--fg);
+    background: rgba(247,246,242,0.04);
+    border: 0.5px solid var(--border);
+  }
+  .persona-chip.client {
+    color: var(--coral);
+    background: rgba(31,79,216,0.10);
+    border-color: rgba(143,166,255,0.45);
+  }
+  .persona-chip .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .step-num {
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--fg-mute);
+  }
+  .step-num strong { color: var(--coral); font-weight: 500; }
+
+  .step-headline {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: var(--fs-h3);
+    line-height: 1.05;
+    letter-spacing: var(--t-display);
+    color: var(--fg);
+    text-wrap: balance;
+  }
+  .step-headline em {
+    color: var(--coral);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .step-prose {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--fg-dim);
+    max-width: 56ch;
+  }
+  .step-prose strong { color: var(--fg); font-weight: 500; }
+  .step-prose em { color: var(--coral); font-style: normal; }
+
+  .step-impact {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    padding: 18px 22px;
+    border-radius: 6px;
+    background: rgba(74,210,149,0.08);
+    border: 0.5px solid rgba(74,210,149,0.3);
+    align-items: start;
+    margin-top: 8px;
+  }
+  .step-impact-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--positive);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .step-impact-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--fg);
+  }
+  .step-impact-text strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--positive);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  /* ============ MOCKUP (right panel) ============ */
+  .step-mockup {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  @media (max-width: 1100px) {
+    .step-mockup { height: auto; min-height: 400px; }
+  }
+
+  .mockup {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    color: var(--ink);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 30px 80px -20px rgba(0,0,0,0.6),
+      0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(0);
+    transition: transform 0.8s var(--ease-out);
+    pointer-events: auto;
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 13px;
+  }
+  .step.active .mockup { animation: mockup-float 6s ease-in-out infinite; }
+
+  @keyframes mockup-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  .mockup.phone {
+    max-width: 280px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #131417;
+    padding: 8px;
+    box-shadow:
+      0 0 0 2px #1a1a1a,
+      0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+  .mockup.phone .phone-screen {
+    background: linear-gradient(160deg, #1a1a2e 0%, #0a0a1a 100%);
+    color: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    aspect-ratio: 9 / 19;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mockup-chrome {
+    background: #f3f3f3;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mockup-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .mockup-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d0d0d0;
+  }
+  .mockup-url {
+    flex: 1;
+    background: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 11px;
+    color: #777;
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mockup-url .lock {
+    display: inline-block;
+    color: #4ad295;
+    margin-right: 6px;
+  }
+
+  /* App-level styles inside mockup */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 22px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  }
+  .app-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #131417;
+  }
+  .app-brand .mark {
+    width: 22px;
+    height: 22px;
+    background: #c41818;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .app-brand .product {
+    color: #555;
+    font-weight: 400;
+  }
+  .app-nav {
+    display: flex;
+    gap: 18px;
+    font-size: 12px;
+  }
+  .app-nav a {
+    color: #555;
+    text-decoration: none;
+  }
+  .app-nav a.active {
+    color: #131417;
+    font-weight: 500;
+    position: relative;
+  }
+  .app-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -16px;
+    height: 1.5px;
+    background: #131417;
+  }
+  .app-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #555;
+  }
+  .app-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1f4fd8, #8fa6ff);
+    color: #131417;
+    font-weight: 600;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-body {
+    padding: 22px 26px 24px;
+  }
+
+  .app-eyebrow {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 8px;
+  }
+  .app-title {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #131417;
+    margin-bottom: 6px;
+    letter-spacing: -0.015em;
+  }
+  .app-sub {
+    font-size: 12.5px;
+    color: #666;
+    margin-bottom: 18px;
+  }
+
+  /* Form */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .field input, .field select {
+    border: 0.5px solid #d4d4d4;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 12.5px;
+    color: #131417;
+    background: #fff;
+  }
+  .field .ghost {
+    color: #999;
+  }
+
+  /* Toggle row */
+  .toggle-row {
+    display: inline-flex;
+    background: #f3f3f3;
+    border-radius: 4px;
+    padding: 3px;
+    margin-bottom: 16px;
+    font-size: 11px;
+  }
+  .toggle-row span {
+    padding: 6px 12px;
+    border-radius: 3px;
+    color: #666;
+  }
+  .toggle-row span.on {
+    background: #fff;
+    color: #131417;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  /* Banner / link match */
+  .link-match {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #f0fff4;
+    border: 0.5px solid #c4eed3;
+    border-radius: 4px;
+    margin-bottom: 18px;
+    font-size: 11.5px;
+    color: #2d6045;
+  }
+  .link-match .icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #4ad295;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .link-match strong { color: #1a4530; font-weight: 600; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 0.5px solid #131417;
+    background: #131417;
+    color: #fff;
+    cursor: pointer;
+  }
+  .btn.ghost {
+    background: transparent;
+    color: #131417;
+  }
+  .btn.primary {
+    background: #8fa6ff;
+    border-color: #8fa6ff;
+    color: #131417;
+  }
+  .button-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  /* Status pills */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+  .pill .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .pill.green  { color: #1a7c52; background: #e6f7ee; }
+  .pill.amber  { color: #8a5a00; background: #fff4dd; }
+  .pill.blue   { color: #1d4ed8; background: #e6efff; }
+  .pill.grey   { color: #555;    background: #f0f0f0; }
+  .pill.red    { color: #b3201d; background: #fde8e7; }
+
+  /* Tables / lists */
+  .data-row {
+    display: grid;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #efefef;
+    font-size: 12px;
+  }
+  .data-row.head {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    background: #fafafa;
+    border-bottom: 0.5px solid #ececec;
+  }
+  .data-name { font-weight: 500; color: #131417; }
+  .data-meta { color: #888; font-size: 11px; }
+
+  /* Stat strip */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 16px 22px;
+    border-bottom: 0.5px solid #efefef;
+  }
+  .stat-strip .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-num {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #131417;
+    letter-spacing: -0.02em;
+  }
+  .stat-num .delta { font-size: 11px; color: #4ad295; margin-left: 6px; font-weight: 500; }
+  .stat-name {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* Progress bars */
+  .progress-bar {
+    background: #efefef;
+    border-radius: 100px;
+    height: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar .fill {
+    background: #131417;
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1.4s var(--ease-out);
+  }
+  .progress-bar .fill.green { background: #4ad295; }
+  .progress-bar .fill.coral { background: #1f4fd8; border-right: 1px solid #131417; }
+  .progress-bar .fill.red   { background: #f44a4a; }
+  .progress-bar.thin { height: 4px; }
+
+  /* Checks list */
+  .checks-list {
+    display: flex;
+    flex-direction: column;
+    border: 0.5px solid #ececec;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .checks-list .item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 0.5px solid #ececec;
+  }
+  .checks-list .item:last-child { border-bottom: 0; }
+  .check-mark {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #4ad295;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .check-mark.pending {
+    background: transparent;
+    border: 1px dashed #c0c0c0;
+    color: #999;
+  }
+  .check-name {
+    font-weight: 500;
+    color: #131417;
+    font-size: 12.5px;
+  }
+  .check-name small {
+    display: block;
+    font-weight: 400;
+    color: #888;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .check-time {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* Phone notifications */
+  .phone-status {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .phone-status .right { display: inline-flex; gap: 4px; }
+  .phone-time-block {
+    text-align: center;
+    padding: 18px 0 22px;
+  }
+  .phone-time {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 56px;
+    font-weight: 200;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .phone-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .phone-notifs {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .phone-notif {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 11.5px;
+    line-height: 1.4;
+    border: 0.5px solid rgba(255,255,255,0.12);
+  }
+  .phone-notif .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .phone-notif .head .app {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .phone-notif .head .app-mark {
+    width: 14px; height: 14px;
+    background: #8fa6ff;
+    border-radius: 3px;
+  }
+  .phone-notif strong {
+    display: block;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1px;
+    font-size: 12px;
+  }
+  .phone-notif.coral .app-mark { background: #8fa6ff; }
+  .phone-notif.green .app-mark { background: #4ad295; }
+  .phone-notif.blue .app-mark { background: #6aa9ff; }
+
+  /* Inbox / message thread mock */
+  .inbox-shell {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    height: 100%;
+  }
+  .inbox-list {
+    border-right: 0.5px solid #efefef;
+    overflow: hidden;
+  }
+  .inbox-list .head {
+    padding: 12px 14px;
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    border-bottom: 0.5px solid #efefef;
+  }
+  .inbox-row {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #f5f5f5;
+    cursor: pointer;
+  }
+  .inbox-row.active {
+    background: #f9f9f9;
+    border-left: 2px solid #8fa6ff;
+    padding-left: 12px;
+  }
+  .inbox-row .from {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #131417;
+    margin-bottom: 2px;
+  }
+  .inbox-row .subj {
+    font-size: 11px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .inbox-row .meta {
+    display: flex;
+    gap: 4px;
+    margin-top: 5px;
+  }
+
+  .thread-pane {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .thread-head {
+    border-bottom: 0.5px solid #efefef;
+    padding-bottom: 12px;
+  }
+  .thread-subject {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #131417;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .thread-meta {
+    font-size: 11px;
+    color: #888;
+    display: flex;
+    gap: 10px;
+  }
+  .thread-msg {
+    background: #fafafa;
+    border: 0.5px solid #efefef;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+  }
+  .thread-msg .who {
+    font-weight: 600;
+    color: #131417;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .thread-msg .who small {
+    display: inline-block;
+    margin-left: 8px;
+    color: #888;
+    font-weight: 400;
+    font-size: 10px;
+  }
+  .thread-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #f0f0f0;
+    color: #666;
+    font-weight: 500;
+  }
+  .thread-tag.coral { background: rgba(31,79,216,0.14); color: #1d4ed8; }
+
+  /* Filter pills */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 14px 22px;
+    border-bottom: 0.5px solid #efefef;
+  }
+  .filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    padding: 5px 10px;
+    border: 0.5px solid #d4d4d4;
+    border-radius: 4px;
+    color: #555;
+  }
+  .filter.active {
+    background: #131417;
+    color: #fff;
+    border-color: #131417;
+  }
+  .filter .count { color: #999; }
+  .filter.active .count { color: rgba(255,255,255,0.7); }
+
+  /* Cohort table */
+  .cohort-row {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr 1.6fr 0.7fr;
+    gap: 14px;
+    align-items: center;
+    padding: 11px 22px;
+    border-bottom: 0.5px solid #f3f3f3;
+    font-size: 12px;
+  }
+  .cohort-row.head {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    background: #fafafa;
+  }
+  .cohort-row .name {
+    font-weight: 500;
+    color: #131417;
+  }
+  .cohort-row .name small {
+    display: block;
+    color: #888;
+    font-size: 10.5px;
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  /* Auto-booking success */
+  .booking-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 24px;
+    gap: 16px;
+  }
+  .success-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8fa6ff, #1f4fd8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #131417;
+    font-size: 26px;
+    font-weight: 600;
+    animation: success-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes success-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(74,210,149,0.4); }
+    50%      { transform: scale(1.05); box-shadow: 0 0 0 14px rgba(74,210,149,0); }
+  }
+  .success-title {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #131417;
+    letter-spacing: -0.015em;
+  }
+  .success-sub {
+    font-size: 12.5px;
+    color: #666;
+    max-width: 36ch;
+    line-height: 1.5;
+  }
+  .booking-detail {
+    width: 100%;
+    border: 0.5px solid #ececec;
+    border-radius: 6px;
+    background: #fafafa;
+    padding: 14px 16px;
+    text-align: left;
+    margin-top: 8px;
+  }
+  .booking-detail .row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 0.5px solid #ececec;
+  }
+  .booking-detail .row:last-child { border-bottom: 0; }
+  .booking-detail .row label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .booking-detail .row .val {
+    color: #131417;
+    font-weight: 500;
+  }
+
+  /* Readiness step list */
+  .ready-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 0.5px solid #ececec;
+  }
+  .ready-list .item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 0.5px solid #ececec;
+  }
+  .ready-list .item.done .ready-mark { background: #4ad295; color: #fff; border-color: #4ad295; }
+  .ready-list .item.up-next .ready-mark { background: #1f4fd8; color: #f7f6f2; border-color: #1f4fd8; }
+  .ready-mark {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px dashed #c0c0c0;
+    color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .ready-list .item.done .ready-mark::before { content: "✓"; color: #fff; }
+  .ready-list .item.up-next .ready-mark::before { content: "→"; color: #131417; font-weight: 600; }
+  .ready-name {
+    font-weight: 500;
+    color: #131417;
+    font-size: 13px;
+  }
+  .ready-name small {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    font-weight: 400;
+    margin-top: 1px;
+  }
+  .ready-time {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* Welcome card (Step 02) */
+  .welcome-block {
+    text-align: left;
+  }
+  .progress-steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .progress-steps .seg {
+    flex: 1;
+    height: 3px;
+    background: #ececec;
+    border-radius: 100px;
+    transition: background 0.4s var(--ease);
+  }
+  .progress-steps .seg.done { background: #4ad295; }
+  .progress-steps .seg.current { background: #131417; }
+  .programme-card {
+    border: 0.5px solid #ececec;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-top: 10px;
+    background: #fafafa;
+  }
+  .programme-card .label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .programme-card .name {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #131417;
+    letter-spacing: -0.01em;
+  }
+  .programme-card .meta {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #666;
+  }
+
+  /* Workload bars (Step 07) */
+  .workload-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.8fr 1.4fr;
+    gap: 14px;
+    align-items: center;
+    padding: 9px 22px;
+    border-bottom: 0.5px solid #f3f3f3;
+    font-size: 12px;
+  }
+  .workload-row.head {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    background: #fafafa;
+  }
+  .workload-row .name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .workload-row .avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 600;
+    background: #ececec;
+    color: #555;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .util-bar {
+    height: 5px;
+    background: #ececec;
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .util-bar .fill {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: #4ad295;
+    border-radius: 100px;
+    transition: width 1.6s var(--ease-out);
+  }
+  .util-bar .fill.high { background: #8fa6ff; }
+  .util-bar .fill.over { background: #f44a4a; }
+  .util-pct {
+    font-family: 'Everett', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 500;
+    color: #131417;
+    font-size: 12px;
+  }
+
+  /* ============ FOOTER NAV ============ */
+  .proto-footer {
+    flex: 0 0 auto;
+    display: grid;
+    /* minmax(0, 1fr) lets the step rail shrink; a bare 1fr keeps its
+       intrinsic width and pushes the forward button off screen. */
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    padding: 16px var(--pad-x);
+    border-top: 0.5px solid var(--border);
+    background: rgba(19,20,23,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--fg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+    font-size: 18px;
+  }
+  .nav-btn:hover:not(:disabled) {
+    background: var(--blue-solid);
+    color: var(--ink);
+    border-color: var(--blue-solid);
+  }
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .progress-track {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    width: 100%;
+  }
+  .seg-btn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    text-align: left;
+  }
+  .seg-bar {
+    height: 2px;
+    background: var(--fg-faint);
+    border-radius: 100px;
+    transition: background 0.3s var(--ease), height 0.3s var(--ease);
+  }
+  .seg-btn.active .seg-bar { background: var(--blue-solid); height: 3px; }
+  .seg-btn.done .seg-bar { background: var(--fg-mute); }
+  .seg-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: var(--t-mono);
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s var(--ease);
+  }
+  .seg-btn.active .seg-label { color: var(--fg); }
+  @media (max-width: 880px) {
+    .seg-label { display: none; }
+  }
+  @media (max-width: 600px) {
+    .progress-track { grid-template-columns: repeat(10, 1fr); }
+  }
+
+  /* Print fallback */
+  @media print {
+    body { overflow: visible; height: auto; }
+    .step { position: relative; opacity: 1; pointer-events: auto; transform: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<header class="proto-header">
+  <a href="case-bpp.html" class="proto-back">
+    <span class="arr">←</span>
+    <span>Back to case study</span>
+  </a>
+  <div class="proto-title">BPP — Apprenticeship Onboarding · <strong>To-Be Walkthrough</strong></div>
+  <div class="proto-counter"><span class="current" id="currentStep">01</span> / 10</div>
+</header>
+
+<main class="proto-stage" id="stage">
+
+  <!-- ============ STEP 01 — CLIENT HUB APPLICATION ============ -->
+  <article class="step active" data-step="1" data-label="Client Hub">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip client"><span class="dot"></span>Training Coordinator</span>
+      </div>
+      <span class="step-num">Step <strong>01 / 10</strong></span>
+      <h2 class="step-headline">A client starts the application via <em>Client Hub</em>.</h2>
+      <p class="step-prose">The learner is automatically linked to the client record at the point of creation — removing the manual matching that today requires email exchanges between BPP Operations and the client.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Removes audit time from onboarding by linking learner-to-client at the source.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>clienthub.bpp.com / learners / new</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Client Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a class="active">Add learners</a>
+            <a>Reports</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">TC</span>
+          </div>
+        </div>
+        <div class="app-body">
+          <div class="app-eyebrow">Step 01 of 04</div>
+          <div class="app-title">Add new learners</div>
+          <div class="app-sub">Add up to 25 apprentices in a single batch. We'll auto-link them to your client record.</div>
+
+          <div class="link-match">
+            <span class="icon">✓</span>
+            <div>Linked to <strong>Client account · Cohort Spring 2026</strong> · auto-detected from your sign-in.</div>
+          </div>
+
+          <div class="toggle-row">
+            <span class="on">Manual entry</span>
+            <span>Bulk upload</span>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label>First name</label>
+              <input value="Alex" />
+            </div>
+            <div class="field">
+              <label>Last name</label>
+              <input value="Morgan" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Work email</label>
+              <input value="alex.morgan@example.com" />
+            </div>
+            <div class="field">
+              <label>Programme</label>
+              <input value="Level 7 Accountancy / Tax Professional" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Start date</label>
+              <input value="06 April 2026" />
+            </div>
+            <div class="field">
+              <label>Line manager</label>
+              <input value="J. Patel · jpatel@example.com" />
+            </div>
+          </div>
+
+          <div class="button-row" style="margin-top:18px;">
+            <button class="btn ghost">Save draft</button>
+            <button class="btn primary">Review &amp; submit →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 02 — APPRENTICE JOIN ============ -->
+  <article class="step" data-step="2" data-label="Apprentice Join">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip client"><span class="dot"></span>Apprentice</span>
+      </div>
+      <span class="step-num">Step <strong>02 / 10</strong></span>
+      <h2 class="step-headline">Apprentice leverages the existing <em>Join</em> workflow.</h2>
+      <p class="step-prose">No new account creation, no parallel application form. The apprentice picks up from where their employer left off, with a personalised welcome and pre-filled context.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Reduces friction at first touch — no duplicate Salesforce records, no broken handover from client to learner.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>join.bpp.com / welcome / a-morgan</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Join</span>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">AM</span>
+          </div>
+        </div>
+        <div class="app-body welcome-block">
+          <div class="progress-steps">
+            <span class="seg current"></span>
+            <span class="seg"></span>
+            <span class="seg"></span>
+            <span class="seg"></span>
+          </div>
+          <div class="app-eyebrow">Welcome to BPP</div>
+          <div class="app-title">Hi Alex — let's get you set up.</div>
+          <div class="app-sub">Your employer has confirmed your apprenticeship. We just need a few details from you.</div>
+
+          <div class="programme-card">
+            <div class="label">Your programme</div>
+            <div class="name">Level 7 Accountancy / Tax Professional</div>
+            <div class="meta">
+              <span>Start: 06 April 2026</span>
+              <span>·</span>
+              <span>Duration: 36 months</span>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top:18px;">
+            <div class="field">
+              <label>Date of birth</label>
+              <input value="DD / MM / YYYY" class="ghost" />
+            </div>
+            <div class="field">
+              <label>National Insurance #</label>
+              <input value="QQ 12 34 56 C" />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="field">
+              <label>Home address</label>
+              <input value="Start typing your postcode…" class="ghost" />
+            </div>
+          </div>
+
+          <div class="button-row" style="margin-top:18px;">
+            <button class="btn primary">Continue →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 03 — AUTOMATED CHECKS ============ -->
+  <article class="step" data-step="3" data-label="Auto checks">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip"><span class="dot"></span>Apprenticeship Operations</span>
+      </div>
+      <span class="step-num">Step <strong>03 / 10</strong></span>
+      <h2 class="step-headline">Onboarding teams benefit from <em>automated checks</em>.</h2>
+      <p class="step-prose">Identity, eligibility, levy status, and prior learning are all verified automatically the moment an application enters the system — compressing the 4-week processing window into days.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Cuts the share of onboarding lead time spent <em>on hold</em> — currently 51% of total time.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>operations.bpp.com / applications / 0024-AM</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Operations Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a class="active">Applications</a>
+            <a>Workload</a>
+            <a>Comms</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">OP</span>
+          </div>
+        </div>
+        <div class="app-body">
+          <div class="app-eyebrow">Application 0024-AM</div>
+          <div class="app-title">Alex Morgan — automated checks</div>
+          <div class="app-sub" style="display:flex; gap:10px; align-items:center; margin-bottom:20px;">
+            <span class="pill green"><span class="dot"></span>4 of 4 passed</span>
+            <span style="color:#888;">Completed in <strong style="color:#131417; font-weight:500;">12 min</strong> · target window 4 weeks</span>
+          </div>
+
+          <div class="checks-list">
+            <div class="item">
+              <div class="check-mark">✓</div>
+              <div>
+                <div class="check-name">Identity verified
+                  <small>Cross-checked against DfE learner ID + home address.</small>
+                </div>
+              </div>
+              <span class="check-time">Auto · 09:42</span>
+            </div>
+            <div class="item">
+              <div class="check-mark">✓</div>
+              <div>
+                <div class="check-name">Funding eligibility confirmed
+                  <small>DfE compliance rules applied. No exemptions triggered.</small>
+                </div>
+              </div>
+              <span class="check-time">Auto · 09:43</span>
+            </div>
+            <div class="item">
+              <div class="check-mark">✓</div>
+              <div>
+                <div class="check-name">Levy status checked
+                  <small>Employer is a levy-payer. Reservation not required.</small>
+                </div>
+              </div>
+              <span class="check-time">Auto · 09:43</span>
+            </div>
+            <div class="item">
+              <div class="check-mark">✓</div>
+              <div>
+                <div class="check-name">Prior learning matched
+                  <small>Self-declared prior learning matched to learner profile.</small>
+                </div>
+              </div>
+              <span class="check-time">Auto · 09:44</span>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; padding:12px 14px; background:#fafafa; border:0.5px dashed #d4d4d4; border-radius:6px; font-size:11.5px; color:#555;">
+            All automated checks completed. <strong style="color:#131417;">No manual intervention required.</strong> Application will auto-advance to booking stage.
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 04 — MOBILE NOTIFICATIONS ============ -->
+  <article class="step" data-step="4" data-label="Notifications">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip client"><span class="dot"></span>Apprentice</span>
+        <span class="persona-chip client"><span class="dot"></span>Line Manager</span>
+      </div>
+      <span class="step-num">Step <strong>04 / 10</strong></span>
+      <h2 class="step-headline">Apprentices and line managers get nudged when information is missing.</h2>
+      <p class="step-prose">Apprentices and line managers receive automated nudges only when something is missing or actionable — not the email overload that today comes from four different BPP teams.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Replaces ad-hoc email chasing with a single, consistent channel — reducing comms volume by an order of magnitude.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup phone">
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span>09:41</span>
+            <span class="right"><span>●●●</span> <span>📶</span> <span>87%</span></span>
+          </div>
+          <div class="phone-time-block">
+            <div class="phone-time">9:41</div>
+            <div class="phone-date">Tuesday, 11 February</div>
+          </div>
+          <div class="phone-notifs">
+            <div class="phone-notif coral">
+              <div class="head">
+                <span class="app"><span class="app-mark"></span>BPP</span>
+                <span>now</span>
+              </div>
+              <strong>Action needed: upload prior learning evidence</strong>
+              Tap to open in 2 minutes — keeps your start date on track.
+            </div>
+            <div class="phone-notif green">
+              <div class="head">
+                <span class="app"><span class="app-mark"></span>BPP</span>
+                <span>2h ago</span>
+              </div>
+              <strong>Your line manager approved your enrolment</strong>
+              You're confirmed onto Level 7 Accountancy / Tax Professional.
+            </div>
+            <div class="phone-notif blue">
+              <div class="head">
+                <span class="app"><span class="app-mark"></span>BPP</span>
+                <span>Yesterday</span>
+              </div>
+              <strong>Welcome to BPP — your timetable is ready</strong>
+              First induction: 06 April, 09:30. Materials shipping this week.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 05 — APPLICATIONS LIST ============ -->
+  <article class="step" data-step="5" data-label="Applications">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip"><span class="dot"></span>Client Operations</span>
+      </div>
+      <span class="step-num">Step <strong>05 / 10</strong></span>
+      <h2 class="step-headline">An intuitive view of applications, <em>fronted by Salesforce</em>.</h2>
+      <p class="step-prose">Filterable, searchable, and triagable in one screen. Status, owner, next action, and time-on-stage visible at a glance — replacing today's spreadsheet trackers and email reconciliation.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Removes duplicate data and manual reconciliation between Salesforce and school spreadsheets.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>operations.bpp.com / applications</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Operations Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a class="active">Applications</a>
+            <a>Workload</a>
+            <a>Comms</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">OP</span>
+          </div>
+        </div>
+        <div class="filter-row">
+          <span class="filter active">Status: All <span class="count">128</span></span>
+          <span class="filter">In review <span class="count">42</span></span>
+          <span class="filter">On hold <span class="count">18</span></span>
+          <span class="filter">Ready to book <span class="count">31</span></span>
+          <span class="filter">Programme <span class="count">▾</span></span>
+          <span class="filter">School <span class="count">▾</span></span>
+        </div>
+
+        <div class="data-row head" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <span>Learner</span>
+          <span>Client</span>
+          <span>Programme</span>
+          <span>Status</span>
+          <span>Next action</span>
+        </div>
+        <div class="data-row" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <div><span class="data-name">Alex Morgan</span><div class="data-meta">0024-AM · 12 min ago</div></div>
+          <span class="data-meta">Acme Co.</span>
+          <span class="data-meta">L7 Accountancy / Tax</span>
+          <span><span class="pill green"><span class="dot"></span>Auto-passed</span></span>
+          <span class="data-meta">Auto-book</span>
+        </div>
+        <div class="data-row" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <div><span class="data-name">Priya R.</span><div class="data-meta">0023-PR · 2 hr ago</div></div>
+          <span class="data-meta">Northbank</span>
+          <span class="data-meta">L4 Data Analyst</span>
+          <span><span class="pill amber"><span class="dot"></span>Awaiting LM</span></span>
+          <span class="data-meta">Nudge sent</span>
+        </div>
+        <div class="data-row" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <div><span class="data-name">Jordan B.</span><div class="data-meta">0022-JB · 4 hr ago</div></div>
+          <span class="data-meta">Southfield Group</span>
+          <span class="data-meta">L6 Solicitor</span>
+          <span><span class="pill blue"><span class="dot"></span>In review</span></span>
+          <span class="data-meta">Compliance</span>
+        </div>
+        <div class="data-row" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <div><span class="data-name">Chen W.</span><div class="data-meta">0021-CW · Yesterday</div></div>
+          <span class="data-meta">Civic Authority</span>
+          <span class="data-meta">L7 Senior Leader</span>
+          <span><span class="pill green"><span class="dot"></span>Ready to book</span></span>
+          <span class="data-meta">Auto-book</span>
+        </div>
+        <div class="data-row" style="grid-template-columns: 1.4fr 1fr 1.6fr 0.9fr 0.9fr;">
+          <div><span class="data-name">Sam O.</span><div class="data-meta">0020-SO · 2 days ago</div></div>
+          <span class="data-meta">Heritage Bank</span>
+          <span class="data-meta">L4 Cyber Security</span>
+          <span><span class="pill red"><span class="dot"></span>Missing evidence</span></span>
+          <span class="data-meta">Nudge in 24h</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 06 — LIVE COHORT VISIBILITY ============ -->
+  <article class="step" data-step="6" data-label="Cohort visibility">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip client"><span class="dot"></span>Training Coordinator</span>
+        <span class="persona-chip client"><span class="dot"></span>Head of Training</span>
+      </div>
+      <span class="step-num">Step <strong>06 / 10</strong></span>
+      <h2 class="step-headline">Clients see cohort progress in real time.</h2>
+      <p class="step-prose">Clients see real-time progress across their cohort instead of waiting for an emailed Excel report. Status, blockers, and next actions are visible to the people accountable for them.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Improves trust, reduces query volume, and removes the perception of poor professionalism today created by spreadsheet trackers.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>clienthub.bpp.com / cohorts / spring-2026</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Client Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a class="active">Cohorts</a>
+            <a>Reports</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">TC</span>
+          </div>
+        </div>
+        <div class="app-body" style="padding-bottom: 10px;">
+          <div class="app-eyebrow">Cohort · Spring 2026</div>
+          <div class="app-title">Acme Co. — Level 7 Accountancy / Tax</div>
+          <div class="app-sub">Live view · last sync 2 minutes ago</div>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <span class="stat-num">24</span>
+            <span class="stat-name">Total apprentices</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">18 <span class="delta">+3</span></span>
+            <span class="stat-name">In progress</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3</span>
+            <span class="stat-name">On hold</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3</span>
+            <span class="stat-name">Ready to start</span>
+          </div>
+        </div>
+
+        <div class="cohort-row head">
+          <span>Apprentice</span>
+          <span>Stage</span>
+          <span>Progress</span>
+          <span>Status</span>
+        </div>
+        <div class="cohort-row">
+          <div class="name">Alex Morgan<small>L7 Accountancy</small></div>
+          <span class="data-meta">Booking</span>
+          <div class="progress-bar"><div class="fill green" style="width:88%;"></div></div>
+          <span><span class="pill green"><span class="dot"></span>On track</span></span>
+        </div>
+        <div class="cohort-row">
+          <div class="name">Priya R.<small>L7 Accountancy</small></div>
+          <span class="data-meta">Application</span>
+          <div class="progress-bar"><div class="fill" style="width:62%;"></div></div>
+          <span><span class="pill amber"><span class="dot"></span>Awaiting LM</span></span>
+        </div>
+        <div class="cohort-row">
+          <div class="name">Jordan B.<small>L7 Accountancy</small></div>
+          <span class="data-meta">Eligibility</span>
+          <div class="progress-bar"><div class="fill" style="width:45%;"></div></div>
+          <span><span class="pill blue"><span class="dot"></span>In review</span></span>
+        </div>
+        <div class="cohort-row">
+          <div class="name">Chen W.<small>L7 Accountancy</small></div>
+          <span class="data-meta">Materials</span>
+          <div class="progress-bar"><div class="fill green" style="width:96%;"></div></div>
+          <span><span class="pill green"><span class="dot"></span>Ready</span></span>
+        </div>
+        <div class="cohort-row" style="border-bottom: 0;">
+          <div class="name">Sam O.<small>L7 Accountancy</small></div>
+          <span class="data-meta">Application</span>
+          <div class="progress-bar"><div class="fill red" style="width:30%;"></div></div>
+          <span><span class="pill red"><span class="dot"></span>Missing evidence</span></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 07 — OPERATIONS WORKLOAD ============ -->
+  <article class="step" data-step="7" data-label="Workload">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip"><span class="dot"></span>Client Operations</span>
+        <span class="persona-chip"><span class="dot"></span>Head of Client Operations</span>
+      </div>
+      <span class="step-num">Step <strong>07 / 10</strong></span>
+      <h2 class="step-headline">Live utilisation tooling routes applications by capacity.</h2>
+      <p class="step-prose">Live utilisation across the team, with applications routed by capacity, programme expertise, and SLA. Replaces the manual reshuffle currently consuming 26 hours per team member per week.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Process applications faster through built-in utilisation tooling — predictable peak coverage without temporary staffing spikes.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>operations.bpp.com / workload</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Operations Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a>Applications</a>
+            <a class="active">Workload</a>
+            <a>Comms</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">HC</span>
+          </div>
+        </div>
+        <div class="app-body" style="padding-bottom: 8px;">
+          <div class="app-eyebrow">Team workload · This week</div>
+          <div class="app-title">Capacity at a glance</div>
+          <div class="app-sub">Manage team capacity, assign applications, and balance workload across your team.</div>
+        </div>
+        <div class="stat-strip" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="stat">
+            <span class="stat-num">78%</span>
+            <span class="stat-name">Team utilisation</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">42 <span class="delta">/ 60</span></span>
+            <span class="stat-name">Apps in flight</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">2.1<small style="font-size:14px; color:#888;">d</small></span>
+            <span class="stat-name">Avg time-to-book</span>
+          </div>
+        </div>
+
+        <div class="workload-row head">
+          <span>Team member</span>
+          <span>Role</span>
+          <span>Capacity</span>
+          <span>Utilisation</span>
+        </div>
+        <div class="workload-row">
+          <div class="name"><span class="avatar">EM</span>E. Mendez</div>
+          <span class="data-meta">Lead</span>
+          <span class="util-pct">8 apps</span>
+          <div class="util-bar"><div class="fill high" style="width:82%;"></div></div>
+        </div>
+        <div class="workload-row">
+          <div class="name"><span class="avatar">AT</span>A. Tan</div>
+          <span class="data-meta">CSE</span>
+          <span class="util-pct">6 apps</span>
+          <div class="util-bar"><div class="fill" style="width:64%;"></div></div>
+        </div>
+        <div class="workload-row">
+          <div class="name"><span class="avatar">RH</span>R. Hughes</div>
+          <span class="data-meta">CSE</span>
+          <span class="util-pct">9 apps</span>
+          <div class="util-bar"><div class="fill over" style="width:96%;"></div></div>
+        </div>
+        <div class="workload-row">
+          <div class="name"><span class="avatar">LK</span>L. Kowalski</div>
+          <span class="data-meta">CSE</span>
+          <span class="util-pct">5 apps</span>
+          <div class="util-bar"><div class="fill" style="width:54%;"></div></div>
+        </div>
+        <div class="workload-row" style="border-bottom: 0;">
+          <div class="name"><span class="avatar">DO</span>D. Okafor</div>
+          <span class="data-meta">CSE · Junior</span>
+          <span class="util-pct">3 apps</span>
+          <div class="util-bar"><div class="fill" style="width:38%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 08 — FIRST DAY READINESS ============ -->
+  <article class="step" data-step="8" data-label="Readiness">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip client"><span class="dot"></span>Apprentice</span>
+      </div>
+      <span class="step-num">Step <strong>08 / 10</strong></span>
+      <h2 class="step-headline">Timely, digestible info on <em>first-day readiness</em>.</h2>
+      <p class="step-prose">A single source of truth for the apprentice: what's done, what's next, where to be on day one — and the materials, timetable, and platform access that need to be in place for that moment.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Replaces the BCC'd induction email and Outlook Signature workflow with a personalised, real-time view.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>hub.bpp.com / my-apprenticeship</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Hub</span>
+          </div>
+          <div class="app-nav">
+            <a class="active">My apprenticeship</a>
+            <a>Timetable</a>
+            <a>Materials</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">AM</span>
+          </div>
+        </div>
+        <div class="app-body">
+          <div class="app-eyebrow">Welcome, Alex</div>
+          <div class="app-title">Your application has been accepted.</div>
+          <div class="app-sub">You're confirmed onto Level 7 Accountancy / Tax Professional. Here's what happens next.</div>
+
+          <div class="ready-list">
+            <div class="item done">
+              <div class="ready-mark"></div>
+              <div>
+                <div class="ready-name">Application accepted
+                  <small>All compliance checks passed automatically.</small>
+                </div>
+              </div>
+              <span class="ready-time">11 Feb</span>
+            </div>
+            <div class="item done">
+              <div class="ready-mark"></div>
+              <div>
+                <div class="ready-name">Programme &amp; cohort assigned
+                  <small>Level 7 Accountancy / Tax · Cohort Spring 2026.</small>
+                </div>
+              </div>
+              <span class="ready-time">11 Feb</span>
+            </div>
+            <div class="item done">
+              <div class="ready-mark"></div>
+              <div>
+                <div class="ready-name">Timetable confirmed
+                  <small>14 sessions · April → July. View full timetable →</small>
+                </div>
+              </div>
+              <span class="ready-time">12 Feb</span>
+            </div>
+            <div class="item up-next">
+              <div class="ready-mark"></div>
+              <div>
+                <div class="ready-name">Materials shipping
+                  <small>3 textbooks + Level 7 platform login. ETA in 5 working days.</small>
+                </div>
+              </div>
+              <span class="ready-time">In progress</span>
+            </div>
+            <div class="item">
+              <div class="ready-mark"></div>
+              <div>
+                <div class="ready-name">First induction
+                  <small>06 April · 09:30 · BPP London Holborn (or join virtually).</small>
+                </div>
+              </div>
+              <span class="ready-time">Up next</span>
+            </div>
+          </div>
+
+          <div class="button-row" style="margin-top:20px;">
+            <button class="btn ghost">Add induction to calendar</button>
+            <button class="btn primary">Open my Hub →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 09 — AUTO-BOOKING ============ -->
+  <article class="step" data-step="9" data-label="Auto-booking">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip"><span class="dot"></span>Client Operations</span>
+        <span class="persona-chip"><span class="dot"></span>Apprenticeship Operations</span>
+      </div>
+      <span class="step-num">Step <strong>09 / 10</strong></span>
+      <h2 class="step-headline">A complete application auto-books the learner onto programme.</h2>
+      <p class="step-prose">No manual triage. No spreadsheet update. The booking is the natural side-effect of a complete application — with materials, timetable, and induction triggered downstream.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Removes manual booking work — currently ~26 hours per Client Ops team member per week.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>operations.bpp.com / applications / 0024-AM / booked</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Operations Hub</span>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">OP</span>
+          </div>
+        </div>
+        <div class="booking-success">
+          <div class="success-circle">✓</div>
+          <div class="success-title">Booking confirmed automatically.</div>
+          <div class="success-sub">Alex Morgan was booked onto Cohort Spring 2026 the moment their application reached <em>complete</em> status — no manual intervention.</div>
+
+          <div class="booking-detail">
+            <div class="row">
+              <label>Apprentice</label>
+              <span class="val">Alex Morgan · 0024-AM</span>
+            </div>
+            <div class="row">
+              <label>Programme</label>
+              <span class="val">Level 7 Accountancy / Tax Professional</span>
+            </div>
+            <div class="row">
+              <label>Cohort</label>
+              <span class="val">Spring 2026 · 24 apprentices</span>
+            </div>
+            <div class="row">
+              <label>Start date</label>
+              <span class="val">06 April 2026 · 09:30</span>
+            </div>
+            <div class="row">
+              <label>Triggered</label>
+              <span class="val" style="display:flex; align-items:center; gap:8px;">
+                <span class="pill green"><span class="dot"></span>Materials shipped</span>
+                <span class="pill green"><span class="dot"></span>Timetable issued</span>
+                <span class="pill green"><span class="dot"></span>Induction calendar invite sent</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ STEP 10 — EMAIL COMMS LOG ============ -->
+  <article class="step" data-step="10" data-label="Comms log">
+    <div class="step-content">
+      <div class="step-personas">
+        <span class="persona-chip"><span class="dot"></span>Client Operations</span>
+        <span class="persona-chip client"><span class="dot"></span>Line Manager</span>
+        <span class="persona-chip client"><span class="dot"></span>Apprentice</span>
+      </div>
+      <span class="step-num">Step <strong>10 / 10</strong></span>
+      <h2 class="step-headline">Email comms <em>logged against the learner</em>.</h2>
+      <p class="step-prose">Inbound and outbound communications are matched to the learner record automatically. BPP can run reports, identify gaps, and maintain a full record of the relationship — without anyone keeping a separate spreadsheet.</p>
+      <div class="step-impact">
+        <div class="step-impact-icon">✓</div>
+        <div class="step-impact-text">
+          <strong>Possible impact</strong>
+          Restores institutional memory across handovers; removes "last person to email" as the default system of record.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-mockup">
+      <div class="mockup" style="aspect-ratio: 16 / 11;">
+        <div class="mockup-chrome">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url"><span class="lock">●</span>operations.bpp.com / comms / 0024-AM</div>
+        </div>
+        <div class="app-header">
+          <div class="app-brand">
+            <span class="mark">B</span>
+            <span>BPP</span>
+            <span class="product">· Operations Hub</span>
+          </div>
+          <div class="app-nav">
+            <a>Dashboard</a>
+            <a>Applications</a>
+            <a>Workload</a>
+            <a class="active">Comms</a>
+          </div>
+          <div class="app-user">
+            <span class="app-avatar">OP</span>
+          </div>
+        </div>
+        <div class="inbox-shell" style="height: 320px;">
+          <div class="inbox-list">
+            <div class="head">Threads · 0024-AM</div>
+            <div class="inbox-row active">
+              <div class="from">Line Manager · J. Patel</div>
+              <div class="subj">RE: Welcome materials for Alex</div>
+              <div class="meta">
+                <span class="thread-tag coral">Materials</span>
+                <span class="thread-tag">Open</span>
+              </div>
+            </div>
+            <div class="inbox-row">
+              <div class="from">Apprentice · A. Morgan</div>
+              <div class="subj">Question about my timetable</div>
+              <div class="meta">
+                <span class="thread-tag">Timetable</span>
+              </div>
+            </div>
+            <div class="inbox-row">
+              <div class="from">Training Coordinator</div>
+              <div class="subj">Cohort Spring 2026 — confirmations</div>
+              <div class="meta">
+                <span class="thread-tag">Cohort</span>
+              </div>
+            </div>
+            <div class="inbox-row">
+              <div class="from">Auto · System</div>
+              <div class="subj">Application 0024-AM auto-passed</div>
+              <div class="meta">
+                <span class="thread-tag">Auto</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="thread-pane">
+            <div class="thread-head">
+              <div class="thread-subject">RE: Welcome materials for Alex</div>
+              <div class="thread-meta">
+                <span>Linked: <strong style="color:#131417;">0024-AM · Alex Morgan</strong></span>
+                <span>·</span>
+                <span>Auto-tagged: <span class="thread-tag coral">Materials</span></span>
+              </div>
+            </div>
+            <div class="thread-msg">
+              <div class="who">J. Patel <small>· Line Manager · 11 Feb 14:22</small></div>
+              Hi — could you please send the welcome materials for our latest intake? I'd appreciate guidance on how to proceed with the next steps.
+            </div>
+            <div class="thread-msg" style="background: rgba(31,79,216,0.10); border-color: rgba(143,166,255,0.45);">
+              <div class="who">BPP Operations <small>· Auto-drafted · Awaiting send</small></div>
+              Thanks J. — Alex's materials shipped this morning (tracking attached). Their timetable is live in Hub. Anything else I can help with?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<footer class="proto-footer">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous step">←</button>
+  <div class="progress-track" id="progressTrack"></div>
+  <button class="nav-btn" id="nextBtn" aria-label="Next step">→</button>
+</footer>
+
+<script>
+  (function() {
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('currentStep');
+    const track   = document.getElementById('progressTrack');
+
+    let current = 1;
+    const total = steps.length;
+
+    // Build progress segments
+    steps.forEach((step, i) => {
+      const num = i + 1;
+      const label = step.dataset.label || ('Step ' + num);
+      const btn = document.createElement('button');
+      btn.className = 'seg-btn';
+      btn.dataset.step = num;
+      btn.setAttribute('aria-label', 'Go to step ' + num + ' — ' + label);
+      btn.innerHTML = '<span class="seg-bar"></span><span class="seg-label">' + String(num).padStart(2,'0') + ' · ' + label + '</span>';
+      btn.addEventListener('click', () => goTo(num));
+      track.appendChild(btn);
+    });
+    const segBtns = Array.from(track.querySelectorAll('.seg-btn'));
+
+    function goTo(n) {
+      n = Math.max(1, Math.min(total, n));
+      if (n === current) return;
+      const dir = n > current ? 'next' : 'prev';
+      const prev = steps[current - 1];
+      const next = steps[n - 1];
+
+      prev.classList.remove('active');
+      if (dir === 'next') prev.classList.add('exit-prev');
+      else prev.classList.remove('exit-prev');
+
+      // small delay so the exit transform applies before swapping
+      requestAnimationFrame(() => {
+        next.classList.remove('exit-prev');
+        next.classList.add('active');
+      });
+
+      current = n;
+      update();
+    }
+
+    function update() {
+      counter.textContent = String(current).padStart(2, '0');
+      prevBtn.disabled = current === 1;
+      nextBtn.disabled = current === total;
+      segBtns.forEach((b, i) => {
+        const num = i + 1;
+        b.classList.toggle('active', num === current);
+        b.classList.toggle('done', num < current);
+      });
+      // re-trigger progress bar fills inside the active step
+      const activeStep = steps[current - 1];
+      activeStep.querySelectorAll('.progress-bar .fill, .util-bar .fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0';
+        // force reflow then restore
+        void el.offsetWidth;
+        el.style.width = w;
+      });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); goTo(1); }
+      else if (e.key === 'End')  { e.preventDefault(); goTo(total); }
+    });
+
+    update();
+  })();
+</script>
+
+</body>
+</html>
