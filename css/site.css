@@ -1977,10 +1977,11 @@ img { display: block; max-width: 100%; }
 
 /* The facts row is gone, but the supporting line keeps the distance from the
    headline that the row and its rules used to hold. */
-/* The measure is set so the supporting line falls on three lines, not four. */
+/* Three lines, not four. It breaks to four below about 49ch, so this leaves
+   room for the fluid type size to shift the wrap at other widths. */
 .hero--masthead .hero__subtitle {
   margin-top: calc(clamp(28px, 3.6vw, 52px) + clamp(24px, 3vw, 40px) + 44px);
-  max-width: 68ch;
+  max-width: 56ch;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 500;
 }
