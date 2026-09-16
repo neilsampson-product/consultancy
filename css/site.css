@@ -1971,7 +1971,7 @@ img { display: block; max-width: 100%; }
 
 
 /* ==========================================================================
-   Hero background motion — previewed with ?bg=1, ?bg=2 and ?bg=3
+   Hero background motion
 
    js/hero-motion.js draws a slow texture into a canvas between the gradient
    ground and the glow; the scrim above keeps the headline legible.
@@ -1980,7 +1980,7 @@ img { display: block; max-width: 100%; }
 /* With a texture behind it the full scrim flattens the motion to near black,
    so it lifts on the right and in the middle and stays darkest behind the
    start of the headline. */
-html[data-hero-bg] .hero__scrim {
+.hero--masthead .hero__scrim {
   background: linear-gradient(105deg,
     rgba(19, 20, 23, .7) 0%,
     rgba(19, 20, 23, .32) 55%,
@@ -1996,8 +1996,8 @@ html[data-hero-bg] .hero__scrim {
   pointer-events: none;
 }
 
-/* With motion behind the hero, the scroll cue moves to the bottom right. */
-html[data-hero-bg] .cue {
+/* With motion behind the hero, the scroll cue sits at the bottom right. */
+.hero--masthead .cue {
   left: auto;
   right: var(--pad-x);
 }

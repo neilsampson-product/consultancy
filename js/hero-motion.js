@@ -1,8 +1,7 @@
-/* Hero background motion (preview).
+/* Hero background motion.
  *
- * ?bg=1 light moving across a surface, ?bg=2 ink drifting in water,
- * ?bg=3 defocused city lights. Each is drawn by a small WebGL shader in the
- * site's ink and blue, so there is no video file to load.
+ * A soft blue beam sweeps slowly across a faintly textured wall, drawn by a
+ * small WebGL shader in the site's ink and blue, so there is no video file.
  *
  * It renders at a fraction of the screen's resolution (the textures are soft
  * anyway), caps itself at 30 frames a second, stops while the hero is off
@@ -11,7 +10,6 @@
  * its gradient.
  */
 
-const MODE = { light: 0, ink: 1, lights: 2 }[document.documentElement.getAttribute('data-hero-bg')];
 const hero = document.querySelector('.hero--masthead');
 
 function start() {
@@ -36,11 +34,9 @@ function start() {
 
   const uRes = gl.getUniformLocation(program, 'uRes');
   const uTime = gl.getUniformLocation(program, 'uTime');
-  gl.uniform1i(gl.getUniformLocation(program, 'uMode'), MODE);
 
-  /* The soft textures survive being drawn small and scaled up; the lights
-     keep a little more detail so their edges read as out of focus, not blocky. */
-  const scale = MODE === 2 ? 0.6 : 0.4;
+  /* The texture is soft, so it survives being drawn small and scaled up. */
+  const scale = 0.4;
   const resize = () => {
     const w = Math.max(1, Math.round(hero.clientWidth * scale));
     const h = Math.max(1, Math.round(hero.clientHeight * scale));
@@ -121,12 +117,10 @@ const FRAGMENT = `
 precision mediump float;
 uniform vec2 uRes;
 uniform float uTime;
-uniform int uMode;
 
 const vec3 INK = vec3(0.075, 0.078, 0.090);
 const vec3 BLUE = vec3(0.122, 0.310, 0.847);
 const vec3 BLUE_LIGHT = vec3(0.561, 0.651, 1.0);
-const vec3 WARM = vec3(0.95, 0.80, 0.62);
 
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
@@ -168,55 +162,13 @@ vec3 lightOnSurface(vec2 uv, float t) {
   return INK + light * mix(BLUE, BLUE_LIGHT, 0.45) * 0.58 + (surface - 0.5) * 0.02;
 }
 
-/* Ink drifting in water: noise folded through itself so the shapes curl and
-   slowly unfurl, shading from ink into blue. */
-vec3 inkInWater(vec2 uv, float t) {
-  vec2 p = uv * 1.6;
-  vec2 q = vec2(fbm(p + vec2(0.0, t * 0.020)), fbm(p + vec2(5.2, 1.3) - t * 0.015));
-  vec2 r = vec2(fbm(p + 3.5 * q + vec2(1.7, 9.2) + t * 0.012),
-                fbm(p + 3.5 * q + vec2(8.3, 2.8) - t * 0.010));
-  float f = fbm(p + 3.5 * r);
-  vec3 col = mix(INK, BLUE * 0.72, clamp(f * f * 2.1, 0.0, 1.0));
-  col = mix(col, BLUE_LIGHT * 0.5, clamp(pow(length(r) * 0.62, 3.0), 0.0, 1.0) * 0.6);
-  return col;
-}
-
-/* Defocused city lights: out-of-focus discs drift slowly sideways, mostly
-   cool blue with a few warm points, each with the brighter rim of a lens. */
-vec3 cityLights(vec2 uv, float t, float aspect) {
-  vec3 col = INK;
-  for (int i = 0; i < 30; i++) {
-    float fi = float(i);
-    float h1 = hash(vec2(fi, 1.7));
-    float h2 = hash(vec2(fi, 8.3));
-    float h3 = hash(vec2(fi, 4.1));
-    float h4 = hash(vec2(fi, 6.9));
-    float speed = 0.004 + 0.010 * h3;
-    vec2 c = vec2(fract(h1 + t * speed) * 1.5 - 0.25, 0.08 + 0.84 * h2 + sin(t * 0.07 + fi) * 0.025);
-    vec2 d = uv - c;
-    d.x *= aspect;
-    float radius = 0.035 + 0.11 * h4;
-    float dist = length(d);
-    float disc = 1.0 - smoothstep(radius * 0.82, radius, dist);
-    float rim = smoothstep(radius * 0.55, radius * 0.95, dist) * disc;
-    float pulse = 0.75 + 0.25 * sin(t * (0.2 + 0.3 * h1) + fi * 2.0);
-    vec3 tint = h3 > 0.82 ? WARM : mix(BLUE, BLUE_LIGHT, h2);
-    col += tint * (disc * 0.17 + rim * 0.11) * pulse * (0.45 + 0.55 * h1);
-  }
-  return col;
-}
-
 void main() {
   vec2 uv = gl_FragCoord.xy / uRes;
   float aspect = uRes.x / uRes.y;
   vec2 st = vec2(uv.x * aspect, uv.y);
-  vec3 col;
-  if (uMode == 0) col = lightOnSurface(st, uTime);
-  else if (uMode == 1) col = inkInWater(st, uTime);
-  else col = cityLights(uv, uTime, aspect);
-  gl_FragColor = vec4(col, 1.0);
+  gl_FragColor = vec4(lightOnSurface(st, uTime), 1.0);
 }
 `;
 
 /* Started last, once the shader sources above are defined. */
-if (MODE !== undefined && hero) start();
+if (hero) start();
