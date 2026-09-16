@@ -2092,6 +2092,13 @@ img { display: block; max-width: 100%; }
 }
 
 
+/* The work section runs straight into the dark "How I can help" module, so on
+   desktop its closing rule would draw a line against that module's edge. */
+@media (min-width: 880px) {
+  #work { border-bottom: 0; }
+}
+
+
 /* ==========================================================================
    Case study cards on phones
 
