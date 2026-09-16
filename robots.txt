@@ -1,0 +1,5 @@
+# https://neil-sampson.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://neil-sampson.com/sitemap.xml
