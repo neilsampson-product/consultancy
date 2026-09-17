@@ -2005,6 +2005,11 @@ img { display: block; max-width: 100%; }
   letter-spacing: -.03em;
 }
 
+/* Phone-only line breaks in the headline; hidden, the space after each keeps
+   the words apart on one line. */
+.hero__br { display: none; }
+@media (max-width: 760px) { .hero__br { display: inline; } }
+
 .hero--masthead .hero__title em {
   font-style: normal;
   color: var(--blue-pale);
@@ -2036,7 +2041,10 @@ img { display: block; max-width: 100%; }
     padding-bottom: clamp(56px, 8vh, 88px);
   }
 
-  .hero--masthead .hero__title { font-size: 10.8vw; }
+  /* Each sentence breaks after its verb phrase — "Shape what's / next.",
+     "Build what / matters." — so the headline sets on four short lines and can
+     run far larger than two full-width ones allow. */
+  .hero--masthead .hero__title { font-size: 15vw; }
 }
 
 
