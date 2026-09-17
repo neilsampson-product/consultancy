@@ -1985,7 +1985,7 @@ img { display: block; max-width: 100%; }
   .hero__eyebrow-sep { display: none; }
 }
 @media (max-width: 360px) {
-  .hero--masthead .hero__eyebrow { letter-spacing: .17em; }
+  .hero--masthead .hero__eyebrow { letter-spacing: .12em; }
 }
 
 /* Three set lines. Width alone let them fill the column, but on a laptop
