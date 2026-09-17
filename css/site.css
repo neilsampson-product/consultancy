@@ -1678,18 +1678,6 @@ img { display: block; max-width: 100%; }
   object-fit: cover;
 }
 
-.plate figcaption {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 13px var(--pad-x);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--label-ink);
-}
 
 /* The market-position cards: two neutral, one picked out on ink */
 .card--muted .rule { background: var(--label-ink-soft); }
