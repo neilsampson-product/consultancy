@@ -1994,17 +1994,21 @@ img { display: block; max-width: 100%; }
   .hero--masthead .hero__eyebrow { letter-spacing: .12em; }
 }
 
-/* Three set lines. Width alone let them fill the column, but on a laptop
-   screen three lines at that size pushed the hero past the fold and the eyebrow
-   up under the nav, so the size also answers to the screen's height. At 11vw
-   the longest line, "shape what's next.", never reaches the column edge. */
+/* Two set lines, sized to the width so "Build what matters." nearly fills the
+   column. On a short laptop screen that size pushes the hero past the fold, so
+   the height caps it there too: at 17vh it only binds below about 800px tall. */
 .hero--masthead .hero__title {
   max-width: none;
-  font-size: clamp(38px, min(11vw, 14.5vh), 150px);
+  font-size: clamp(38px, min(11vw, 17vh), 150px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -.03em;
 }
+
+/* Phone-only line breaks in the headline; hidden, the space after each keeps
+   the words apart on one line. */
+.hero__br { display: none; }
+@media (max-width: 760px) { .hero__br { display: inline; } }
 
 .hero--masthead .hero__title em {
   font-style: normal;
@@ -2037,7 +2041,10 @@ img { display: block; max-width: 100%; }
     padding-bottom: clamp(56px, 8vh, 88px);
   }
 
-  .hero--masthead .hero__title { font-size: 10.8vw; }
+  /* Each sentence breaks after its verb phrase — "Shape what's / next.",
+     "Build what / matters." — so the headline sets on four short lines and can
+     run far larger than two full-width ones allow. */
+  .hero--masthead .hero__title { font-size: 15vw; }
 }
 
 
