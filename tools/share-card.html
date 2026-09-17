@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Share card</title>
 <!--
-  Source for assets/share-card-shape.jpg, the Open Graph image.
+  Source for assets/share-card-leader.jpg, the Open Graph image.
 
   It mirrors the homepage hero: the same 168deg ground gradient, the same blue
   glow, Everett from /fonts, and the headline with its first sentence in
@@ -13,12 +13,12 @@
       --window-size=1200,630 --screenshot=/tmp/card-2x.png \
       "file://$PWD/tools/share-card.html"
     sips -z 630 1200 /tmp/card-2x.png --setProperty format jpeg \
-      --setProperty formatOptions 82 --out assets/share-card-shape.jpg
+      --setProperty formatOptions 82 --out assets/share-card-leader.jpg
 
   Rendering at 2x and halving keeps the type crisp. Copy the result over
-  assets/share-card.jpg, share-card-2026.jpg and share-card-clarity.jpg too:
-  previews cache by URL, so the old names have to keep serving the current
-  picture. When the design changes materially, give it a new filename and
+  assets/share-card.jpg, share-card-2026.jpg, share-card-clarity.jpg and
+  share-card-shape.jpg too: previews cache by URL, so the old names have to
+  keep serving the current picture. When the design changes materially, give it a new filename and
   repoint og:image/twitter:image, or caches will hold the old one.
 -->
 <style>
@@ -153,7 +153,7 @@
 </div>
 
 <div class="inner">
-  <span class="eyebrow">Independent product &amp; design leader &#183; 20 years&#8217; experience</span>
+  <span class="eyebrow">Product &amp; design leader &#183; 20 years&#8217; experience</span>
   <h1><em>Shape what&#8217;s next.</em><br>Build what matters.</h1>
   <p class="lead">For founders, CEOs and leadership teams at ambitious, product-led organisations.</p>
   <div class="rule"></div>
