@@ -620,6 +620,16 @@ img { display: block; max-width: 100%; }
 
 .pin__head { display: flex; flex-direction: column; gap: 18px; }
 
+/* The paragraph under "I build capability. Not dependency." that introduces
+   the four steps. */
+.pin__intro {
+  margin-top: clamp(4px, .8vw, 12px);
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
+  color: var(--body-ink);
+  max-width: 62ch;
+}
+
 .pin__title {
   font-weight: 500;
   font-size: clamp(32px, 5vw, 76px);
