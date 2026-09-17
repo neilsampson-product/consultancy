@@ -1990,9 +1990,6 @@ img { display: block; max-width: 100%; }
   .hero__eyebrow-part { display: block; }
   .hero__eyebrow-sep { display: none; }
 }
-@media (max-width: 360px) {
-  .hero--masthead .hero__eyebrow { letter-spacing: .12em; }
-}
 
 /* Two set lines, sized to the width so "Build what matters." nearly fills the
    column. On a short laptop screen that size pushes the hero past the fold, so
