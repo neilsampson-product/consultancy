@@ -897,6 +897,14 @@ img { display: block; max-width: 100%; }
     width: 100%;
     object-fit: contain;
   }
+
+  /* Long wordmarks fill the whole cell width at this height and outweigh the
+     compact marks beside them, so each is capped by eye. Farfetch is set in
+     heavy capitals and needs the tightest cap; Kurt Geiger's thin letters can
+     run wider for the same visual weight. */
+  .clients__logo img[src*="farfetch"] { max-width: 100px; }
+  .clients__logo img[src*="borough-kitchen"] { max-width: 118px; }
+  .clients__logo img[src*="kurt-geiger"] { max-width: 128px; }
 }
 
 /* ==========================================================================
