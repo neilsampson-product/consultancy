@@ -738,6 +738,17 @@ img { display: block; max-width: 100%; }
   max-width: 44ch;
 }
 
+/* Side by side, each offer shares the list's number, title and body rows, so a
+   title that wraps to two lines moves every body in the row down with it. */
+@media (min-width: 560px) {
+  .offer {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-content: start;
+  }
+}
+
 /* A pinned module taller than the screen would hide its own lower half for the
    whole pin. When it does not fit — measured in page.js — it scrolls normally
    and each offer lights as it arrives instead. */
