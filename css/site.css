@@ -1985,10 +1985,15 @@ img { display: block; max-width: 100%; }
 .hero--masthead .hero__eyebrow { margin-bottom: clamp(14px, 1.5vw, 24px); }
 
 /* On a phone the eyebrow breaks at its dot, a phrase to a line, rather than
-   wherever the width runs out. */
+   wherever the width runs out. Set on two lines at this size, the default line
+   height crowded them and the blue read dim, so both open up. */
 @media (max-width: 760px) {
   .hero__eyebrow-part { display: block; }
   .hero__eyebrow-sep { display: none; }
+  .hero--masthead .hero__eyebrow {
+    line-height: 1.75;
+    color: var(--blue-pale);
+  }
 }
 
 /* Two set lines, sized to the width so "Build what matters." nearly fills the
