@@ -2041,9 +2041,9 @@ img { display: block; max-width: 100%; }
     padding-bottom: clamp(56px, 8vh, 88px);
   }
 
-  /* Each sentence breaks after its verb phrase — "Shape what's / next.",
-     "Build what / matters." — so the headline sets on four short lines and can
-     run far larger than two full-width ones allow. */
+  /* The headline sets on four short lines — "Shape / what's next.", "Build
+     what / matters." — so it can run far larger than two full-width lines
+     allow. The breaks are phone-only <br>s in the markup. */
   .hero--masthead .hero__title { font-size: 15vw; }
 }
 
