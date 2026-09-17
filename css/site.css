@@ -657,7 +657,7 @@ img { display: block; max-width: 100%; }
    enough for each of the four offers to hold the eye before the next lights. */
 .pin__runway { height: 80vh; }
 
-/* ---- How I can help: four offers, stepped through by the pin ---------------
+/* ---- How I work: four steps, stepped through by the pin -------------------
  * The head spans the top and the offers run as a row beneath it. Each is led
  * by a hairline that fills blue as the pin reaches it, so read left to right
  * the four rules become a single progress bar across the module.
@@ -2057,7 +2057,7 @@ img { display: block; max-width: 100%; }
 
 
 /* ==========================================================================
-   Blue quote band, the How I can help lead, and the contact actions
+   Blue quote band and the contact actions
    ========================================================================== */
 
 /* A full-width blue band separates the starting points from the work. */
@@ -2078,25 +2078,6 @@ img { display: block; max-width: 100%; }
 
 .attr--blue .attr__name { color: var(--paper); }
 .attr--blue .attr__role { color: var(--blue-pale); }
-
-/* The lead lines under "I build capability. Not dependency." */
-.pin__lead {
-  margin: clamp(18px, 2.2vw, 28px) 0 0;
-  font-size: clamp(17px, 1.6vw, 22px);
-  font-weight: 500;
-  color: var(--paper);
-  max-width: 34ch;
-}
-
-.pin__body {
-  margin: 12px 0 0;
-  font-size: clamp(15px, 1.25vw, 17px);
-  line-height: 1.55;
-  color: var(--body-ink);
-  max-width: 46ch;
-}
-
-.pin__steps > .label { display: block; margin-bottom: clamp(14px, 1.8vw, 22px); }
 
 /* Contact: the supporting line, then the booking button above the two links. */
 .contact__lead {
@@ -2126,7 +2107,7 @@ img { display: block; max-width: 100%; }
 }
 
 
-/* The work section runs straight into the dark "How I can help" module, so on
+/* The work section runs straight into the dark "How I work" module, so on
    desktop its closing rule would draw a line against that module's edge. */
 @media (min-width: 880px) {
   #work { border-bottom: 0; }
