@@ -1978,11 +1978,23 @@ img { display: block; max-width: 100%; }
    opening a gap between the headline and the supporting line. */
 .hero--masthead .hero__eyebrow { margin-bottom: clamp(14px, 1.5vw, 24px); }
 
-/* Sized to the longest line, "& design leadership", so the headline fills the
-   content column and neither line wraps at any width. */
+/* On a phone the eyebrow breaks at its dot, a phrase to a line, rather than
+   wherever the width runs out. */
+@media (max-width: 760px) {
+  .hero__eyebrow-part { display: block; }
+  .hero__eyebrow-sep { display: none; }
+}
+@media (max-width: 360px) {
+  .hero--masthead .hero__eyebrow { letter-spacing: .17em; }
+}
+
+/* Three set lines. Width alone let them fill the column, but on a laptop
+   screen three lines at that size pushed the hero past the fold and the eyebrow
+   up under the nav, so the size also answers to the screen's height. At 11vw
+   the longest line, "shape what's next.", never reaches the column edge. */
 .hero--masthead .hero__title {
   max-width: none;
-  font-size: clamp(38px, 11vw, 150px);
+  font-size: clamp(38px, min(11vw, 14.5vh), 150px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -.03em;
