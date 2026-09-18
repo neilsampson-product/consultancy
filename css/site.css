@@ -702,6 +702,7 @@ img { display: block; max-width: 100%; }
 }
 
 .product__scope { margin-top: 26px; }
+.product__scope:first-child { margin-top: 20px; }
 
 .product__list {
   margin: 12px 0 0;
@@ -759,7 +760,9 @@ img { display: block; max-width: 100%; }
     grid-template-rows: subgrid;
     align-content: start;
   }
-  .product__cta { align-self: end; }
+  /* Pinned to the last row, so a card without an outcome keeps its button
+     level with the others. */
+  .product__cta { grid-row: 6; align-self: end; }
 }
 
 /* ==========================================================================
@@ -983,17 +986,6 @@ img { display: block; max-width: 100%; }
   font-size: clamp(40px, 10vw, 164px);
   line-height: .9;
   letter-spacing: -.04em;
-}
-
-/* The question leads into the headline at a quieter size, in the hero's pale
-   blue, so the big line is the answer: "Bring me the problem." */
-.contact__ask {
-  display: block;
-  margin-bottom: clamp(14px, 1.8vw, 26px);
-  font-size: clamp(22px, 2.6vw, 38px);
-  line-height: 1.15;
-  letter-spacing: -.024em;
-  color: var(--blue-pale);
 }
 
 .tiles {
