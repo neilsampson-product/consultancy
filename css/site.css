@@ -755,6 +755,11 @@ img { display: block; max-width: 100%; }
   justify-content: space-between;
 }
 
+/* Stacked, a card without a tag opens on its name. */
+@media (max-width: 979px) {
+  .product__name:first-child { margin-top: 0; }
+}
+
 /* Three across once each card has room for its list. Below that they stack,
    rather than leave the third alone on a row of two. */
 @media (min-width: 980px) {
@@ -768,8 +773,14 @@ img { display: block; max-width: 100%; }
     grid-template-rows: subgrid;
     align-content: start;
   }
-  /* Pinned to the last row, so a card without an outcome keeps its button
-     level with the others. */
+  /* Each part keeps its own row, so a card without a tag, outcome or button
+     leaves that row empty and its names, terms and lists stay level with the
+     lead card's. */
+  .product__tag { grid-row: 1; }
+  .product__name { grid-row: 2; }
+  .product__term { grid-row: 3; }
+  .product__body { grid-row: 4; }
+  .product__outcome { grid-row: 5; }
   .product__cta { grid-row: 6; align-self: end; }
 }
 
