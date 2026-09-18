@@ -685,6 +685,14 @@ img { display: block; max-width: 100%; }
   color: var(--paper);
 }
 
+/* A price, where a product has one, sits at the right of its term. */
+.product__term:has(.product__price) {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.product__price { color: var(--blue-light); }
+
 .product__lead {
   margin-top: 20px;
   font-size: clamp(15.5px, 1.2vw, 17px);
