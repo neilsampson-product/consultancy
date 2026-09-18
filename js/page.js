@@ -58,28 +58,6 @@ if (cue) {
   }, { passive: true });
 }
 
-/* ---- pinned module ------------------------------------------------------
- * The capability module pins while its offers step in. That only works if it
- * fits on screen beneath the nav: pinned any taller, its lower half would sit
- * out of view for the whole pin. So it is measured, not assumed — it pins on
- * laptops and desktops, and scrolls normally where it does not fit.
- * ------------------------------------------------------------------------- */
-const pinModule = document.querySelector('[data-pin]');
-if (pinModule) {
-  const pinContent = pinModule.querySelector('.pin__inner');
-
-  const fitPin = () => {
-    const room = window.innerHeight - (nav ? nav.offsetHeight : 0);
-    pinModule.classList.toggle('pin--static', pinContent.getBoundingClientRect().height > room);
-  };
-
-  fitPin();
-  window.addEventListener('resize', fitPin, { passive: true });
-  window.addEventListener('load', fitPin);
-  if (document.fonts) document.fonts.ready.then(fitPin).catch(() => {});
-  if (window.ResizeObserver) new ResizeObserver(fitPin).observe(pinContent);
-}
-
 /* ---- motion -------------------------------------------------------------- */
 init(document.body, {
   stepDim: 0.3,
