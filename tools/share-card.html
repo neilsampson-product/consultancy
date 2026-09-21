@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Share card</title>
 <!--
-  Source for assets/share-card-leader.jpg, the Open Graph image.
+  Source for assets/share-card-founders.jpg, the Open Graph image.
 
   It mirrors the homepage hero: the same 168deg ground gradient, the same blue
   glow, Everett from /fonts, and the headline with its first sentence in
@@ -13,12 +13,12 @@
       --window-size=1200,630 --screenshot=/tmp/card-2x.png \
       "file://$PWD/tools/share-card.html"
     sips -z 630 1200 /tmp/card-2x.png --setProperty format jpeg \
-      --setProperty formatOptions 82 --out assets/share-card-leader.jpg
+      --setProperty formatOptions 82 --out assets/share-card-founders.jpg
 
   Rendering at 2x and halving keeps the type crisp. Copy the result over
-  assets/share-card.jpg, share-card-2026.jpg, share-card-clarity.jpg and
-  share-card-shape.jpg too: previews cache by URL, so the old names have to
-  keep serving the current picture. When the design changes materially, give it a new filename and
+  assets/share-card.jpg, share-card-2026.jpg, share-card-clarity.jpg,
+  share-card-shape.jpg and share-card-leader.jpg too: previews cache by URL,
+  so the old names have to keep serving the current picture. When the design changes materially, give it a new filename and
   repoint og:image/twitter:image, or caches will hold the old one.
 -->
 <style>
@@ -109,8 +109,9 @@
     margin-bottom: 26px;
   }
 
+  /* 70px holds "Work out what to build." to one line clear of the portrait. */
   h1 {
-    font-size: 78px;
+    font-size: 70px;
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -.03em;
@@ -124,7 +125,7 @@
     font-weight: 500;
     line-height: 1.45;
     color: rgba(236, 234, 228, .78);
-    max-width: 27ch;
+    max-width: 30ch;
   }
 
   .rule {
@@ -153,9 +154,9 @@
 </div>
 
 <div class="inner">
-  <span class="eyebrow">Product &amp; design leader &#183; 20 years&#8217; experience</span>
-  <h1><em>Shape what&#8217;s next.</em><br>Build what matters.</h1>
-  <p class="lead">For founders, CEOs and leadership teams at ambitious, product-led organisations.</p>
+  <span class="eyebrow">Product &amp; design leadership for early-stage founders</span>
+  <h1><em>Work out what to build.</em><br>Then design it.</h1>
+  <p class="lead">Senior product experience with hands-on design, without hiring a full&#8209;time leader.</p>
   <div class="rule"></div>
   <div class="colophon">Neil Sampson &#183; London</div>
 </div>
