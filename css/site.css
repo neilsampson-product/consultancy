@@ -693,60 +693,47 @@ img { display: block; max-width: 100%; }
 }
 .product__price { color: var(--blue-light); }
 
+/* The promise is the product's one-line pitch, above the detail. */
+.product__promise {
+  margin-top: 20px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.35;
+  letter-spacing: -.012em;
+  color: var(--paper);
+  text-wrap: balance;
+}
+
 .product__lead {
   margin-top: 20px;
   font-size: clamp(15.5px, 1.2vw, 17px);
   line-height: 1.55;
   color: var(--body-ink);
 }
+.product__promise + .product__lead { margin-top: 12px; }
 
-.product__label {
-  display: block;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--label-ink-soft);
-}
-
-.product__scope { margin-top: 26px; }
-.product__scope:first-child { margin-top: 20px; }
-
-.product__list {
-  margin: 12px 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-.product__list li {
-  position: relative;
-  padding-left: 24px;
-  font-size: clamp(14.5px, 1.1vw, 15.5px);
-  line-height: 1.5;
-  color: var(--body-ink-soft);
-}
-.product__list li::before {
-  content: '\2192';
-  position: absolute;
-  left: 0;
-  color: var(--blue-light);
-}
-
+/* What you leave with, or for the partner what the work covers, set off by a
+   rule at the foot of the card. */
 .product__outcome {
-  margin-top: 26px;
-  padding-top: 18px;
+  margin: 26px 0 0;
+  padding: 18px 0 0;
   border-top: 1px solid var(--hairline-ink);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.product__outcome p {
   font-size: clamp(15px, 1.15vw, 16px);
   line-height: 1.5;
-  font-weight: 500;
   color: var(--paper);
+}
+
+.product__skills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0;
+  row-gap: 4px;
+  color: var(--body-ink-soft);
+}
+.product__skills li:not(:last-child)::after {
+  content: '\00b7';
+  margin-inline: .55em;
+  color: var(--blue-light);
 }
 
 .product__cta {
@@ -2187,4 +2174,110 @@ img { display: block; max-width: 100%; }
   .band__copy {
     padding: clamp(24px, 6vw, 36px) clamp(20px, 5vw, 30px) clamp(28px, 7vw, 38px);
   }
+}
+
+
+/* ==========================================================================
+   Why Neil?
+
+   A long read set as a quiet feature: headline and standfirst, then the body
+   in one reading column beside the photo.
+   ========================================================================== */
+
+/* A single line of headline, so the hero runs shorter than the other inner
+   pages and the line runs larger. */
+.hero--why { min-height: min(56svh, 560px); }
+.why__title { font-size: clamp(44px, 7vw, 112px); line-height: .96; letter-spacing: -.036em; }
+
+/* ---- The feature ---------------------------------------------------------
+ * One measure throughout: the headline, standfirst and body all hang from the
+ * same left edge, so the page reads down a single column. The body sets
+ * larger and darker than the rest of the site's copy, because here it is the
+ * point of the page rather than a caption to it.
+ * ------------------------------------------------------------------------- */
+.feature { --measure: 40rem; }
+
+.feature__section {
+  padding: clamp(56px, 8vw, 128px) var(--pad-x);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.feature__open,
+.feature__body {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.feature__open {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.4vw, 32px);
+  padding-bottom: clamp(36px, 4.6vw, 64px);
+}
+
+.feature__headline {
+  max-width: 18ch;
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -.036em;
+  text-wrap: balance;
+}
+
+.feature__standfirst {
+  max-width: 34ch;
+  font-size: clamp(21px, 2.1vw, 30px);
+  line-height: 1.34;
+  letter-spacing: -.018em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+/* Text in one column, the photo beside it on the right and held in view
+   while the paragraphs scroll past. */
+.feature__body {
+  display: grid;
+  grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+  column-gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+  padding-top: clamp(32px, 4vw, 56px);
+  border-top: 1px solid var(--hairline);
+}
+
+.feature__text {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15em;
+  font-size: clamp(18px, 1.45vw, 21px);
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.feature__figure {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  position: sticky;
+  top: calc(var(--nav-h, 62px) + 24px);
+  margin: 0;
+  overflow: clip;
+  background: var(--image-bed);
+}
+.feature__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+/* The page you're on reads in blue in the nav. */
+.nav__link[aria-current="page"] { color: var(--blue-light); }
+.nav.is-scrolled .nav__link[aria-current="page"] { color: var(--blue); }
+
+/* Stacked, the photo comes between the standfirst and the body. */
+@media (max-width: 760px) {
+  .feature__body { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .feature__figure { grid-column: 1; grid-row: 1; position: static; }
+  .feature__text { grid-row: 2; }
 }
