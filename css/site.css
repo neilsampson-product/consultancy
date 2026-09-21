@@ -2180,57 +2180,29 @@ img { display: block; max-width: 100%; }
 /* ==========================================================================
    Why Neil?
 
-   A long read set as a quiet feature: headline and standfirst, then the body
-   in one reading column beside the photo.
+   A long read set as a quiet feature: the hero carries the headline, then
+   the body runs in one reading column beside the photo.
    ========================================================================== */
 
-/* A single line of headline, so the hero runs shorter than the other inner
-   pages and the line runs larger. */
+/* A short headline, so the hero runs shorter than the other inner pages and
+   the lines run larger. */
 .hero--why { min-height: min(56svh, 560px); }
 .why__title { font-size: clamp(44px, 7vw, 112px); line-height: .96; letter-spacing: -.036em; }
 
+/* Desktop breaks after "person"; a phone breaks after "product" and "who"
+   instead, so no word sits on a line alone. */
+@media (max-width: 760px) { .why__br { display: none; } }
+
 /* ---- The feature ---------------------------------------------------------
- * One measure throughout: the headline, standfirst and body all hang from the
- * same left edge, so the page reads down a single column. The body sets
- * larger and darker than the rest of the site's copy, because here it is the
- * point of the page rather than a caption to it.
+ * The body reads down a single column. It sets larger and darker than the
+ * rest of the site's copy, because here it is the point of the page rather
+ * than a caption to it.
  * ------------------------------------------------------------------------- */
 .feature { --measure: 40rem; }
 
 .feature__section {
   padding: clamp(56px, 8vw, 128px) var(--pad-x);
   border-bottom: 1px solid var(--hairline);
-}
-
-.feature__open,
-.feature__body {
-  max-width: var(--max);
-  margin: 0 auto;
-}
-
-.feature__open {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(20px, 2.4vw, 32px);
-  padding-bottom: clamp(36px, 4.6vw, 64px);
-}
-
-.feature__headline {
-  max-width: 18ch;
-  font-weight: 500;
-  font-size: clamp(32px, 4vw, 60px);
-  line-height: 1.02;
-  letter-spacing: -.036em;
-  text-wrap: balance;
-}
-
-.feature__standfirst {
-  max-width: 34ch;
-  font-size: clamp(21px, 2.1vw, 30px);
-  line-height: 1.34;
-  letter-spacing: -.018em;
-  color: var(--ink);
-  text-wrap: pretty;
 }
 
 /* Text in one column, the photo beside it on the right and held in view
@@ -2240,8 +2212,8 @@ img { display: block; max-width: 100%; }
   grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
   column-gap: clamp(40px, 7vw, 120px);
   align-items: start;
-  padding-top: clamp(32px, 4vw, 56px);
-  border-top: 1px solid var(--hairline);
+  max-width: var(--max);
+  margin: 0 auto;
 }
 
 .feature__text {
@@ -2275,7 +2247,7 @@ img { display: block; max-width: 100%; }
 .nav__link[aria-current="page"] { color: var(--blue-light); }
 .nav.is-scrolled .nav__link[aria-current="page"] { color: var(--blue); }
 
-/* Stacked, the photo comes between the standfirst and the body. */
+/* Stacked, the photo comes first and the body follows. */
 @media (max-width: 760px) {
   .feature__body { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
   .feature__figure { grid-column: 1; grid-row: 1; position: static; }
