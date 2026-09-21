@@ -67,7 +67,7 @@
 <div data-progress class="progress"></div>
 
 <nav data-nav class="nav">
-  <div class="nav__links">
+  <div class="nav__links" id="nav-menu">
     <a class="nav__link" href="#work">Work</a>
     <a class="nav__link" href="why-neil.html">Why Neil?</a>
     <a class="nav__link" href="#contact">Contact</a>
@@ -75,6 +75,7 @@
   <a class="nav__brand" href="#top">Neil Sampson</a>
   <div class="nav__end">
     <a class="nav__cta" href="#contact"><span>Work with me</span><span data-arrow>&#8594;</span></a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu" data-navtoggle><span></span><span></span></button>
   </div>
 </nav>
 
@@ -104,7 +105,7 @@
   <!-- =========================== Problems =========================== -->
   <section data-screen-label="Problems" class="section section--flush">
     <div class="stack stack--head" style="padding: 0 var(--pad-x) clamp(26px, 3.2vw, 42px)">
-      <span data-reveal="up" class="label">Three starting points</span>
+      <span data-reveal="up" class="label">When I can help</span>
       <h2 data-reveal="up" data-delay="80" class="h2" style="max-width: 30ch; text-wrap: balance">Most teams bring me in at one of these moments.</h2>
     </div>
 
@@ -132,9 +133,9 @@
 
         <div data-reveal="up" data-delay="200" class="panel">
           <span class="rule"></span>
-          <p class="panel__statement panel__statement--quoted">&#8220;We need to respond to what&#8217;s changing.&#8221;</p>
+          <p class="panel__statement panel__statement--quoted">&#8220;We have a product. We need to make it work harder.&#8221;</p>
           <div class="panel__body">
-            <p class="body">Your market, customers or competitive landscape has shifted. You need to understand what it means and decide what to do next.</p>
+            <p class="body">You&#8217;ve got something in market, but you need to improve the proposition, experience or product to create more traction and momentum.</p>
           </div>
         </div>
       </div>
@@ -243,43 +244,33 @@
 
       <div class="products__grid">
         <article data-reveal="up" class="product product--lead">
-          <span class="product__tag">Start here</span>
           <h3 class="product__name">Product Clarity Session</h3>
           <span class="product__term">60 minutes <span class="product__price">Free</span></span>
           <div class="product__body">
             <p class="product__lead">Put the product challenge on the table. We&#8217;ll work through what you&#8217;re trying to achieve, who you&#8217;re building for, what you know, what you&#8217;re assuming and what needs to happen next.</p>
           </div>
-          <p class="product__outcome">You leave with clearer thinking, some immediate direction and my perspective on where I&#8217;d focus.</p>
+          <p class="product__outcome">You&#8217;ll leave with clearer thinking, some immediate direction and my perspective on where I&#8217;d focus.</p>
           <a class="cta cta--blue product__cta" href="https://calendly.com/hello-neilsampson" target="_blank" rel="noopener noreferrer"><span>Book a Product Clarity Session</span><span data-arrow>&#8594;</span><span class="visually-hidden"> (opens in a new tab)</span></a>
         </article>
 
         <article data-reveal="up" data-delay="120" class="product">
-          <h3 class="product__name">Product Direction Sprint</h3>
-          <span class="product__term">2&#8211;4 weeks</span>
+          <h3 class="product__name">Project-Based</h3>
+          <p class="product__promise">A focused engagement to solve an important product challenge.</p>
           <div class="product__body">
-            <p class="product__promise">Work out what to build.<br> Then design and test it.</p>
-            <p class="product__lead">Together we&#8217;ll understand the customer and problem, sharpen the proposition, identify the biggest assumptions, design the critical product experience and test what we&#8217;ve made.</p>
+            <p class="product__lead">You might need to validate an idea, sharpen your proposition, decide what to build, design a new product or improve something that&#8217;s already in market.</p>
+            <p class="product__lead">I work with you to define the problem, shape the approach and deliver the work. The scope is agreed upfront, with a clear outcome at the end.</p>
           </div>
-          <p class="product__outcome">You leave with a sharper proposition, a tested product concept and a clear plan for what to build next.</p>
+          <p class="product__outcome"><span class="product__label">Best for</span> A specific product challenge or priority that needs senior product thinking and hands-on design.</p>
         </article>
 
         <article data-reveal="up" data-delay="240" class="product">
-          <h3 class="product__name">Product &amp; Design Partner</h3>
-          <span class="product__term">1&#8211;2 days a week</span>
+          <h3 class="product__name">Ongoing Fractional Partner</h3>
+          <p class="product__promise">You need a senior product and design person alongside you.</p>
           <div class="product__body">
-            <p class="product__promise">You&#8217;ve worked out what to build.<br> Now let&#8217;s make it great.</p>
-            <p class="product__lead">I work alongside you and your team to turn product direction into a product people want to use &#8212; combining product thinking with hands-on design.</p>
+            <p class="product__lead">Rather than bringing me in to solve one defined problem, I become an extension of your team. I help you navigate product decisions, set priorities and move important work forward as the business evolves.</p>
+            <p class="product__lead">You get senior product judgement, hands-on design and someone who can connect the customer, business and product without adding another layer of management.</p>
           </div>
-          <ul class="product__outcome product__skills">
-            <li>Product strategy</li>
-            <li>Proposition</li>
-            <li>UX</li>
-            <li>Prototyping</li>
-            <li>Research</li>
-            <li>Prioritisation</li>
-            <li>Roadmaps</li>
-            <li>Delivery</li>
-          </ul>
+          <p class="product__outcome"><span class="product__label">Best for</span> Founders and teams who need ongoing product and design capability without hiring a full-time leader.</p>
         </article>
       </div>
     </div>

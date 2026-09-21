@@ -1,6 +1,7 @@
 /* Per-page wiring shared by every page: hero video, the nav height the hero
-   is laid out against, the scroll cue, and the motion module. Every piece is
-   optional — a page without a hero video or a cue simply skips that block. */
+   is laid out against, the phone menu, the scroll cue, and the motion module.
+   Every piece is optional — a page without a hero video or a cue simply skips
+   that block. */
 
 import { init } from './motion.js';
 
@@ -47,6 +48,32 @@ if (nav) {
   window.addEventListener('load', fit);
   if (document.fonts) document.fonts.ready.then(fit).catch(() => {});
   if (window.ResizeObserver) new ResizeObserver(fit).observe(nav);
+}
+
+/* ---- phone menu ----------------------------------------------------------
+ * Below 640px the nav links fold into a panel behind a menu button. It closes
+ * when a link is chosen (most jump within the page), on Escape, and if the
+ * window widens past the breakpoint, so the desktop nav never opens stuck.
+ * ------------------------------------------------------------------------- */
+const navToggle = nav && nav.querySelector('[data-navtoggle]');
+if (navToggle) {
+  const setMenu = (open) => {
+    nav.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+  };
+
+  navToggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+  nav.querySelectorAll('.nav__link').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+      setMenu(false);
+      navToggle.focus();
+    }
+  });
+  window.matchMedia('(max-width: 640px)').addEventListener('change', (e) => {
+    if (!e.matches) setMenu(false);
+  });
 }
 
 /* ---- scroll cue ---------------------------------------------------------- */

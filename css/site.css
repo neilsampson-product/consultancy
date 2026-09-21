@@ -346,7 +346,10 @@ img { display: block; max-width: 100%; }
   transition: color .45s ease, font-size .45s ease;
 }
 
-.nav__end { display: flex; justify-content: flex-end; }
+.nav__end { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+
+/* The menu button only shows on a phone, where the links are folded away. */
+.nav__toggle { display: none; }
 
 
 .nav__cta {
@@ -371,7 +374,69 @@ img { display: block; max-width: 100%; }
    its scrolled size rather than a fourth value. */
 @media (max-width: 640px) {
   .nav { grid-template-columns: auto auto; gap: 12px; }
-  .nav__links { display: none; }
+
+  /* Folded into a panel that drops from the nav's lower edge when the menu
+     button opens it. */
+  .nav__links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 6px var(--pad-x) 18px;
+    background: rgba(236, 234, 228, .98);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: 0 18px 30px -24px rgba(19, 20, 23, .45);
+  }
+  .nav.is-open .nav__links { display: flex; }
+  .nav__links .nav__link {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .nav__links .nav__link:last-child { border-bottom: 0; }
+  .nav__links .nav__link[aria-current="page"] { color: var(--blue); }
+
+  /* Open, the nav takes its light scrolled look so it joins the panel. */
+  .nav.is-open {
+    --nav-bg: rgba(236, 234, 228, .98);
+    --nav-line: var(--hairline);
+    --nav-ink: var(--ink);
+    --brand-size: 15px;
+  }
+
+  /* Two bars that cross when the menu opens; 42px square keeps the tap
+     target generous beside the CTA. */
+  .nav__toggle {
+    position: relative;
+    display: block;
+    flex: none;
+    width: 42px;
+    height: 42px;
+    margin-right: -8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--nav-ink);
+    cursor: pointer;
+    transition: color .45s ease;
+  }
+  .nav__toggle span {
+    position: absolute;
+    left: 11px;
+    right: 11px;
+    height: 2px;
+    background: currentColor;
+    transition: transform .3s var(--ease);
+  }
+  .nav__toggle span:first-child { top: 16px; }
+  .nav__toggle span:last-child { top: 24px; }
+  .nav.is-open .nav__toggle span:first-child { transform: translateY(4px) rotate(45deg); }
+  .nav.is-open .nav__toggle span:last-child { transform: translateY(-4px) rotate(-45deg); }
   .nav__brand { justify-self: start; --brand-size: 15px; }
   /* 14px block padding keeps the tap target near 40px tall; at 11px it was 34. */
   .nav__cta { gap: 8px; padding: 14px 14px; font-size: 10px; letter-spacing: .1em; }
@@ -583,6 +648,7 @@ img { display: block; max-width: 100%; }
   font-weight: 500;
   line-height: 1.14;
   letter-spacing: -.028em;
+  text-wrap: balance;
 }
 
 /* Statements voiced as the reader's own words open with a quotation mark. It
@@ -596,10 +662,11 @@ img { display: block; max-width: 100%; }
 /* ==========================================================================
    Products — how we work together
 
-   Three things a founder can buy, set as a row of cards on the lit ground.
-   Side by side the cards share one set of rows through subgrid, so each tag,
-   name, term, outcome and button lines up across the three however the copy
-   wraps. The intro and its list share a row, so a short intro leaves no gap. The first card is the way in, so it alone is lit blue.
+   Three ways to work together, set as a row of cards on the lit ground. Side
+   by side the cards share rows through subgrid, so the copy, outcome and
+   button line up across the three. Under each name sits one line: the lead
+   card's term and price, or the others' one-line promise, so no card holds an
+   empty row there. The first card is the way in, so it alone is lit blue.
    ========================================================================== */
 
 .products {
@@ -656,16 +723,7 @@ img { display: block; max-width: 100%; }
   background: var(--blue-light);
 }
 
-.product__tag {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--blue-light);
-}
-
 .product__name {
-  margin-top: clamp(18px, 2vw, 28px);
   font-weight: 500;
   font-size: clamp(26px, 2.5vw, 36px);
   line-height: 1.04;
@@ -693,9 +751,10 @@ img { display: block; max-width: 100%; }
 }
 .product__price { color: var(--blue-light); }
 
-/* The promise is the product's one-line pitch, above the detail. */
+/* The promise is the product's one-line pitch, in the row where the lead
+   card has its term. */
 .product__promise {
-  margin-top: 20px;
+  margin-top: 16px;
   font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.35;
   letter-spacing: -.012em;
@@ -709,10 +768,10 @@ img { display: block; max-width: 100%; }
   line-height: 1.55;
   color: var(--body-ink);
 }
-.product__promise + .product__lead { margin-top: 12px; }
+.product__lead + .product__lead { margin-top: 12px; }
 
-/* What you leave with, or for the partner what the work covers, set off by a
-   rule at the foot of the card. */
+/* What you leave with, or who the engagement is best for, set off by a rule
+   at the foot of the card. */
 .product__outcome {
   margin: 26px 0 0;
   padding: 18px 0 0;
@@ -722,29 +781,20 @@ img { display: block; max-width: 100%; }
   color: var(--paper);
 }
 
-.product__skills {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 0;
-  row-gap: 4px;
-  color: var(--body-ink-soft);
-}
-.product__skills li:not(:last-child)::after {
-  content: '\00b7';
-  margin-inline: .55em;
-  color: var(--blue-light);
+.product__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--label-ink-soft);
 }
 
 .product__cta {
   margin-top: 28px;
   align-self: stretch;
   justify-content: space-between;
-}
-
-/* Stacked, a card without a tag opens on its name. */
-@media (max-width: 979px) {
-  .product__name:first-child { margin-top: 0; }
 }
 
 /* Three across once each card has room for its list. Below that they stack,
@@ -756,19 +806,19 @@ img { display: block; max-width: 100%; }
   }
   .product {
     display: grid;
-    grid-row: span 6;
+    grid-row: span 5;
     grid-template-rows: subgrid;
     align-content: start;
   }
-  /* Each part keeps its own row, so a card without a tag, outcome or button
-     leaves that row empty and its names, terms and lists stay level with the
-     lead card's. */
-  .product__tag { grid-row: 1; }
-  .product__name { grid-row: 2; }
-  .product__term { grid-row: 3; }
-  .product__body { grid-row: 4; }
-  .product__outcome { grid-row: 5; }
-  .product__cta { grid-row: 6; align-self: end; }
+  /* Sized so the longest name, "Ongoing Fractional Partner", holds to one
+     line in its card from 980px up, so the three names sit level and none
+     leaves a gap above its copy. */
+  .product__name { grid-row: 1; font-size: clamp(19px, 2vw, 30px); }
+  .product__term,
+  .product__promise { grid-row: 2; }
+  .product__body { grid-row: 3; }
+  .product__outcome { grid-row: 4; }
+  .product__cta { grid-row: 5; align-self: end; }
 }
 
 /* ==========================================================================
