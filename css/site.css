@@ -2035,13 +2035,13 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* Two set lines, sized to the width so "Work out what to build." nearly fills
-   the column; the 130px cap holds that at the 1320px column. On a short laptop
-   screen that size pushes the hero past the fold, so the height caps it there
-   too: at 17vh it only binds below about 800px tall. */
+/* Two set lines, sized to the width so "Make better product decisions." nearly
+   fills the column; the 98px cap holds that at the 1320px column. On a short
+   laptop screen that size pushes the hero past the fold, so the height caps it
+   there too: at 12.75vh it only binds below about 800px tall. */
 .hero--masthead .hero__title {
   max-width: none;
-  font-size: clamp(38px, min(9vw, 17vh), 130px);
+  font-size: clamp(38px, min(6.75vw, 12.75vh), 98px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -.03em;
@@ -2083,10 +2083,10 @@ img { display: block; max-width: 100%; }
     padding-bottom: clamp(56px, 8vh, 88px);
   }
 
-  /* The headline sets on four short lines — "Work out / what to build.",
-     "Then / design it." — so it can run far larger than two full-width lines
-     allow. The breaks are phone-only <br>s in the markup. */
-  .hero--masthead .hero__title { font-size: 15vw; }
+  /* The headline sets on four short lines — "Make better / product decisions.",
+     "Build / what matters." — so it can run far larger than two full-width
+     lines allow. The breaks are phone-only <br>s in the markup. */
+  .hero--masthead .hero__title { font-size: 11vw; }
 }
 
 
