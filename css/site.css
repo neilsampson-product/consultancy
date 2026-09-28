@@ -821,11 +821,20 @@ img { display: block; max-width: 100%; }
   background: var(--blue-light);
 }
 
+/* The outcome and, on the lead card, its button share the card's last row,
+   so a card without a button ends on its list rather than an empty row. The
+   button drops to the foot of the row to sit level with the card's bottom. */
+.product__foot {
+  display: flex;
+  flex-direction: column;
+}
+
 .product__cta {
-  margin-top: 28px;
+  margin-top: auto;
   align-self: stretch;
   justify-content: space-between;
 }
+.product__foot .product__outcome { margin-bottom: 28px; }
 
 /* Three across once each card has room for its list. Below that they stack,
    rather than leave the third alone on a row of two. */
@@ -836,7 +845,7 @@ img { display: block; max-width: 100%; }
   }
   .product {
     display: grid;
-    grid-row: span 5;
+    grid-row: span 4;
     grid-template-rows: subgrid;
     align-content: start;
   }
@@ -847,8 +856,8 @@ img { display: block; max-width: 100%; }
   .product__term,
   .product__promise { grid-row: 2; }
   .product__body { grid-row: 3; }
-  .product__outcome { grid-row: 4; }
-  .product__cta { grid-row: 5; align-self: end; }
+  .product__foot,
+  .product > .product__outcome { grid-row: 4; }
 }
 
 /* ==========================================================================
