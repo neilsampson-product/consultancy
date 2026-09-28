@@ -731,10 +731,13 @@ img { display: block; max-width: 100%; }
   color: var(--paper);
 }
 
-/* The term reads as the product's spec: a hairline above and below. */
+/* The term reads as the product's spec: a hairline above and below. The
+   name's tight leading and the body's open leading make the same margin read
+   uneven, so the term sits a little further from the name and the copy after
+   it pulls in to match. */
 .product__term {
-  margin-top: 16px;
-  padding-block: 11px;
+  margin-top: 20px;
+  padding-block: 13px;
   border-block: 1px solid var(--hairline-ink);
   font-size: 13px;
   font-weight: 600;
@@ -751,10 +754,9 @@ img { display: block; max-width: 100%; }
 }
 .product__price { color: var(--blue-light); }
 
-/* The promise is the product's one-line pitch, in the row where the lead
-   card has its term. */
+/* The promise is the product's one-line pitch, under its term. */
 .product__promise {
-  margin-top: 16px;
+  margin-top: 20px;
   font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.35;
   letter-spacing: -.012em;
@@ -821,11 +823,20 @@ img { display: block; max-width: 100%; }
   background: var(--blue-light);
 }
 
+/* The outcome and, on the lead card, its button share the card's last row,
+   so a card without a button ends on its list rather than an empty row. The
+   button drops to the foot of the row to sit level with the card's bottom. */
+.product__foot {
+  display: flex;
+  flex-direction: column;
+}
+
 .product__cta {
-  margin-top: 28px;
+  margin-top: auto;
   align-self: stretch;
   justify-content: space-between;
 }
+.product__foot .product__outcome { margin-bottom: 28px; }
 
 /* Three across once each card has room for its list. Below that they stack,
    rather than leave the third alone on a row of two. */
@@ -840,15 +851,18 @@ img { display: block; max-width: 100%; }
     grid-template-rows: subgrid;
     align-content: start;
   }
-  /* Sized so the longest name, "Ongoing Fractional Partner", holds to one
+  /* Sized so the longest name, "Product Clarity Session", holds to one
      line in its card from 980px up, so the three names sit level and none
      leaves a gap above its copy. */
   .product__name { grid-row: 1; font-size: clamp(19px, 2vw, 30px); }
-  .product__term,
-  .product__promise { grid-row: 2; }
-  .product__body { grid-row: 3; }
-  .product__outcome { grid-row: 4; }
-  .product__cta { grid-row: 5; align-self: end; }
+  .product__term { grid-row: 2; }
+  .product__promise { grid-row: 3; }
+  .product__body { grid-row: 4; }
+  /* The lead card has no promise, so its copy takes that row too rather than
+     leave a gap under its term. */
+  .product__term + .product__body { grid-row: 3 / span 2; }
+  .product__foot,
+  .product > .product__outcome { grid-row: 5; }
 }
 
 /* ==========================================================================
