@@ -792,11 +792,12 @@ img { display: block; max-width: 100%; }
 }
 
 /* What an engagement delivers, as a short list under its label. Each item
-   opens on a short blue rule in place of a bullet. */
+   opens on a short blue rule in place of a bullet, and leads with its name in
+   the card's bright ink before the detail in body ink. */
 .product__list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -804,6 +805,11 @@ img { display: block; max-width: 100%; }
 .product__list li {
   position: relative;
   padding-left: 20px;
+  color: var(--body-ink);
+}
+.product__list strong {
+  font-weight: 500;
+  color: var(--paper);
 }
 .product__list li::before {
   content: '';
