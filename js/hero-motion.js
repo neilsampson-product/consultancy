@@ -1,9 +1,7 @@
 /* Hero background motion.
  *
- * A layered blue form breathes and wobbles slowly on the right of the hero,
- * its rings drifting apart and back together over a faintly textured wall,
- * with a soft beam sweeping past behind it. It is drawn by a small WebGL
- * shader in the site's ink and blue, so there is no video file.
+ * A soft blue beam sweeps slowly across a faintly textured wall, drawn by a
+ * small WebGL shader in the site's ink and blue, so there is no video file.
  *
  * It renders at a fraction of the screen's resolution (the textures are soft
  * anyway), caps itself at 30 frames a second, stops while the hero is off
@@ -164,42 +162,11 @@ vec3 lightOnSurface(vec2 uv, float t) {
   return INK + light * mix(BLUE, BLUE_LIGHT, 0.45) * 0.58 + (surface - 0.5) * 0.02;
 }
 
-/* A layered form, like foam: five rings stacked from the outside in, each
-   warped by its own slow noise and a pair of turning lobes, so the outline
-   wobbles and the layers drift apart and back together. Each layer adds a
-   little light, and a fine line traces every edge so the rings read. */
-vec2 foam(vec2 st, vec2 centre, float t) {
-  vec2 q = st - centre;
-  float r = length(q);
-  float a = atan(q.y, q.x);
-  float lobes = 0.07 * sin(3.0 * a + t * 0.11) + 0.04 * sin(5.0 * a - t * 0.08);
-  float fill = 0.0;
-  float line = 0.0;
-  for (int i = 0; i < 5; i++) {
-    float fi = float(i);
-    float warp = fbm(q * 1.4 + vec2(fi * 1.7 + t * 0.045, -fi * 1.3 - t * 0.035)) - 0.5;
-    float radius = (0.5 - fi * 0.08) * (1.0 + 0.05 * sin(t * 0.21 + fi * 1.3));
-    float edge = r * (1.0 + lobes * (0.6 + fi * 0.15)) + warp * 0.14;
-    fill += smoothstep(radius + 0.012, radius - 0.012, edge);
-    line += smoothstep(0.009, 0.0, abs(edge - radius)) * (0.5 + fi * 0.12);
-  }
-  return vec2(fill / 5.0, line);
-}
-
-
 void main() {
   vec2 uv = gl_FragCoord.xy / uRes;
   float aspect = uRes.x / uRes.y;
   vec2 st = vec2(uv.x * aspect, uv.y);
-  vec3 col = lightOnSurface(st, uTime);
-
-  /* On a wide screen the form sits right of the headline; on a tall one it
-     moves up and in, behind the top of the hero. */
-  vec2 centre = aspect > 1.0 ? vec2(aspect * 0.74, 0.56) : vec2(aspect * 0.62, 0.66);
-  vec2 f = foam(st, centre, uTime);
-  col += f.x * mix(BLUE, BLUE_LIGHT, f.x) * 0.16 + f.y * BLUE_LIGHT * 0.07;
-
-  gl_FragColor = vec4(col, 1.0);
+  gl_FragColor = vec4(lightOnSurface(st, uTime), 1.0);
 }
 `;
 
