@@ -2086,10 +2086,10 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* A full sentence, so it sets smaller than a slogan would: three lines inside
-   30ch, the first ending on the comma (a desktop-only <br> holds that when the
-   height cap shrinks the type). On a short laptop screen the height caps it
-   too, so the hero stays above the fold. */
+/* A full sentence, so it sets smaller than a slogan would: two lines inside
+   30ch, the first ending on "startups" (a desktop-only <br> holds that when
+   the height cap shrinks the type). On a short laptop screen the height caps
+   it too, so the hero stays above the fold. */
 .hero--masthead .hero__title {
   max-width: 30ch;
   font-size: clamp(34px, min(5vw, 8.5vh), 76px);
