@@ -2079,11 +2079,12 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* A full sentence, so it sets smaller than a slogan would and wraps to about
-   four lines inside 22ch. On a short laptop screen the height caps it too, so
-   the hero stays above the fold. */
+/* A full sentence, so it sets smaller than a slogan would: three lines inside
+   30ch, the first ending on the comma (a desktop-only <br> holds that when the
+   height cap shrinks the type). On a short laptop screen the height caps it
+   too, so the hero stays above the fold. */
 .hero--masthead .hero__title {
-  max-width: 22ch;
+  max-width: 30ch;
   font-size: clamp(34px, min(5vw, 8.5vh), 76px);
   font-weight: 500;
   line-height: 1;
@@ -2094,6 +2095,7 @@ img { display: block; max-width: 100%; }
    the words apart on one line. */
 .hero__br { display: none; }
 @media (max-width: 760px) { .hero__br { display: inline; } }
+@media (max-width: 760px) { .hero__br--wide { display: none; } }
 
 .hero--masthead .hero__title em {
   font-style: normal;
