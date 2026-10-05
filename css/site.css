@@ -1752,6 +1752,13 @@ img { display: block; max-width: 100%; }
   letter-spacing: -.036em;
 }
 
+/* Outcomes that name a feature rather than a number set at heading size. */
+.outcome__value--text {
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+
 /* ==========================================================================
    Polesdon — sections unique to this case study
    ========================================================================== */
