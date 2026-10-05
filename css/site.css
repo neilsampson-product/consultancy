@@ -2087,8 +2087,8 @@ img { display: block; max-width: 100%; }
 }
 
 /* A full sentence, so it sets smaller than a slogan would: two lines inside
-   30ch, the first ending on "startups" (a desktop-only <br> holds that when
-   the height cap shrinks the type). On a short laptop screen the height caps
+   30ch, the first ending on "into" (a desktop-only <br> holds that when the
+   height cap shrinks the type). On a short laptop screen the height caps
    it too, so the hero stays above the fold. */
 .hero--masthead .hero__title {
   max-width: 30ch;
@@ -2113,13 +2113,28 @@ img { display: block; max-width: 100%; }
    headline that the row and its rules used to hold. */
 /* Four balanced lines on desktop. The space before the dash is non-breaking,
    so a line never opens on it. */
+/* The supporting line follows the headline closely, with the four
+   disciplines set small beneath it. */
 .hero--masthead .hero__subtitle {
-  margin-top: calc(clamp(28px, 3.6vw, 52px) + clamp(24px, 3vw, 40px) + 44px);
-  max-width: 50ch;
-  text-wrap: balance;
+  margin-top: clamp(22px, 2.4vw, 36px);
+  max-width: 52ch;
+  text-wrap: pretty;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 500;
 }
+
+.hero__tags {
+  margin: clamp(16px, 1.8vw, 24px) 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+
+/* Each discipline stays whole when the line wraps. */
+.hero__tags span { white-space: nowrap; }
 
 @media (max-width: 760px) {
   /* --pad-y bottoms out at 48px, so on a phone every section carries the same
