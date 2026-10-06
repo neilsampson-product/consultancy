@@ -2086,9 +2086,9 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* A full sentence, so it sets smaller than a slogan would: two lines inside
-   30ch, the first ending on "into" (a desktop-only <br> holds that when the
-   height cap shrinks the type). On a short laptop screen the height caps
+/* Sets smaller than a slogan would: two lines inside 30ch, the first ending
+   on "Partner" (a desktop-only <br> holds that when the height cap shrinks
+   the type). On a short laptop screen the height caps
    it too, so the hero stays above the fold. */
 .hero--masthead .hero__title {
   max-width: 30ch;
