@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Share card</title>
 <!--
-  Source for assets/share-card-decisions.jpg, the Open Graph image.
+  Source for assets/share-card-partner.jpg, the Open Graph image.
 
   It mirrors the homepage hero: the same 168deg ground gradient, the same blue
   glow, Everett from /fonts, and the headline with its first sentence in
@@ -13,10 +13,10 @@
       --window-size=1200,630 --screenshot=/tmp/card-2x.png \
       "file://$PWD/tools/share-card.html"
     sips -z 630 1200 /tmp/card-2x.png --setProperty format jpeg \
-      --setProperty formatOptions 82 --out assets/share-card-decisions.jpg
+      --setProperty formatOptions 82 --out assets/share-card-partner.jpg
 
   Rendering at 2x and halving keeps the type crisp. Copy the result over
-  assets/share-card.jpg, share-card-2026.jpg, share-card-clarity.jpg,
+  assets/share-card.jpg, share-card-decisions.jpg, share-card-2026.jpg, share-card-clarity.jpg,
   share-card-shape.jpg, share-card-leader.jpg and share-card-founders.jpg too: previews cache by URL,
   so the old names have to keep serving the current picture. When the design changes materially, give it a new filename and
   repoint og:image/twitter:image, or caches will hold the old one.
@@ -109,10 +109,10 @@
     margin-bottom: 26px;
   }
 
-  /* Three set lines, echoing the phone hero. 64px holds the longest, "Build
-     what matters.", well clear of the portrait. */
+  /* Two set lines, echoing the desktop hero. 56px holds the longer, "to
+     Health & Fitness Startups", well clear of the portrait. */
   h1 {
-    font-size: 64px;
+    font-size: 56px;
     font-weight: 500;
     line-height: 1.02;
     letter-spacing: -.03em;
@@ -156,9 +156,8 @@
 </div>
 
 <div class="inner">
-  <span class="eyebrow">Digital product &amp; design leadership</span>
-  <h1><em>Turn early traction into</em><br>engaged, retained customers.</h1>
-  <p class="lead">For health &amp; fitness startups that want to unlock growth.</p>
+  <h1><em>Product &amp; Design Partner</em><br>to Health &amp; Fitness Startups</h1>
+  <p class="lead">Turn early traction into customers who stay.</p>
   <div class="rule"></div>
   <div class="colophon">Neil Sampson &#183; London</div>
 </div>
