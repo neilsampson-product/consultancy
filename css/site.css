@@ -2070,22 +2070,6 @@ img { display: block; max-width: 100%; }
 
 .hero--masthead .hero__inner { gap: 0; }
 
-/* The eyebrow sat flush against the headline; this gives it room without
-   opening a gap between the headline and the supporting line. */
-.hero--masthead .hero__eyebrow { margin-bottom: clamp(14px, 1.5vw, 24px); }
-
-/* On a phone the eyebrow breaks between its phrases, one to a line, rather
-   than wherever the width runs out. Set on two lines at this size, the default line
-   height crowded them and the blue read dim, so both open up. */
-@media (max-width: 760px) {
-  .hero__eyebrow-part { display: block; }
-  .hero__eyebrow-sep { display: none; }
-  .hero--masthead .hero__eyebrow {
-    line-height: 1.75;
-    color: var(--blue-pale);
-  }
-}
-
 /* Sets smaller than a slogan would: two lines inside 30ch, the first ending
    on "Partner" (a desktop-only <br> holds that when the height cap shrinks
    the type). On a short laptop screen the height caps
@@ -2109,32 +2093,14 @@ img { display: block; max-width: 100%; }
   color: var(--blue-pale);
 }
 
-/* The facts row is gone, but the supporting line keeps the distance from the
-   headline that the row and its rules used to hold. */
-/* Four balanced lines on desktop. The space before the dash is non-breaking,
-   so a line never opens on it. */
-/* The supporting line follows the headline closely, with the four
-   disciplines set small beneath it. */
+/* A single supporting line follows the headline closely. */
 .hero--masthead .hero__subtitle {
   margin-top: clamp(22px, 2.4vw, 36px);
   max-width: 52ch;
   text-wrap: pretty;
-  font-size: clamp(16px, 1.3vw, 19px);
+  font-size: clamp(17px, 1.5vw, 22px);
   font-weight: 500;
 }
-
-.hero__tags {
-  margin: clamp(16px, 1.8vw, 24px) 0 0;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .2em;
-  line-height: 1.9;
-  text-transform: uppercase;
-  color: var(--muted-ink);
-}
-
-/* Each discipline stays whole when the line wraps. */
-.hero__tags span { white-space: nowrap; }
 
 @media (max-width: 760px) {
   /* --pad-y bottoms out at 48px, so on a phone every section carries the same
