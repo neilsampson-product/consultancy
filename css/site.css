@@ -940,6 +940,14 @@ img { display: block; max-width: 100%; }
   letter-spacing: -.032em;
 }
 
+/* Outcomes named in words rather than numbers set quieter, near body size,
+   so a line of them doesn't outweigh the figures on the other bands. */
+.stat__figure--text {
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.3;
+  letter-spacing: -.01em;
+}
+
 .stat__label {
   font-size: 10px;
   font-weight: 600;
