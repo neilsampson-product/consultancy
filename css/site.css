@@ -2443,3 +2443,15 @@ img { display: block; max-width: 100%; }
 @media (hover: none) {
   .service:hover .service__icon { background: none; border-color: var(--blue-pale); color: var(--blue); }
 }
+
+
+/* ==========================================================================
+   Homepage work: three cases, then a link through to the Work page
+   ========================================================================== */
+
+.work__more {
+  display: flex;
+  justify-content: center;
+  padding: clamp(32px, 4vw, 56px) var(--pad-x) 0;
+}
+.work__more .cta { align-self: center; }
