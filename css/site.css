@@ -2342,3 +2342,104 @@ img { display: block; max-width: 100%; }
   .feature__figure { grid-column: 1; grid-row: 1; position: static; }
   .feature__text { grid-row: 2; }
 }
+
+
+/* ==========================================================================
+   Services — homepage
+
+   Set apart from the chalk cards above and the blue band below: a white
+   ground, the heading held on the left, and the three services as an open
+   list divided by hairlines, each led by a line icon in a blue ring.
+   ========================================================================== */
+
+.services { background: #fff; }
+
+.services__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--gap-loose);
+  align-items: start;
+}
+
+.services__head {
+  position: sticky;
+  top: calc(var(--nav-h, 62px) + 32px);
+}
+.services__head .h2 { max-width: 16ch; }
+
+.services__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--hairline);
+}
+
+.service {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 32px);
+  padding: clamp(24px, 2.8vw, 36px) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.service__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--blue-pale);
+  border-radius: 50%;
+  color: var(--blue);
+  transition: background .35s ease, border-color .35s ease, color .35s ease;
+}
+.service:hover .service__icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--paper);
+}
+.service__icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.service__text { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+
+.service__title {
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.024em;
+}
+
+.service__lead {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--body-strong);
+  max-width: 52ch;
+}
+
+.service__tags {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--label);
+}
+
+@media (max-width: 880px) {
+  .services__layout { grid-template-columns: minmax(0, 1fr); }
+  .services__head { position: static; }
+  .services__head .h2 { max-width: 22ch; }
+}
+
+@media (max-width: 480px) {
+  .service { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .service__icon { width: 46px; height: 46px; }
+}
+
+@media (hover: none) {
+  .service:hover .service__icon { background: none; border-color: var(--blue-pale); color: var(--blue); }
+}
