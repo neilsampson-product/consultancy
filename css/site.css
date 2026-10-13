@@ -667,7 +667,8 @@ img { display: block; max-width: 100%; }
    leads with an icon and a pill naming its terms, then the name, the promise
    in a larger line, a rule, the detail, and who it is best for. Side by side
    the cards share rows through subgrid, so the rules and "Best for" lines sit
-   level across the three.
+   level across the three. The free Clarity Session follows as a strip
+   beneath, the way in for anyone not yet sure which fits.
    ========================================================================== */
 
 .ways { background: var(--paper); }
@@ -770,15 +771,27 @@ img { display: block; max-width: 100%; }
   stroke-linejoin: round;
 }
 
-/* The first card is the way in, so it alone carries a button. */
-.way__cta {
-  margin-top: 8px;
-  align-self: stretch;
+/* Under the cards, the free session as the way in when none fits yet. */
+.ways__start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  background: var(--blue);
-  color: var(--paper);
+  gap: 20px 32px;
+  padding: clamp(22px, 2.4vw, 30px) clamp(24px, 3vw, 44px);
+  border: 1px solid var(--hairline);
+  border-radius: 28px;
+  background: #fff;
 }
-.way__cta:hover { background: var(--paper); color: var(--ink); }
+.ways__start-text {
+  flex: 1 1 380px;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--body-strong);
+}
+.ways__start-text strong { font-weight: 500; color: var(--ink); }
+.ways__start .cta { align-self: center; }
+.ways__start .cta--blue:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
 @media (min-width: 980px) {
   .ways__grid {
@@ -787,7 +800,7 @@ img { display: block; max-width: 100%; }
   }
   .way {
     display: grid;
-    grid-row: span 6;
+    grid-row: span 5;
     grid-template-rows: subgrid;
     align-content: start;
   }
