@@ -660,209 +660,151 @@ img { display: block; max-width: 100%; }
 .panel__body { display: flex; flex-direction: column; gap: 13px; }
 
 /* ==========================================================================
-   Products — how we work together
+   Ways to work — how we work together
 
-   Three ways to work together, set as a row of cards on the lit ground. Side
-   by side the cards share rows through subgrid, so the copy, outcome and
-   button line up across the three. Under each name sits one line: the lead
-   card's term and price, or the others' one-line promise, so no card holds an
-   empty row there. The first card is the way in, so it alone is lit blue.
+   Three offers as tall rounded cards, each on its own ground from the site's
+   palette (ink, blue, pale blue), so they read as distinct choices. Each card
+   leads with an icon and a pill naming its terms, then the name, the promise
+   in a larger line, a rule, the detail, and who it is best for. Side by side
+   the cards share rows through subgrid, so the rules and "Best for" lines sit
+   level across the three. The free Clarity Session follows as a strip
+   beneath, the way in for anyone not yet sure which fits.
    ========================================================================== */
 
-.products {
-  padding: var(--pad-y) var(--pad-x);
-  overflow: clip;
-}
+.ways { background: var(--paper); }
 
-.products__inner {
-  position: relative;
-  max-width: var(--max);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(32px, 4.5vw, 64px);
-}
-
-.products__head { display: flex; flex-direction: column; gap: 18px; }
-
-.products__title {
-  font-weight: 500;
-  font-size: clamp(32px, 5vw, 76px);
-  line-height: .94;
-  letter-spacing: -.032em;
-}
-
-.products__grid {
+.ways__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(16px, 1.8vw, 24px);
 }
 
-.product {
-  position: relative;
+.way {
+  --way-ink: var(--paper);
+  --way-soft: var(--body-ink);
+  --way-line: rgba(247, 246, 242, .28);
   display: flex;
   flex-direction: column;
-  padding: clamp(24px, 2.6vw, 36px);
-  background: rgba(247, 246, 242, .035);
-  border: 1px solid var(--hairline-ink);
+  gap: 20px;
+  padding: clamp(28px, 3vw, 44px);
+  border-radius: 28px;
+  color: var(--way-ink);
+}
+.way--ink { background: var(--ink); }
+.way--blue { background: var(--blue); --way-soft: rgba(247, 246, 242, .86); }
+.way--pale {
+  background: var(--blue-pale);
+  --way-ink: var(--ink);
+  --way-soft: var(--body);
+  --way-line: rgba(19, 20, 23, .2);
 }
 
-/* The lead card sits a step forward: a blue wash and a blue rule on its top
-   edge, drawn over the border so the card keeps its size. */
-.product--lead {
-  background: linear-gradient(180deg, rgba(31, 79, 216, .26) 0%, rgba(31, 79, 216, .08) 100%);
-  border-color: rgba(143, 166, 255, .4);
-}
-.product--lead::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  height: 3px;
-  background: var(--blue-light);
-}
-
-.product__name {
-  font-weight: 500;
-  font-size: clamp(26px, 2.5vw, 36px);
-  line-height: 1.04;
-  letter-spacing: -.03em;
-  color: var(--paper);
-}
-
-/* The term reads as the product's spec: a hairline above and below. The
-   name's tight leading and the body's open leading make the same margin read
-   uneven, so the term sits a little further from the name and the copy after
-   it pulls in to match. */
-.product__term {
-  margin-top: 20px;
-  padding-block: 13px;
-  border-block: 1px solid var(--hairline-ink);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--paper);
-}
-
-/* A price, where a product has one, sits at the right of its term. */
-.product__term:has(.product__price) {
+.way__top {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-}
-.product__price { color: var(--blue-light); }
-
-/* The promise is the product's one-line pitch, under its term. */
-.product__promise {
-  margin-top: 20px;
-  font-size: clamp(17px, 1.4vw, 20px);
-  line-height: 1.35;
-  letter-spacing: -.012em;
-  color: var(--paper);
-  text-wrap: balance;
+  gap: 16px;
+  margin-bottom: 12px;
 }
 
-.product__lead {
-  margin-top: 20px;
-  font-size: clamp(15.5px, 1.2vw, 17px);
-  line-height: 1.55;
-  color: var(--body-ink);
-}
-.product__lead + .product__lead { margin-top: 12px; }
-
-/* What you leave with, or who the engagement is best for, set off by a rule
-   at the foot of the card. */
-.product__outcome {
-  margin: 26px 0 0;
-  padding: 18px 0 0;
-  border-top: 1px solid var(--hairline-ink);
-  font-size: clamp(15px, 1.15vw, 16px);
-  line-height: 1.5;
-  color: var(--paper);
-}
-
-.product__label {
+.way__icon svg {
   display: block;
-  margin-bottom: 6px;
+  width: 44px;
+  height: 44px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.way__tag {
+  padding: 10px 16px;
+  border: 1px solid var(--way-line);
+  border-radius: 999px;
   font-size: 10.5px;
   font-weight: 600;
-  letter-spacing: .2em;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--label-ink-soft);
+  white-space: nowrap;
 }
 
-/* What an engagement delivers, as a short list under its label. Each item
-   opens on a short blue rule in place of a bullet, and leads with its name in
-   the card's bright ink before the detail in body ink. */
-.product__list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.product__list li {
-  position: relative;
-  padding-left: 20px;
-  color: var(--body-ink);
-}
-.product__list strong {
+.way__name {
+  font-size: clamp(26px, 2.4vw, 36px);
   font-weight: 500;
-  color: var(--paper);
-}
-.product__list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: .75em;
-  width: 10px;
-  height: 1px;
-  background: var(--blue-light);
+  line-height: 1.04;
+  letter-spacing: -.03em;
 }
 
-/* The outcome and, on the lead card, its button share the card's last row,
-   so a card without a button ends on its list rather than an empty row. The
-   button drops to the foot of the row to sit level with the card's bottom. */
-.product__foot {
+.way__promise {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--way-line);
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.4;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
+.way__body {
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--way-soft);
+}
+
+.way__fit {
   display: flex;
-  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+.way__fit strong { font-weight: 500; }
+
+.way__check svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.product__cta {
-  margin-top: auto;
-  align-self: stretch;
+/* Under the cards, the free session as the way in when none fits yet. */
+.ways__start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
+  gap: 20px 32px;
+  padding: clamp(22px, 2.4vw, 30px) clamp(24px, 3vw, 44px);
+  border: 1px solid var(--hairline);
+  border-radius: 28px;
+  background: #fff;
 }
-.product__foot .product__outcome { margin-bottom: 28px; }
+.ways__start-text {
+  flex: 1 1 380px;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--body-strong);
+}
+.ways__start-text strong { font-weight: 500; color: var(--ink); }
+.ways__start .cta { align-self: center; }
+.ways__start .cta--blue:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
-/* Three across once each card has room for its list. Below that they stack,
-   rather than leave the third alone on a row of two. */
 @media (min-width: 980px) {
-  .products__grid {
+  .ways__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     row-gap: 0;
   }
-  .product {
+  .way {
     display: grid;
     grid-row: span 5;
     grid-template-rows: subgrid;
     align-content: start;
   }
-  /* Sized so the longest name, "Product Clarity Session", holds to one
-     line in its card from 980px up, so the three names sit level and none
-     leaves a gap above its copy. */
-  .product__name { grid-row: 1; font-size: clamp(19px, 2vw, 30px); }
-  .product__term { grid-row: 2; }
-  .product__promise { grid-row: 3; }
-  .product__body { grid-row: 4; }
-  /* The lead card has no promise, so its copy takes that row too rather than
-     leave a gap under its term. */
-  .product__term + .product__body { grid-row: 3 / span 2; }
-  .product__foot,
-  .product > .product__outcome { grid-row: 5; }
+  .way__fit { align-self: start; }
 }
 
 /* ==========================================================================
@@ -2227,13 +2169,6 @@ img { display: block; max-width: 100%; }
 @media (max-width: 760px) {
   .quote-band__quote { max-width: none; }
   .cta--blue { align-self: stretch; justify-content: center; }
-}
-
-
-/* The work section runs straight into the dark products module, so on
-   desktop its closing rule would draw a line against that module's edge. */
-@media (min-width: 880px) {
-  #work { border-bottom: 0; }
 }
 
 
