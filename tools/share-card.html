@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Share card</title>
 <!--
-  Source for assets/share-card-partner.jpg, the Open Graph image.
+  Source for assets/share-card-early-stage.jpg, the Open Graph image.
 
   It mirrors the homepage hero: the same 168deg ground gradient, the same blue
   glow, Everett from /fonts, and the headline with its first sentence in
@@ -13,10 +13,10 @@
       --window-size=1200,630 --screenshot=/tmp/card-2x.png \
       "file://$PWD/tools/share-card.html"
     sips -z 630 1200 /tmp/card-2x.png --setProperty format jpeg \
-      --setProperty formatOptions 82 --out assets/share-card-partner.jpg
+      --setProperty formatOptions 82 --out assets/share-card-early-stage.jpg
 
   Rendering at 2x and halving keeps the type crisp. Copy the result over
-  assets/share-card.jpg, share-card-decisions.jpg, share-card-2026.jpg, share-card-clarity.jpg,
+  assets/share-card.jpg, share-card-partner.jpg, share-card-decisions.jpg, share-card-2026.jpg, share-card-clarity.jpg,
   share-card-shape.jpg, share-card-leader.jpg and share-card-founders.jpg too: previews cache by URL,
   so the old names have to keep serving the current picture. When the design changes materially, give it a new filename and
   repoint og:image/twitter:image, or caches will hold the old one.
@@ -109,8 +109,8 @@
     margin-bottom: 26px;
   }
 
-  /* Two set lines, echoing the desktop hero. 56px holds the longer, "to
-     Health & Fitness Startups", well clear of the portrait. */
+  /* Two set lines, echoing the desktop hero. 56px holds the longer,
+     "Product & Design Partner", well clear of the portrait. */
   h1 {
     font-size: 56px;
     font-weight: 500;
@@ -120,13 +120,23 @@
   }
   h1 em { font-style: normal; color: var(--blue-pale); }
 
+  /* The sectors, a step down from the headline, as on the hero. */
+  .sectors {
+    margin-top: 18px;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -.02em;
+    color: var(--blue-pale);
+  }
+  .sectors span { margin: 0 .2em; opacity: .6; }
+
   .lead {
-    margin-top: 30px;
-    font-size: 24px;
+    margin-top: 28px;
+    font-size: 21px;
     font-weight: 500;
     line-height: 1.45;
     color: rgba(236, 234, 228, .78);
-    max-width: 36ch;
+    max-width: 40ch;
     text-wrap: balance;
   }
 
@@ -156,8 +166,9 @@
 </div>
 
 <div class="inner">
-  <h1><em>Product &amp; Design Partner</em><br>to Health &amp; Fitness Startups</h1>
-  <p class="lead">Turn early traction into customers who stay.</p>
+  <h1><em>Product &amp; Design Partner</em><br>to Early Stage Startups</h1>
+  <p class="sectors">Health <span>&#183;</span> Fitness <span>&#183;</span> Wellbeing</p>
+  <p class="lead">Understand your customers, identify what&#8217;s holding growth back, and turn early traction into customers who stay.</p>
   <div class="rule"></div>
   <div class="colophon">Neil Sampson &#183; London</div>
 </div>

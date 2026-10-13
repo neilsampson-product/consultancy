@@ -2455,3 +2455,16 @@ img { display: block; max-width: 100%; }
   padding: clamp(32px, 4vw, 56px) var(--pad-x) 0;
 }
 .work__more .cta { align-self: center; }
+
+
+/* The sectors sit under the headline, a step down from it and lit like the
+   first line, so they read as part of the proposition. */
+.hero__sectors {
+  margin-top: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(18px, 1.9vw, 28px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--blue-pale);
+}
+.hero__sectors span { margin-inline: .2em; opacity: .6; }
