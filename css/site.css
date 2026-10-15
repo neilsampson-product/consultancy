@@ -1987,7 +1987,43 @@ img { display: block; max-width: 100%; }
   object-position: 50% 12%;
 }
 
-.problems__body .panel__body { margin-top: auto; }
+/* Each card reads top to bottom: a large light numeral with its theme, the
+   outcome as a headline, then how, set at the foot under a hairline. */
+.panel--outcome { gap: clamp(22px, 2.4vw, 34px); }
+
+.outcome__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.outcome__num {
+  font-size: clamp(52px, 5.4vw, 84px);
+  font-weight: 300;
+  line-height: .82;
+  letter-spacing: -.045em;
+  color: var(--blue);
+}
+
+.outcome__head .eyebrow {
+  max-width: 26ch;
+  padding-top: 4px;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.panel--outcome .panel__statement {
+  max-width: 17ch;
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height: 1.1;
+}
+
+.panel--outcome .panel__body {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline-soft);
+}
 
 @media (max-width: 999px) {
   .problems__body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
