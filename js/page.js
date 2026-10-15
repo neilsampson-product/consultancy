@@ -51,14 +51,15 @@ if (nav) {
 }
 
 /* ---- menu ----------------------------------------------------------------
- * The nav links fold into a panel behind a menu button at every width. It
- * closes when a link is chosen (most jump within the page), on Escape, and on
- * a click anywhere outside the nav.
+ * The menu button opens a full-screen takeover of the links. The page behind
+ * stops scrolling while it is open. It closes when a link is chosen (most
+ * jump within the page), on Escape, or with the button again.
  * ------------------------------------------------------------------------- */
 const navToggle = nav && nav.querySelector('[data-navtoggle]');
 if (navToggle) {
   const setMenu = (open) => {
     nav.classList.toggle('is-open', open);
+    document.documentElement.classList.toggle('menu-open', open);
     navToggle.setAttribute('aria-expanded', String(open));
     navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
   };
@@ -70,9 +71,6 @@ if (navToggle) {
       setMenu(false);
       navToggle.focus();
     }
-  });
-  document.addEventListener('click', (e) => {
-    if (nav.classList.contains('is-open') && !nav.contains(e.target)) setMenu(false);
   });
 }
 
