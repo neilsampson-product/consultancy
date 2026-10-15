@@ -2037,10 +2037,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 760px) { .hero__br { display: inline; } }
 @media (max-width: 760px) { .hero__br--wide { display: none; } }
 
-.hero--masthead .hero__title em {
-  font-style: normal;
-  color: var(--blue-pale);
-}
+.hero--masthead .hero__title em { font-style: normal; }
 
 /* A single supporting line follows the headline closely. */
 .hero--masthead .hero__subtitle {
