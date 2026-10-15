@@ -50,10 +50,10 @@ if (nav) {
   if (window.ResizeObserver) new ResizeObserver(fit).observe(nav);
 }
 
-/* ---- phone menu ----------------------------------------------------------
- * Below 640px the nav links fold into a panel behind a menu button. It closes
- * when a link is chosen (most jump within the page), on Escape, and if the
- * window widens past the breakpoint, so the desktop nav never opens stuck.
+/* ---- menu ----------------------------------------------------------------
+ * The nav links fold into a panel behind a menu button at every width. It
+ * closes when a link is chosen (most jump within the page), on Escape, and on
+ * a click anywhere outside the nav.
  * ------------------------------------------------------------------------- */
 const navToggle = nav && nav.querySelector('[data-navtoggle]');
 if (navToggle) {
@@ -71,8 +71,8 @@ if (navToggle) {
       navToggle.focus();
     }
   });
-  window.matchMedia('(max-width: 640px)').addEventListener('change', (e) => {
-    if (!e.matches) setMenu(false);
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('is-open') && !nav.contains(e.target)) setMenu(false);
   });
 }
 
