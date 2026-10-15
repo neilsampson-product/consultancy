@@ -2135,12 +2135,12 @@ html.menu-open { overflow: hidden; }
      side keeps the separation legible without the page running so long. */
   .section { padding-block: 40px; }
 
-  /* Pinned to the bottom, the hero left a large empty band above the headline
-     on a phone. Centred, the block sits in the middle of the screen; the hero
-     still grows past 100svh on short screens rather than running under the nav. */
+  /* With the film filling the screen, the block sits at the bottom left as on
+     desktop, clear of the scroll cue; the hero still grows past 100svh on
+     short screens rather than running under the nav. */
   .hero--masthead {
-    align-items: center;
-    padding-bottom: clamp(56px, 8vh, 88px);
+    align-items: flex-end;
+    padding-bottom: clamp(64px, 9vh, 96px);
   }
 
   /* The sentence wraps freely across the phone's width. */
