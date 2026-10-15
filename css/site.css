@@ -319,23 +319,43 @@ img { display: block; max-width: 100%; }
   --brand-size: 15px;
 }
 
+/* The links fold into a panel behind a menu button at every width. It drops
+   from the nav's lower edge: a card under the button on wider screens, the
+   full width on a phone. */
 .nav__links {
-  display: flex;
-  align-items: center;
-  gap: clamp(14px, 2.4vw, 32px);
+  position: absolute;
+  top: 100%;
+  right: var(--pad-x);
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(320px, calc(100vw - 2 * var(--pad-x)));
+  padding: 6px 24px 14px;
+  background: rgba(236, 234, 228, .98);
+  border: 1px solid var(--hairline);
+  border-top: 0;
+  box-shadow: 0 18px 30px -24px rgba(19, 20, 23, .45);
 }
+.nav.is-open .nav__links { display: flex; }
 
 .nav__link {
-  font-size: 10.5px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--nav-ink);
+  color: var(--ink);
   transition: color .45s ease;
 }
+.nav__link:last-child { border-bottom: 0; }
 .nav__link:hover { color: var(--blue); }
 
+/* The wordmark sits in the middle column; the left column stays empty so it
+   holds the centre while the CTA and menu button share the right. */
 .nav__brand {
+  grid-column: 2;
+  grid-row: 1;
   justify-self: center;
   white-space: nowrap;
   font-size: var(--brand-size);
@@ -346,11 +366,43 @@ img { display: block; max-width: 100%; }
   transition: color .45s ease, font-size .45s ease;
 }
 
-.nav__end { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.nav__end { grid-column: 3; grid-row: 1; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
 
-/* The menu button only shows on a phone, where the links are folded away. */
-.nav__toggle { display: none; }
+/* Open, the nav takes its light scrolled look so it joins the panel. */
+.nav.is-open {
+  --nav-bg: rgba(236, 234, 228, .98);
+  --nav-line: var(--hairline);
+  --nav-ink: var(--ink);
+}
 
+/* Two bars that cross when the menu opens; 42px square keeps the tap target
+   generous beside the CTA. */
+.nav__toggle {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  margin-right: -8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--nav-ink);
+  cursor: pointer;
+  transition: color .45s ease;
+}
+.nav__toggle span {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  height: 2px;
+  background: currentColor;
+  transition: transform .3s var(--ease);
+}
+.nav__toggle span:first-child { top: 16px; }
+.nav__toggle span:last-child { top: 24px; }
+.nav.is-open .nav__toggle span:first-child { transform: translateY(4px) rotate(45deg); }
+.nav.is-open .nav__toggle span:last-child { transform: translateY(-4px) rotate(-45deg); }
 
 .nav__cta {
   display: inline-flex;
@@ -369,75 +421,23 @@ img { display: block; max-width: 100%; }
 }
 .nav__cta:hover { background: var(--ink); color: var(--paper); }
 
-/* Mobile: three columns will not fit below ~640px. Wordmark left, CTA right,
-   links drop — they are all reachable from the page itself. The wordmark takes
-   its scrolled size rather than a fourth value. */
+/* Mobile: three columns will not fit below ~640px. Wordmark left at its
+   scrolled size, CTA and menu button right, and the panel runs full width. */
 @media (max-width: 640px) {
   .nav { grid-template-columns: auto auto; gap: 12px; }
+  .nav__brand { grid-column: 1; justify-self: start; --brand-size: 15px; }
+  .nav__end { grid-column: 2; }
+  .nav.is-open { --brand-size: 15px; }
 
-  /* Folded into a panel that drops from the nav's lower edge when the menu
-     button opens it. */
   .nav__links {
-    position: absolute;
-    top: 100%;
     left: 0;
     right: 0;
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
+    width: auto;
     padding: 6px var(--pad-x) 18px;
-    background: rgba(236, 234, 228, .98);
-    border-bottom: 1px solid var(--hairline);
-    box-shadow: 0 18px 30px -24px rgba(19, 20, 23, .45);
+    border-inline: 0;
   }
-  .nav.is-open .nav__links { display: flex; }
-  .nav__links .nav__link {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--hairline);
-    font-size: 13px;
-    color: var(--ink);
-  }
-  .nav__links .nav__link:last-child { border-bottom: 0; }
-  .nav__links .nav__link[aria-current="page"] { color: var(--blue); }
+  .nav__link { font-size: 13px; }
 
-  /* Open, the nav takes its light scrolled look so it joins the panel. */
-  .nav.is-open {
-    --nav-bg: rgba(236, 234, 228, .98);
-    --nav-line: var(--hairline);
-    --nav-ink: var(--ink);
-    --brand-size: 15px;
-  }
-
-  /* Two bars that cross when the menu opens; 42px square keeps the tap
-     target generous beside the CTA. */
-  .nav__toggle {
-    position: relative;
-    display: block;
-    flex: none;
-    width: 42px;
-    height: 42px;
-    margin-right: -8px;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--nav-ink);
-    cursor: pointer;
-    transition: color .45s ease;
-  }
-  .nav__toggle span {
-    position: absolute;
-    left: 11px;
-    right: 11px;
-    height: 2px;
-    background: currentColor;
-    transition: transform .3s var(--ease);
-  }
-  .nav__toggle span:first-child { top: 16px; }
-  .nav__toggle span:last-child { top: 24px; }
-  .nav.is-open .nav__toggle span:first-child { transform: translateY(4px) rotate(45deg); }
-  .nav.is-open .nav__toggle span:last-child { transform: translateY(-4px) rotate(-45deg); }
-  .nav__brand { justify-self: start; --brand-size: 15px; }
   /* 14px block padding keeps the tap target near 40px tall; at 11px it was 34. */
   .nav__cta { gap: 8px; padding: 14px 14px; font-size: 10px; letter-spacing: .1em; }
 
@@ -1937,7 +1937,7 @@ img { display: block; max-width: 100%; }
  * stuck in its hover state. Neutralise them where there is no real pointer.
  * ------------------------------------------------------------------------- */
 @media (hover: none) {
-  .nav__link:hover { color: var(--nav-ink); }
+  .nav__link:hover { color: var(--ink); }
   .nav__cta:hover { background: var(--blue); color: var(--paper); }
   .panel:hover { background: var(--chalk-panel); }
   .engagement:hover { background: var(--chalk-warm); }
@@ -1953,51 +1953,50 @@ img { display: block; max-width: 100%; }
 /* ==========================================================================
    Starting points with portrait
 
-   The body splits into two equal columns beneath the heading: the portrait,
-   at its original tone, on the left, cropped from the top to match the height
-   of the three cards stacked on the right. On phones the portrait sits above
-   the cards.
+   Three equal columns beneath the heading: the portrait, at its original
+   tone, then the two cards. The portrait holds a square frame anchored near
+   the top, so the face is never cropped, and the cards stretch to its height
+   with the statement at the top and the description set at the foot.
+   Between tablet and laptop widths the cards stack beside the portrait; on
+   phones everything stacks, portrait first.
    ========================================================================== */
 
 .problems__body {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap-tight);
   align-items: stretch;
   padding: 0 var(--pad-x);
 }
 
+/* The cards join the grid directly, so each takes a column of its own. */
+.problems__body .panels { display: contents; }
+
 .problems__portrait {
-  position: relative;
   margin: 0;
   overflow: clip;
   background: var(--image-bed);
 }
 
 .problems__portrait img {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
-  object-position: 50% 18%;
+  object-position: 50% 12%;
 }
 
-.problems__body .panels { grid-template-columns: minmax(0, 1fr); }
+.problems__body .panel__body { margin-top: auto; }
 
-/* On phones the photo sets the frame's height itself. A frame whose only
-   content is absolutely positioned gets its height from aspect-ratio alone,
-   and Safari can collapse that to zero on a stretched grid item, which hid
-   the photo on iPhones. */
+@media (max-width: 999px) {
+  .problems__body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .problems__portrait { grid-row: span 2; align-self: start; }
+}
+
 @media (max-width: 760px) {
   .problems__body { grid-template-columns: minmax(0, 1fr); }
-  .problems__portrait { align-self: start; }
-  .problems__portrait img {
-    position: static;
-    display: block;
-    height: auto;
-    aspect-ratio: 4 / 5;
-  }
+  .problems__portrait { grid-row: auto; }
 }
 
 
@@ -2048,8 +2047,9 @@ img { display: block; max-width: 100%; }
   margin-top: clamp(22px, 2.4vw, 36px);
   max-width: 52ch;
   text-wrap: pretty;
-  font-size: clamp(17px, 1.5vw, 22px);
-  font-weight: 500;
+  font-size: clamp(15px, 1.25vw, 19px);
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 @media (max-width: 760px) {
@@ -2311,9 +2311,8 @@ img { display: block; max-width: 100%; }
   object-fit: cover;
 }
 
-/* The page you're on reads in blue in the nav. */
-.nav__link[aria-current="page"] { color: var(--blue-light); }
-.nav.is-scrolled .nav__link[aria-current="page"] { color: var(--blue); }
+/* The page you're on reads in blue in the menu. */
+.nav__link[aria-current="page"] { color: var(--blue); }
 
 /* Stacked, the photo comes first and the body follows. */
 @media (max-width: 760px) {
@@ -2440,8 +2439,8 @@ img { display: block; max-width: 100%; }
    first line, so they read as part of the proposition. */
 .hero__sectors {
   margin-top: clamp(14px, 1.6vw, 22px);
-  font-size: clamp(18px, 1.9vw, 28px);
-  font-weight: 500;
+  font-size: clamp(15px, 1.5vw, 22px);
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: -.02em;
   color: var(--blue-pale);
