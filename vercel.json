@@ -4,6 +4,11 @@
       "source": "/:path((?!magic-AI)[mM][aA][gG][iI][cC]-[aA][iI])/:rest*",
       "destination": "/magic-AI",
       "permanent": true
+    },
+    {
+      "source": "/:path((?!magic-AI)[mM][aA][gG][iI][cC]-[aA][iI])/",
+      "destination": "/magic-AI",
+      "permanent": true
     }
   ],
   "headers": [
